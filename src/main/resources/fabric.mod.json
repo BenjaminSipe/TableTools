@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"net.rockgiant.bettertools.BetterToolsClient"
+		],
+		"fabric-datagen": [
+			"net.rockgiant.bettertools.BetterToolsDataGenerator"
 		]
 	},
 	"mixins": [
