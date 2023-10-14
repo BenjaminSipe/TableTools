@@ -67,17 +67,31 @@ public class ModItems {
         {
             ToolMaterial tm;
             switch ( tool_material ) {
+                case "netherite":
                 case "diamond":
-                    tm =
+                    tm = ToolMaterials.DIAMOND;
+                    break;
+                case "iron":
+                    tm = ToolMaterials.IRON;
+                    break;
+                case "gold":
+                    tm = ToolMaterials.GOLD;
+                    break;
+                case "stone":
+                    tm = ToolMaterials.STONE;
+                    break;
+                default:
+                    tm = ToolMaterials.WOOD;
+                    break;
             }
+            
             for ( String wood_type : WOOD_TYPES )
             {
-                for ( String tool_type : TOOL_TYPES )
-                {
-                    if ( "sword".equals(tool_type)) {
-
-                    }
-                }
+                    registerItem( wood_type + "_" + tool_material + "_sword", new SwordItem(tm, 3, 4, new FabricItemSettings()));
+                    registerItem( wood_type + "_" + tool_material + "_axe", new AxeItem(tm, 3, 4, new FabricItemSettings()));
+                    registerItem( wood_type + "_" + tool_material + "_pickaxe", new PickaxeItem(tm, 3, 4, new FabricItemSettings()));
+                    registerItem( wood_type + "_" + tool_material + "_shovel", new ShovelItem(tm, 3, 4, new FabricItemSettings()));
+                    registerItem( wood_type + "_" + tool_material + "_hoe", new HoeItem(tm, 3, 4, new FabricItemSettings()));
             }
         }
 
