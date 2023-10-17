@@ -3,7 +3,7 @@ package net.rockgiant.bettertools;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.rockgiant.bettertools.datagen.ModModelProvider;
-import org.apache.commons.logging.LogFactory;
+import net.rockgiant.bettertools.datagen.ModRecipeProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +18,7 @@ public class BetterToolsDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(ModModelProvider::new);
+        pack.addProvider( ModRecipeProvider::new );
     }
 
 }

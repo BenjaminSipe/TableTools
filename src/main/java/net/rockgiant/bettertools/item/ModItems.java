@@ -7,22 +7,27 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
-import net.rockgiant.bettertools.item.tools.BetterToolItem;
+import net.rockgiant.bettertools.item.tools.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackDamage;
+import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackSpeed;
 
 public class ModItems {
 
     public static final String[] WOOD_TYPES = {
             "oak", "birch", "spruce",
             "acacia", "dark_oak", "mangrove",
-//            "cherry", "bamboo", "jungle",
-//            "crimson", "warped"
+            "cherry", "bamboo", "jungle",
+            "crimson", "warped"
     };
 
     public static final String[] TOOL_MATERIALS = {
-            "stone", "gold", "iron",
+            "wood", "stone", "gold", "iron",
             "diamond", "netherite"
     };
 
@@ -31,34 +36,12 @@ public class ModItems {
             "sword", "shovel"
     };
 
-    public static List<Item> swords = new ArrayList<>();
-    public static List<Item> axes = new ArrayList<>();
-    public static List<Item> shovels = new ArrayList<>();
-    public static List<Item> pickaxes = new ArrayList<>();
-    public static List<Item> hoes = new ArrayList<>();
-
-    // I think I need to try this a different way.
-
-
-//    public static final Item OAK_TOOL_ROD = registerItem("oak_tool_rod", new Item(new FabricItemSettings()));
-//    public static final Item SPRUCE_TOOL_ROD = registerItem("spruce_tool_rod", new Item(new FabricItemSettings()));
-//
-//
-//
-//    public static final Item OAK_DIAMOND_PICKAXE = registerItem("oak_diamond_pickaxe", new PickaxeItem(ToolMaterials.DIAMOND, 3, 3, new FabricItemSettings().maxCount(1)));
-//    public static final Item SPRUCE_DIAMOND_PICKAXE = registerItem("spruce_diamond_pickaxe", new PickaxeItem(ToolMaterials.DIAMOND, 3, 3, new FabricItemSettings().maxCount(1)));
-//
-//
-//    // used for tool layering, not survival.
-//    public static final Item DIAMOND_AXE_HEAD = registerItem("diamond_axe_head", new Item(new FabricItemSettings().maxCount(64)));
-
-//    public static final Item OAK_DIAMOND_PICKAXE = registerItem( "oak_diamond_pickaxe",
-//            new PickaxeItem(ToolMaterials.DIAMOND,3,4, new FabricItemSettings()));
-//
-//    public static final Item BIRCH_DIAMOND_PICKAXE = registerItem( "birch_diamond_pickaxe",
-//            new PickaxeItem(ToolMaterials.DIAMOND,3,4, new FabricItemSettings()));
-
-
+    public static List<BetterSwordItem> SWORDS = new ArrayList<>();
+    public static List<BetterAxeItem> AXES = new ArrayList<>();
+    public static List<BetterShovelItem> SHOVELS = new ArrayList<>();
+    public static List<BetterPickaxeItem> PICKAXES = new ArrayList<>();
+    public static List<BetterHoeItem> HOES = new ArrayList<>();
+    public static Map<String, Item> TOOL_RODS = new HashMap<>();
 
     private static Item registerItem(String name, Item item)
     {
@@ -71,7 +54,24 @@ public class ModItems {
         BetterTools.LOGGER.debug("Registering Mod Items for " + BetterTools.MOD_ID);
 
         // I think it will be better to do this this way.
+        registerModToolRods();
+        registerModTools();
 
+    }
+
+    private static void registerModToolRods() {
+        for( String wood_type : WOOD_TYPES ) {
+            TOOL_RODS.put(wood_type, registerItem(
+                    wood_type + "_tool_rod",
+                    new Item(new FabricItemSettings().maxCount(64))));
+        }
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
+            for ( Item item : TOOL_RODS.values() )
+                content.addAfter( Items.STICK, item );
+        });
+    }
+
+    private static void registerModTools() {
         for ( String tool_material : TOOL_MATERIALS )
         {
             ToolMaterial tm;
@@ -93,36 +93,36 @@ public class ModItems {
                     tm = ToolMaterials.WOOD;
                     break;
             }
-            
+
             for ( String wood_type : WOOD_TYPES )
             {
-                swords.add(registerItem(
+                SWORDS.add((BetterSwordItem) registerItem(
                         wood_type + "_" + tool_material + "_sword",
-                        new SwordItem(tm, (int)
+                        new BetterSwordItem(tm, tool_material, wood_type, (int)
                                 getToolAttackDamage("sword", tool_material ),
                                 getToolAttackSpeed( "sword" ),
                                 new FabricItemSettings())));
-                axes.add(registerItem(
+                AXES.add((BetterAxeItem) registerItem(
                         wood_type + "_" + tool_material + "_axe",
-                        new AxeItem(tm,
+                        new BetterAxeItem(tm, tool_material, wood_type,
                                 (int) getToolAttackDamage("axe", tool_material ),
                                 getToolAttackSpeed( "axe" ),
                                 new FabricItemSettings())));
-                pickaxes.add( registerItem(
+                PICKAXES.add((BetterPickaxeItem) registerItem(
                         wood_type + "_" + tool_material + "_pickaxe",
-                        new PickaxeItem(tm,
+                        new BetterPickaxeItem(tm, tool_material, wood_type,
                                 (int) getToolAttackDamage("pickaxe", tool_material ),
                                 getToolAttackSpeed( "pickaxe" ),
                                 new FabricItemSettings())));
-                shovels.add( registerItem(
+                SHOVELS.add( (BetterShovelItem) registerItem(
                         wood_type + "_" + tool_material + "_shovel",
-                        new ShovelItem(tm,
+                        new BetterShovelItem(tm, tool_material, wood_type,
                                 getToolAttackDamage("shovel", tool_material ),
                                 getToolAttackSpeed( "shovel" ),
                                 new FabricItemSettings())));
-                hoes.add( registerItem(
+                HOES.add( (BetterHoeItem) registerItem(
                         wood_type + "_" + tool_material + "_hoe",
-                        new HoeItem(tm,
+                        new BetterHoeItem(tm, tool_material, wood_type,
                                 (int) getToolAttackDamage("hoe", tool_material ),
                                 getToolAttackSpeed( "hoe" ),
                                 new FabricItemSettings())));
@@ -132,69 +132,24 @@ public class ModItems {
 
         // ADDING THE EVENTS to the tools and combat tabs.
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-            for ( Item item : pickaxes )
-                content.addAfter( Items.NETHERITE_PICKAXE, item );
+            for ( Item item : PICKAXES)
+                content.add( item );
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-            for ( Item item : shovels )
-                content.addAfter( Items.NETHERITE_SHOVEL, item );
+            for ( Item item : SHOVELS)
+                content.add( item );
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-            for ( Item item : hoes )
-                content.addAfter( Items.NETHERITE_HOE, item );
+            for ( Item item : HOES)
+                content.add( item );
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-            for ( Item item : axes )
-                content.addAfter( Items.NETHERITE_AXE, item );
+            for ( Item item : AXES)
+                content.add( item );
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-            for ( Item item : swords )
-                content.addAfter( Items.NETHERITE_SWORD, item );
+            for ( Item item : SWORDS)
+                content.add( item );
         });
-    }
-
-    public static float getToolAttackSpeed(String tool_type ) {
-//        switch (tool_type) {
-//            case "sword":
-//                return 1.6f;
-//            case "axe":
-//                return .8f;
-//            case "pickaxe":
-//                return 1.2f;
-//            default:
-//                return 1;
-//        }
-        return .2f;
-    }
-
-    public static float getToolAttackDamage( String tool_type, String material_type ) {
-        float base = 1;
-//        switch ( material_type ) {
-//            case "netherite":
-//                base += 1;
-//            case "diamond":
-//                base += 1;
-//            case "iron":
-//                base += 1;
-//            case "stone":
-//                base += 1;
-//        }
-//
-//        switch ( tool_type ) {
-//            case "shovel":
-//                base += 1.5;
-//                break;
-//            case "pickaxe":
-//                base += 1;
-//                break;
-//            case "axe":
-//                base += 6;
-//                break;
-//            case "sword":
-//                base += 3;
-//                break;
-//        }
-
-        return base;
     }
 }

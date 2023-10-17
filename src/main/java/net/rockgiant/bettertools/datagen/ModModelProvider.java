@@ -8,6 +8,8 @@ import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.ModItems;
 
+import static net.rockgiant.bettertools.item.ModItems.WOOD_TYPES;
+
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
         super(output);
@@ -24,7 +26,8 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
-        generateBasicItemModels(itemModelGenerator);
+        generateToolRodModels(itemModelGenerator);
+        generateToolItemModels(itemModelGenerator);
 
     }
 
@@ -38,7 +41,20 @@ public class ModModelProvider extends FabricModelProvider {
         Models.GENERATED_TWO_LAYERS.upload( id0, TextureMap.layered(id1, id2), img.writer );
     }
 
-    public void generateBasicItemModels(ItemModelGenerator img) {
+
+    private void generateToolRodModels(ItemModelGenerator img) {
+        for ( String wood_type : WOOD_TYPES )
+        {
+            Identifier id = new Identifier(BetterTools.MOD_ID, "item/" + wood_type + "_tool_rod");
+            Identifier layer0 = new Identifier(BetterTools.MOD_ID, "item/tool_rod/" + wood_type + "_tool_rod");
+
+            Models.GENERATED.upload(id , TextureMap.layer0(layer0), img.writer );
+//            img.register( tool_rod,"", Models.GENERATED);
+        }
+
+    }
+
+    public void generateToolItemModels(ItemModelGenerator img) {
         for ( String tool_type : ModItems.TOOL_TYPES ) {
             for (String wood_type : ModItems.WOOD_TYPES ) {
                 Identifier id1;
