@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bettertools:item/tool_rod/acacia_tool_rod",
+    "layer1": "bettertools:item/iron_tool_head/iron_axe_head"
+  }
+}

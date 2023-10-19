@@ -1,16 +1,19 @@
 TODO list for Mod:
 
 Current List
-1. Add tool handle durablility and mining speed adjustments (most likely by adding more materials ).
-2. Add Netherite Smithing for diamond tools.
 
 Backlog / Planned features:
 3. Additional Tool Variants.
     RELIES ON Item 7
-    > Gemstones: emerald, amethyst
-    > Sharp rocks: obsidian, flint
-    > Hard stones: Deepslate, Blackstone, endstone
-    > Soft metals: Copper,
+    > New materials:
+        > Gemstones: emerald, amethyst
+        > Sharp rocks: obsidian, flint
+        > Hard stones: Deepslate, Blackstone, endstone
+        > Soft metals: Copper,
+    > New tools:
+        > Multi-tools: Mattock, Adze,
+        > Weapons: Knife, Bow, crossbow, spear
+        > 3x3 tools: Broad Axe, Hammer, Excavator
 4. Enchanting templates.
     > Add vanilla enchantment templates,
     > Add crafting/loot table templates,
@@ -18,10 +21,19 @@ Backlog / Planned features:
 5. Tools don't break on 0 durability.
     > Keep tools from being used when they would break.
     > Add broken texture variants
-6. In crafting grid repairing.
+6. In crafting grid repairing. ( may not be desired )
     > Add item repairs in crafting grid
     > Add enchantment that allows enchantments to be kept when manually repairing tools
 7. Tool rendering
     > Override rendering engine to allow for on-the-fly rendering of tools.
     ALTERNATIVELY:
     > Make hyper complex predicate based item generators. ( probably not this ).
+8. Add visual variants for different similar materials
+    RELIES ON 3
+    > Wood types:
+    > Stone types:
+    > Hardened stone types:
+    > Gemstone types:
+9. Add translations for items.
+10. Make tool tip include handle material
+11. Add Tool Bindings

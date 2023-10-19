@@ -1,0 +1,11 @@
+{
+  "type": "bettertools:bettertools_crafting",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "output": {
+    "item": "bettertools:better_iron_pickaxe"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "bettertools:bettertools_crafting",
+  "ingredients": [
+    {"item": "minecraft:stick" }
+  ],
+  "output": {
+    "item": "bettertools:better_iron_axe"
+  }
+}

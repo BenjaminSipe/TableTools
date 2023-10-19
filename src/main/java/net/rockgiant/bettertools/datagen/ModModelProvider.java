@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.ModItems;
 
+import static net.rockgiant.bettertools.item.ModItems.TINTED_TOOL_ROD;
 import static net.rockgiant.bettertools.item.ModItems.WOOD_TYPES;
 
 public class ModModelProvider extends FabricModelProvider {
@@ -25,6 +26,7 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        itemModelGenerator.register(TINTED_TOOL_ROD, Models.GENERATED );
 
         generateToolRodModels(itemModelGenerator);
         generateToolItemModels(itemModelGenerator);
