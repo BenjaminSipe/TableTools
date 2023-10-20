@@ -4,15 +4,19 @@ import com.mojang.datafixers.types.templates.Tag;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.rockgiant.bettertools.BetterTools;
 
 import java.util.Optional;
 
 public class ToolGenerationUtils {
+
+    public static final String TINT_KEY = "tint";
 
     public static float getToolAttackSpeed(String tool_type ) {
         switch (tool_type) {
@@ -107,4 +111,15 @@ public class ToolGenerationUtils {
                 return Optional.of( Items.NETHERITE_INGOT );
         }
     }
+
+    public static int getTint( ItemStack tool ) {
+        return tool.getOrCreateNbt().getInt( TINT_KEY );
+    }
+
+
+    public static void addTint(ItemStack tool, int tint ) {
+        BetterTools.LOGGER.error( "Added Tint to ItemStack " + tint );
+        tool.getOrCreateNbt().putInt( TINT_KEY, tint);
+    }
+
 }

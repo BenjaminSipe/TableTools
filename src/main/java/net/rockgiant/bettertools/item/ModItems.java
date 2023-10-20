@@ -48,6 +48,46 @@ public class ModItems {
     public static final Item TINTED_TOOL_ROD = registerItem( "tinted_tool_rod", new TintedToolRodItem(0x445566, new FabricItemSettings()));
     public static final Item BETTER_IRON_AXE = registerItem( "better_iron_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
     public static final Item BETTER_IRON_PICKAXE = registerItem( "better_iron_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
+    /*
+    ACACIA: 0xC26D3F,
+    BAMBOO: 0xEFD97E,
+    BIRCH: 0xD7CB8D,
+    CHERRY: 0xE7CAC5,
+    CRIMSON: 0x863E5A,
+    DARK_OAK: 0x53381A,
+    JUNGLE: 0xBF8E6B,
+    MANGROVE: 0x8B4D3A,
+    OAK: 0x896727,
+    SPRUCE: 0x886539,
+    WARPED: 0x3A8E8C,
+     */
+
+    public static final Item ACACIA_TINTED_TOOL_ROD = registerItem( "acacia_tinted_tool_rod", new TintedToolRodItem(0xC26D3F, new FabricItemSettings()));
+    public static final Item BAMBOO_TINTED_TOOL_ROD = registerItem( "bamboo_tinted_tool_rod", new TintedToolRodItem(0xEFD97E, new FabricItemSettings()));
+    public static final Item BIRCH_TINTED_TOOL_ROD = registerItem( "birch_tinted_tool_rod", new TintedToolRodItem(0xD7CB8D, new FabricItemSettings()));
+    public static final Item CHERRY_TINTED_TOOL_ROD = registerItem( "cherry_tinted_tool_rod", new TintedToolRodItem(0xDD9D97, new FabricItemSettings()));
+    public static final Item CRIMSON_TINTED_TOOL_ROD = registerItem( "crimson_tinted_tool_rod", new TintedToolRodItem(0xAA4072, new FabricItemSettings()));
+    public static final Item DARK_OAK_TINTED_TOOL_ROD = registerItem( "dark_oak_tinted_tool_rod", new TintedToolRodItem(0x53381A, new FabricItemSettings()));
+    public static final Item JUNGLE_TINTED_TOOL_ROD = registerItem( "jungle_tinted_tool_rod", new TintedToolRodItem(0xBF8E6B, new FabricItemSettings()));
+    public static final Item MANGROVE_TINTED_TOOL_ROD = registerItem( "mangrove_tinted_tool_rod", new TintedToolRodItem(0x8C3539, new FabricItemSettings()));
+    public static final Item OAK_TINTED_TOOL_ROD = registerItem( "oak_tinted_tool_rod", new TintedToolRodItem(0x896727, new FabricItemSettings()));
+    public static final Item SPRUCE_TINTED_TOOL_ROD = registerItem( "spruce_tinted_tool_rod", new TintedToolRodItem(0x886539, new FabricItemSettings()));
+    public static final Item WARPED_TINTED_TOOL_ROD = registerItem( "warped_tinted_tool_rod", new TintedToolRodItem(0x3A8E8C, new FabricItemSettings()));
+
+
+    public static final Item[] TINTED_TOOL_RODS = new Item[]{
+            ACACIA_TINTED_TOOL_ROD,
+            BAMBOO_TINTED_TOOL_ROD,
+            BIRCH_TINTED_TOOL_ROD,
+            CHERRY_TINTED_TOOL_ROD,
+            CRIMSON_TINTED_TOOL_ROD,
+            DARK_OAK_TINTED_TOOL_ROD,
+            JUNGLE_TINTED_TOOL_ROD,
+            MANGROVE_TINTED_TOOL_ROD,
+            OAK_TINTED_TOOL_ROD,
+            SPRUCE_TINTED_TOOL_ROD,
+            WARPED_TINTED_TOOL_ROD
+    };
 
     private static Item registerItem(String name, Item item)
     {
@@ -73,7 +113,8 @@ public class ModItems {
                     new Item(new FabricItemSettings().maxCount(64))));
         }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
-            for ( Item item : TOOL_RODS.values() )
+
+            for ( Item item : TINTED_TOOL_RODS )
                 content.addAfter( Items.STICK, item );
         });
     }

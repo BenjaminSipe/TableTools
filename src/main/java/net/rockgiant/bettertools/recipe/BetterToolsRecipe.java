@@ -2,6 +2,7 @@ package net.rockgiant.bettertools.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
@@ -14,32 +15,58 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
+import net.rockgiant.bettertools.BetterTools;
+import net.rockgiant.bettertools.item.TintedToolRodItem;
+import net.rockgiant.bettertools.item.tools.BetterPickaxeItem;
 
 import java.util.List;
+
+import static net.rockgiant.bettertools.item.ModItems.TINTED_TOOL_ROD;
+import static net.rockgiant.bettertools.util.ToolGenerationUtils.TINT_KEY;
+import static net.rockgiant.bettertools.util.ToolGenerationUtils.addTint;
 
 class BetterToolsRecipe implements CraftingRecipe {
 
     private final ItemStack output;
     private final List<Ingredient> recipeItems;
 
+    private int tint = 0;
+
     public BetterToolsRecipe( List<Ingredient> ingredients, ItemStack itemStack ) {
         this.output = itemStack;
         this.recipeItems = ingredients;
     }
-
     @Override
     public boolean matches(RecipeInputInventory inventory, World world) {
         if ( world.isClient() ) {
             return false;
         }
+        boolean matches = true;
+
+        matches &= recipeItems.get(0).test( inventory.getStack( 0  ) );
+        matches &= recipeItems.get(0).test( inventory.getStack( 1  ) );
+        matches &= recipeItems.get(0).test( inventory.getStack( 2  ) );
+
+        matches &= Ingredient.empty().test( inventory.getStack( 3  ) );
+        matches &= Ingredient.empty().test( inventory.getStack( 5  ) );
+        matches &= Ingredient.empty().test( inventory.getStack( 6  ) );
+        matches &= Ingredient.empty().test( inventory.getStack( 8  ) );
+
+
+        matches &= inventory.getStack( 4 ).getItem() instanceof TintedToolRodItem;
+        matches &= inventory.getStack( 7 ).getItem() instanceof TintedToolRodItem;
+
+        if ( matches ) {
+            this.tint = ((TintedToolRodItem) inventory.getStack( 4 ).getItem()).getTint();
+        }
 
         // does json item == inventory slot 0 ( top right );
-        return recipeItems.get(0).test( inventory.getStack( 0  ) );
+        return matches;
     }
 
     @Override
     public ItemStack craft(RecipeInputInventory inventory, DynamicRegistryManager registryManager) {
-        return output.copy();
+        return getResult(registryManager).copy();
     }
 
     @Override
@@ -49,6 +76,9 @@ class BetterToolsRecipe implements CraftingRecipe {
 
     @Override
     public ItemStack getResult(DynamicRegistryManager registryManager) {
+        if ( this.tint != 0 ) {
+            addTint( output, this.tint );
+        }
         return output;
     }
 
@@ -93,7 +123,7 @@ class BetterToolsRecipe implements CraftingRecipe {
                 RecipeCodecs.CRAFTING_RESULT
                         .fieldOf("output")
                         .forGetter( r-> r.output )
-        ).apply(in, BetterToolsRecipe::new));
+                ).apply(in, BetterToolsRecipe::new));
 
         private static Codec<List<Ingredient>> validateAmount(Codec<Ingredient> delegate, int max) {
             return Codecs.validate(

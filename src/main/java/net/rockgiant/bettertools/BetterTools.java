@@ -19,6 +19,7 @@ public class BetterTools implements ModInitializer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+
 	@Override
 	public void onInitialize() {
 		ModItems.registerModItems();

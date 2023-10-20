@@ -1,9 +1,6 @@
 package net.rockgiant.bettertools.item.tools;
 
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 
 public class BetterPickaxeItem extends PickaxeItem {
 
