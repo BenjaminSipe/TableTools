@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "bettertools:item/tinted_tool_rod",
-    "layer1": "bettertools:item/iron_tool_head/iron_axe_head"
+    "layer1": "bettertools:item/iron_tool_head/iron_hoe_head"
   }
 }

@@ -18,7 +18,7 @@ public class BetterToolsClient implements ClientModInitializer {
 
 		ColorProviderRegistry.ITEM.register(
 				(stack, tintIndex) -> tintIndex != 0 ? -1 : getTint( stack ),
-				new Item[] {BETTER_IRON_PICKAXE, BETTER_IRON_AXE} );
+				new Item[] {BETTER_IRON_PICKAXE, BETTER_IRON_AXE, BETTER_IRON_HOE, BETTER_IRON_SWORD, BETTER_IRON_SHOVEL } );
 
 	};
 

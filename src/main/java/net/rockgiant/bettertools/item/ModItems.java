@@ -46,8 +46,12 @@ public class ModItems {
     public static Map<String, Item> SMITHING_RECIPE_ITEM_MAP = new HashMap<>();
 
     public static final Item TINTED_TOOL_ROD = registerItem( "tinted_tool_rod", new TintedToolRodItem(0x445566, new FabricItemSettings()));
+
     public static final Item BETTER_IRON_AXE = registerItem( "better_iron_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
     public static final Item BETTER_IRON_PICKAXE = registerItem( "better_iron_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
+    public static final Item BETTER_IRON_HOE = registerItem( "better_iron_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
+    public static final Item BETTER_IRON_SWORD = registerItem( "better_iron_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
+    public static final Item BETTER_IRON_SHOVEL = registerItem( "better_iron_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
     /*
     ACACIA: 0xC26D3F,
     BAMBOO: 0xEFD97E,

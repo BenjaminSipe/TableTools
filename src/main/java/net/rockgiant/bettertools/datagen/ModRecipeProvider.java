@@ -30,7 +30,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     public void generate(RecipeExporter exporter) {
 
         generateToolRodRecipes(exporter);
-        generateToolRecipes(exporter);
+//        generateToolRecipes(exporter);
 
     }
 
