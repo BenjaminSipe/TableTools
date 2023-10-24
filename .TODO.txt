@@ -2,9 +2,9 @@ TODO list for Mod:
 
 Current List
 
+
 Backlog / Planned features:
 3. Additional Tool Variants.
-    RELIES ON Item 7
     > New materials:
         > Gemstones: emerald, amethyst
         > Sharp rocks: obsidian, flint
@@ -24,10 +24,6 @@ Backlog / Planned features:
 6. In crafting grid repairing. ( may not be desired )
     > Add item repairs in crafting grid
     > Add enchantment that allows enchantments to be kept when manually repairing tools
-7. Tool rendering
-    > Override rendering engine to allow for on-the-fly rendering of tools.
-    ALTERNATIVELY:
-    > Make hyper complex predicate based item generators. ( probably not this ).
 8. Add visual variants for different similar materials
     RELIES ON 3
     > Wood types:
@@ -37,3 +33,13 @@ Backlog / Planned features:
 9. Add translations for items.
 10. Make tool tip include handle material
 11. Add Tool Bindings
+12. Add sturdy and swift modifiers based on the tool rod used in construction.
+
+COMPLETED:
+13. Add Vanilla Tools Back
+
+// notes & brainstorming:
+I think as far as tool variants are concerned, I don't really feel bad about adding in the variants manually.
+I do need to setup the ingredient repairs.
+Which will probably involve custom tags.
+Which I have yet to do.

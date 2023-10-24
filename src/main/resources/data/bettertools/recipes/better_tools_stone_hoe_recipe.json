@@ -1,0 +1,5 @@
+{
+  "type": "bettertools:bettertools_crafting",
+  "ingredient": {"item": "minecraft:cobblestone"},
+  "output": {"item": "bettertools:better_stone_hoe"}
+}

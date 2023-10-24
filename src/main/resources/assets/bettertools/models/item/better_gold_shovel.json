@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bettertools:item/tinted_shovel_handle",
+    "layer1": "bettertools:item/gold_tool_head/gold_shovel_head"
+  }
+}

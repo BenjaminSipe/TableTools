@@ -1,0 +1,5 @@
+{
+  "type": "bettertools:bettertools_crafting",
+  "ingredient": {"item": "minecraft:diamond"},
+  "output": {"item": "bettertools:better_diamond_hoe"}
+}

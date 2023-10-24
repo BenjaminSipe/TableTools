@@ -10,62 +10,10 @@ import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.tools.*;
 import net.rockgiant.bettertools.toolmaterials.BetterToolsMaterial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackDamage;
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackSpeed;
 
 public class ModItems {
-
-    public static final String[] WOOD_TYPES = {
-            "oak", "birch", "spruce",
-            "acacia", "dark_oak", "mangrove",
-            "cherry", "bamboo", "jungle",
-            "crimson", "warped"
-    };
-
-    public static final String[] TOOL_MATERIALS = {
-            "wood", "stone", "gold", "iron",
-            "diamond", "netherite"
-    };
-
-    public static final String[] TOOL_TYPES = {
-            "pickaxe", "axe", "hoe",
-            "sword", "shovel"
-    };
-
-    public static List<BetterSwordItem> SWORDS = new ArrayList<>();
-    public static List<BetterAxeItem> AXES = new ArrayList<>();
-    public static List<BetterShovelItem> SHOVELS = new ArrayList<>();
-    public static List<BetterPickaxeItem> PICKAXES = new ArrayList<>();
-    public static List<BetterHoeItem> HOES = new ArrayList<>();
-    public static Map<String, Item> TOOL_RODS = new HashMap<>();
-    public static Map<String, Item> SMITHING_RECIPE_ITEM_MAP = new HashMap<>();
-
-    public static final Item TINTED_TOOL_ROD = registerItem( "tinted_tool_rod", new TintedToolRodItem(0x445566, new FabricItemSettings()));
-
-    public static final Item BETTER_IRON_AXE = registerItem( "better_iron_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
-    public static final Item BETTER_IRON_PICKAXE = registerItem( "better_iron_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
-    public static final Item BETTER_IRON_HOE = registerItem( "better_iron_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
-    public static final Item BETTER_IRON_SWORD = registerItem( "better_iron_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
-    public static final Item BETTER_IRON_SHOVEL = registerItem( "better_iron_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_IRON, "iron", "acacia",6, -3.2f, new FabricItemSettings() ));
-    /*
-    ACACIA: 0xC26D3F,
-    BAMBOO: 0xEFD97E,
-    BIRCH: 0xD7CB8D,
-    CHERRY: 0xE7CAC5,
-    CRIMSON: 0x863E5A,
-    DARK_OAK: 0x53381A,
-    JUNGLE: 0xBF8E6B,
-    MANGROVE: 0x8B4D3A,
-    OAK: 0x896727,
-    SPRUCE: 0x886539,
-    WARPED: 0x3A8E8C,
-     */
-
     public static final Item ACACIA_TINTED_TOOL_ROD = registerItem( "acacia_tinted_tool_rod", new TintedToolRodItem(0xC26D3F, new FabricItemSettings()));
     public static final Item BAMBOO_TINTED_TOOL_ROD = registerItem( "bamboo_tinted_tool_rod", new TintedToolRodItem(0xEFD97E, new FabricItemSettings()));
     public static final Item BIRCH_TINTED_TOOL_ROD = registerItem( "birch_tinted_tool_rod", new TintedToolRodItem(0xD7CB8D, new FabricItemSettings()));
@@ -74,10 +22,45 @@ public class ModItems {
     public static final Item DARK_OAK_TINTED_TOOL_ROD = registerItem( "dark_oak_tinted_tool_rod", new TintedToolRodItem(0x53381A, new FabricItemSettings()));
     public static final Item JUNGLE_TINTED_TOOL_ROD = registerItem( "jungle_tinted_tool_rod", new TintedToolRodItem(0xBF8E6B, new FabricItemSettings()));
     public static final Item MANGROVE_TINTED_TOOL_ROD = registerItem( "mangrove_tinted_tool_rod", new TintedToolRodItem(0x8C3539, new FabricItemSettings()));
-    public static final Item OAK_TINTED_TOOL_ROD = registerItem( "oak_tinted_tool_rod", new TintedToolRodItem(0x896727, new FabricItemSettings()));
-    public static final Item SPRUCE_TINTED_TOOL_ROD = registerItem( "spruce_tinted_tool_rod", new TintedToolRodItem(0x886539, new FabricItemSettings()));
+    public static final Item OAK_TINTED_TOOL_ROD = registerItem( "oak_tinted_tool_rod", new TintedToolRodItem(0x8F7448, new FabricItemSettings()));
+    public static final Item SPRUCE_TINTED_TOOL_ROD = registerItem( "spruce_tinted_tool_rod", new TintedToolRodItem(0x644A2A, new FabricItemSettings()));
     public static final Item WARPED_TINTED_TOOL_ROD = registerItem( "warped_tinted_tool_rod", new TintedToolRodItem(0x3A8E8C, new FabricItemSettings()));
 
+    public static final Item BETTER_IRON_AXE = registerItem( "better_iron_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_IRON,getToolAttackDamage("axe", "iron"), getToolAttackSpeed("axe"), new FabricItemSettings() ));
+    public static final Item BETTER_IRON_PICKAXE = registerItem( "better_iron_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_IRON,(int)getToolAttackDamage("pickaxe", "iron"), getToolAttackSpeed("pickaxe"), new FabricItemSettings() ));
+    public static final Item BETTER_IRON_HOE = registerItem( "better_iron_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_IRON,(int)getToolAttackDamage("hoe", "iron"), getToolAttackSpeed("hoe"), new FabricItemSettings() ));
+    public static final Item BETTER_IRON_SWORD = registerItem( "better_iron_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_IRON,(int)getToolAttackDamage("sword", "iron"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
+    public static final Item BETTER_IRON_SHOVEL = registerItem( "better_iron_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_IRON,getToolAttackDamage("shovel", "iron"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
+
+    public static final Item BETTER_WOODEN_AXE = registerItem( "better_wooden_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_WOOD,getToolAttackDamage("axe", "wood"), getToolAttackSpeed("axe"), new FabricItemSettings() ));
+    public static final Item BETTER_WOODEN_PICKAXE = registerItem( "better_wooden_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_WOOD,(int)getToolAttackDamage("pickaxe", "wood"), getToolAttackSpeed("pickaxe"), new FabricItemSettings() ));
+    public static final Item BETTER_WOODEN_HOE = registerItem( "better_wooden_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_WOOD,(int)getToolAttackDamage("hoe", "wood"), getToolAttackSpeed("hoe"), new FabricItemSettings() ));
+    public static final Item BETTER_WOODEN_SWORD = registerItem( "better_wooden_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_WOOD,(int)getToolAttackDamage("sword", "wood"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
+    public static final Item BETTER_WOODEN_SHOVEL = registerItem( "better_wooden_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_WOOD,getToolAttackDamage("shovel", "wood"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
+
+    public static final Item BETTER_STONE_AXE = registerItem( "better_stone_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_STONE,getToolAttackDamage("axe", "stone"), getToolAttackSpeed("axe"), new FabricItemSettings() ));
+    public static final Item BETTER_STONE_PICKAXE = registerItem( "better_stone_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_STONE,(int)getToolAttackDamage("pickaxe", "stone"), getToolAttackSpeed("pickaxe"), new FabricItemSettings() ));
+    public static final Item BETTER_STONE_HOE = registerItem( "better_stone_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_STONE,(int)getToolAttackDamage("hoe", "stone"), getToolAttackSpeed("hoe"), new FabricItemSettings() ));
+    public static final Item BETTER_STONE_SWORD = registerItem( "better_stone_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_STONE,(int)getToolAttackDamage("sword", "stone"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
+    public static final Item BETTER_STONE_SHOVEL = registerItem( "better_stone_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_STONE,getToolAttackDamage("shovel", "stone"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
+
+    public static final Item BETTER_GOLD_AXE = registerItem( "better_gold_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_GOLD,getToolAttackDamage("axe", "gold"), getToolAttackSpeed("axe"), new FabricItemSettings() ));
+    public static final Item BETTER_GOLD_PICKAXE = registerItem( "better_gold_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_GOLD,(int)getToolAttackDamage("pickaxe", "gold"), getToolAttackSpeed("pickaxe"), new FabricItemSettings() ));
+    public static final Item BETTER_GOLD_HOE = registerItem( "better_gold_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_GOLD,(int)getToolAttackDamage("hoe", "gold"), getToolAttackSpeed("hoe"), new FabricItemSettings() ));
+    public static final Item BETTER_GOLD_SWORD = registerItem( "better_gold_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_GOLD,(int)getToolAttackDamage("sword", "gold"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
+    public static final Item BETTER_GOLD_SHOVEL = registerItem( "better_gold_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_GOLD,getToolAttackDamage("shovel", "gold"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
+
+    public static final Item BETTER_DIAMOND_AXE = registerItem( "better_diamond_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_DIAMOND,getToolAttackDamage("axe", "diamond"), getToolAttackSpeed("axe"), new FabricItemSettings() ));
+    public static final Item BETTER_DIAMOND_PICKAXE = registerItem( "better_diamond_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_DIAMOND,(int)getToolAttackDamage("pickaxe", "diamond"), getToolAttackSpeed("pickaxe"), new FabricItemSettings() ));
+    public static final Item BETTER_DIAMOND_HOE = registerItem( "better_diamond_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_DIAMOND,(int)getToolAttackDamage("hoe", "diamond"), getToolAttackSpeed("hoe"), new FabricItemSettings() ));
+    public static final Item BETTER_DIAMOND_SWORD = registerItem( "better_diamond_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_DIAMOND,(int)getToolAttackDamage("sword", "diamond"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
+    public static final Item BETTER_DIAMOND_SHOVEL = registerItem( "better_diamond_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_DIAMOND,getToolAttackDamage("shovel", "diamond"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
+
+    public static final Item BETTER_NETHERITE_AXE = registerItem( "better_netherite_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_NETHERITE,getToolAttackDamage("axe", "netherite"), getToolAttackSpeed("axe"), new FabricItemSettings() ));
+    public static final Item BETTER_NETHERITE_PICKAXE = registerItem( "better_netherite_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_NETHERITE,(int)getToolAttackDamage("pickaxe", "netherite"), getToolAttackSpeed("pickaxe"), new FabricItemSettings() ));
+    public static final Item BETTER_NETHERITE_HOE = registerItem( "better_netherite_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_NETHERITE,(int)getToolAttackDamage("hoe", "netherite"), getToolAttackSpeed("hoe"), new FabricItemSettings() ));
+    public static final Item BETTER_NETHERITE_SWORD = registerItem( "better_netherite_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_NETHERITE,(int)getToolAttackDamage("sword", "netherite"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
+    public static final Item BETTER_NETHERITE_SHOVEL = registerItem( "better_netherite_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_NETHERITE,getToolAttackDamage("shovel", "netherite"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
 
     public static final Item[] TINTED_TOOL_RODS = new Item[]{
             ACACIA_TINTED_TOOL_ROD,
@@ -101,132 +84,19 @@ public class ModItems {
 
     public static void registerModItems() {
 
-
-        BetterTools.LOGGER.debug("Registering Mod Items for " + BetterTools.MOD_ID);
-
-        // I think it will be better to do this this way.
         registerModToolRods();
-        registerModTools();
 
     }
 
     private static void registerModToolRods() {
-        for( String wood_type : WOOD_TYPES ) {
-            TOOL_RODS.put(wood_type, registerItem(
-                    wood_type + "_tool_rod",
-                    new Item(new FabricItemSettings().maxCount(64))));
-        }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
-
             for ( Item item : TINTED_TOOL_RODS )
                 content.addAfter( Items.STICK, item );
         });
     }
 
-    private static void registerModTools() {
-        for ( String tool_material : TOOL_MATERIALS )
-        {
-            for ( String wood_type : WOOD_TYPES )
-            {
-                ToolMaterial toolMaterial = getToolMaterial( tool_material, wood_type );
 
-                SWORDS.add((BetterSwordItem) registerItem(
-                        wood_type + "_" + tool_material + "_sword",
-                        new BetterSwordItem(toolMaterial, tool_material, wood_type, (int)
-                                getToolAttackDamage("sword", tool_material ),
-                                getToolAttackSpeed( "sword" ),
-                                generateToolSettings( tool_material ))));
-                AXES.add((BetterAxeItem) registerItem(
-                        wood_type + "_" + tool_material + "_axe",
-                        new BetterAxeItem(toolMaterial, tool_material, wood_type,
-                                (int) getToolAttackDamage("axe", tool_material ),
-                                getToolAttackSpeed( "axe" ),
-                                generateToolSettings( tool_material ))));
-                PICKAXES.add((BetterPickaxeItem) registerItem(
-                        wood_type + "_" + tool_material + "_pickaxe",
-                        new BetterPickaxeItem(toolMaterial, tool_material, wood_type,
-                                (int) getToolAttackDamage("pickaxe", tool_material ),
-                                getToolAttackSpeed( "pickaxe" ),
-                                generateToolSettings( tool_material ))));
-                SHOVELS.add( (BetterShovelItem) registerItem(
-                        wood_type + "_" + tool_material + "_shovel",
-                        new BetterShovelItem(toolMaterial, tool_material, wood_type,
-                                getToolAttackDamage("shovel", tool_material ),
-                                getToolAttackSpeed( "shovel" ),
-                                generateToolSettings( tool_material ))));
-                HOES.add( (BetterHoeItem) registerItem(
-                        wood_type + "_" + tool_material + "_hoe",
-                        new BetterHoeItem(toolMaterial, tool_material, wood_type,
-                                (int) getToolAttackDamage("hoe", tool_material ),
-                                getToolAttackSpeed( "hoe" ),
-                                generateToolSettings( tool_material ))));
-
-                if ( "diamond".equals( tool_material) ) {
-                    // they will all be the same length right now,
-                    // but that can easily change in the future.
-                    SMITHING_RECIPE_ITEM_MAP.put(wood_type + "_sword", SWORDS.get( SWORDS.size() - 1));
-                    SMITHING_RECIPE_ITEM_MAP.put(wood_type + "_pickaxe", PICKAXES.get( PICKAXES.size() - 1));
-                    SMITHING_RECIPE_ITEM_MAP.put(wood_type + "_shovel", SHOVELS.get( SHOVELS.size() - 1));
-                    SMITHING_RECIPE_ITEM_MAP.put(wood_type + "_axe", AXES.get( AXES.size() - 1));
-                    SMITHING_RECIPE_ITEM_MAP.put(wood_type + "_hoe", HOES.get( HOES.size() - 1));
-
-                }
-            }
-        }
-
-
-        // ADDING THE EVENTS to the tools and combat tabs.
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-            for ( Item item : PICKAXES)
-                content.add( item );
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-            for ( Item item : SHOVELS)
-                content.add( item );
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-            for ( Item item : HOES)
-                content.add( item );
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-            for ( Item item : AXES)
-                content.add( item );
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(content -> {
-            for ( Item item : SWORDS)
-                content.add( item );
-        });
-    }
-
-    private static ToolMaterial getToolMaterial(String tool_material, String wood_type) {
-        ToolMaterial toolMaterial;
-        switch ( tool_material ) {
-            case "netherite":
-                toolMaterial = isSturdyMaterial(wood_type) ? BetterToolsMaterial.STURDY_NETHERITE : BetterToolsMaterial.SWIFT_NETHERITE;
-                break;
-            case "diamond":
-                toolMaterial = isSturdyMaterial(wood_type) ? BetterToolsMaterial.STURDY_DIAMOND : BetterToolsMaterial.SWIFT_DIAMOND;
-                break;
-            case "iron":
-                toolMaterial = isSturdyMaterial(wood_type) ? BetterToolsMaterial.STURDY_IRON : BetterToolsMaterial.SWIFT_IRON;
-                break;
-            case "gold":
-                toolMaterial = isSturdyMaterial(wood_type) ? BetterToolsMaterial.STURDY_GOLD : BetterToolsMaterial.SWIFT_GOLD;
-                break;
-            case "stone":
-                toolMaterial = isSturdyMaterial(wood_type) ? BetterToolsMaterial.STURDY_STONE : BetterToolsMaterial.SWIFT_STONE;
-                break;
-            default:
-                toolMaterial = isSturdyMaterial(wood_type) ? BetterToolsMaterial.STURDY_WOOD : BetterToolsMaterial.SWIFT_WOOD;
-                break;
-        }
-        return toolMaterial;
-    }
-
-    private static FabricItemSettings generateToolSettings( String material ) {
-        return "netherite".equals( material ) ? new FabricItemSettings() : new FabricItemSettings().fireproof();
-    }
-
+    // UNUSED but should be kept for the information.
     private static boolean isSturdyMaterial( String wood_type ) {
         switch (wood_type)
         {

@@ -8,6 +8,7 @@ import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
@@ -28,73 +29,35 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     @Override
     public void generate(RecipeExporter exporter) {
-
         generateToolRodRecipes(exporter);
-//        generateToolRecipes(exporter);
-
-    }
-
-    private void generateToolRecipes(RecipeExporter exporter) {
-        for (BetterSwordItem sword : SWORDS ) {
-            if ("netherite".equals(sword.getHead())) {
-                generateSmithingTableUpgradeRecipe(exporter, sword, SMITHING_RECIPE_ITEM_MAP.get(sword.getHandle() + "_sword" ),
-                        "netherite_" + sword.getHandle() + "_sword_smithing" );
-            }
-            else
-            {
-                generateSwordRecipe(sword).offerTo(exporter);
-            }
-        }
-        for (BetterPickaxeItem pickaxe : PICKAXES ) {
-            if ("netherite".equals(pickaxe.getHead())) {
-                generateSmithingTableUpgradeRecipe(exporter, pickaxe, SMITHING_RECIPE_ITEM_MAP.get(pickaxe.getHandle() + "_pickaxe" ),
-                        "netherite_" + pickaxe.getHandle() + "_pickaxe_smithing" );
-            }
-            else {
-                generatePickaxeRecipe(pickaxe).offerTo(exporter);
-            }
-        }
-        for (BetterShovelItem shovel : SHOVELS ) {
-            if ("netherite".equals(shovel.getHead())) {
-                generateSmithingTableUpgradeRecipe(exporter, shovel, SMITHING_RECIPE_ITEM_MAP.get(shovel.getHandle() + "_shovel" ),
-                        "netherite_" + shovel.getHandle() + "_shovel_smithing" );
-            }
-            else {
-                generateShovelRecipe(shovel).offerTo(exporter);
-            }
-        }
-        for (BetterHoeItem hoe : HOES )
-        {
-            if ("netherite".equals(hoe.getHead())) {
-                generateSmithingTableUpgradeRecipe(exporter, hoe, SMITHING_RECIPE_ITEM_MAP.get(hoe.getHandle() + "_hoe" ),
-                        "netherite_" + hoe.getHandle() + "_hoe_smithing" );
-            }
-            else {
-                generateHoeRecipe( hoe ).offerTo( exporter );
-            }
-        }
-        for (BetterAxeItem axe : AXES ) {
-            if ("netherite".equals(axe.getHead())) {
-                generateSmithingTableUpgradeRecipe(exporter, axe, SMITHING_RECIPE_ITEM_MAP.get(axe.getHandle() + "_axe" ),
-                        "netherite_" + axe.getHandle() + "_axe_smithing" );
-            }
-            else {
-                generateAxeRecipe( axe ).offerTo( exporter );
-            }
-        }
     }
 
     public void generateToolRodRecipes(RecipeExporter exporter ) {
-        for ( String wood_type : ModItems.WOOD_TYPES )
-        {
-            ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, TOOL_RODS.get(wood_type), 2 )
-                    .pattern("# ").pattern(" #")
-                    .input('#', getPlanks( wood_type) )
-                    .criterion( FabricRecipeProvider.hasItem(getPlanks( wood_type ) ),
-                            FabricRecipeProvider.conditionsFromItem(getPlanks( wood_type ) ) ).offerTo( exporter );
-        }
+        generateToolRodRecipe(exporter, ACACIA_TINTED_TOOL_ROD, Items.ACACIA_PLANKS );
+        generateToolRodRecipe(exporter, SPRUCE_TINTED_TOOL_ROD, Items.SPRUCE_PLANKS );
+        generateToolRodRecipe(exporter, OAK_TINTED_TOOL_ROD, Items.OAK_PLANKS );
+        generateToolRodRecipe(exporter, BIRCH_TINTED_TOOL_ROD, Items.BIRCH_PLANKS );
+        generateToolRodRecipe(exporter, JUNGLE_TINTED_TOOL_ROD, Items.JUNGLE_PLANKS );
+        generateToolRodRecipe(exporter, MANGROVE_TINTED_TOOL_ROD, Items.MANGROVE_PLANKS );
+        generateToolRodRecipe(exporter, CHERRY_TINTED_TOOL_ROD, Items.CHERRY_PLANKS );
+        generateToolRodRecipe(exporter, DARK_OAK_TINTED_TOOL_ROD, Items.DARK_OAK_PLANKS );
+        generateToolRodRecipe(exporter, BAMBOO_TINTED_TOOL_ROD, Items.BAMBOO_PLANKS );
+        generateToolRodRecipe(exporter, CRIMSON_TINTED_TOOL_ROD, Items.CRIMSON_PLANKS );
+        generateToolRodRecipe(exporter, WARPED_TINTED_TOOL_ROD, Items.WARPED_PLANKS );
+
+        generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_AXE, BETTER_DIAMOND_AXE, "better_netherite_axe_smithing_recipe");
+        generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_PICKAXE, BETTER_DIAMOND_PICKAXE, "better_netherite_pickaxe_smithing_recipe");
+        generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_SHOVEL, BETTER_DIAMOND_SHOVEL, "better_netherite_shovel_smithing_recipe");
+        generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_SWORD, BETTER_DIAMOND_SWORD, "better_netherite_sword_smithing_recipe");
+        generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_HOE, BETTER_DIAMOND_HOE, "better_netherite_hoe_smithing_recipe");
     }
 
+    public void generateToolRodRecipe(RecipeExporter exporter, Item item, Item ingredient )
+    {
+        ShapedRecipeJsonBuilder.create( RecipeCategory.TOOLS, item, 2 ).pattern("# ").pattern(" #").input('#', Ingredient.ofItems(ingredient)).criterion(FabricRecipeProvider.hasItem(ingredient), FabricRecipeProvider.conditionsFromItem(ingredient)).offerTo(exporter);
+    }
+
+    // may be used for smithing upgrades, as I think those naturally keep nbt data. So I can still use them.
     public void generateSmithingTableUpgradeRecipe(RecipeExporter exporter, Item result, Item ingredient, String recipeId ) {
         SmithingTransformRecipeJsonBuilder.create(
                 Ingredient.ofItems( Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE ),
@@ -107,40 +70,5 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(FabricRecipeProvider.hasItem( Items.NETHERITE_INGOT ),
                         FabricRecipeProvider.conditionsFromItem( Items.NETHERITE_INGOT ) )
                 .offerTo(exporter, recipeId);
-    }
-
-    public ShapedRecipeJsonBuilder generatePickaxeRecipe(BetterPickaxeItem item ) {
-        return generateToolRecipe(item, item.getHead(), item.getHandle()).pattern("###").pattern(" R ").pattern(" R ");
-    }
-    public ShapedRecipeJsonBuilder generateAxeRecipe(BetterAxeItem item ) {
-        return generateToolRecipe(item, item.getHead(), item.getHandle()).pattern("##").pattern("R#").pattern("R ");
-    }
-    public ShapedRecipeJsonBuilder generateShovelRecipe(BetterShovelItem item) {
-        return generateToolRecipe(item, item.getHead(), item.getHandle()).pattern("#").pattern("R").pattern("R");
-    }
-    public ShapedRecipeJsonBuilder generateSwordRecipe(BetterSwordItem item ) {
-        return generateToolRecipe(item, item.getHead(), item.getHandle()).pattern("#").pattern("#").pattern("R");
-    }
-    public ShapedRecipeJsonBuilder generateHoeRecipe(BetterHoeItem item) {
-        return generateToolRecipe(item, item.getHead(), item.getHandle()).pattern("##").pattern("R ").pattern("R ");
-    }
-
-
-
-    public ShapedRecipeJsonBuilder generateToolRecipe(Item item, String material, String wood_type ) {
-        Optional materialTagOrItem = getMaterial(material);
-        TagKey<Item> materialTag = materialTagOrItem.isPresent() && materialTagOrItem.get() instanceof TagKey ? (TagKey<Item>) materialTagOrItem.get() : null;
-        Item materialItem = materialTagOrItem.isPresent() && materialTagOrItem.get() instanceof Item ? (Item) materialTagOrItem.get() : null;
-        Item tool_rod = TOOL_RODS.get( wood_type );
-
-        ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create( RecipeCategory.TOOLS, item );
-        if ( materialTag != null ) {
-            builder.input( '#', materialTag ).criterion("has_" + material, FabricRecipeProvider.conditionsFromTag( materialTag ));
-        }
-        else {
-            builder.input( '#', materialItem ).criterion( FabricRecipeProvider.hasItem( materialItem ), FabricRecipeProvider.conditionsFromItem( materialItem ));
-        }
-        return builder.input( 'R', tool_rod ).criterion( FabricRecipeProvider.hasItem(tool_rod ),
-                FabricRecipeProvider.conditionsFromItem(tool_rod ) );
     }
 }

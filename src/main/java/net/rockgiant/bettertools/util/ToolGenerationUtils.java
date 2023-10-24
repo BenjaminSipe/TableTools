@@ -31,6 +31,21 @@ public class ToolGenerationUtils {
         }
     }
 
+    public static int getWoodTint(Item item) {
+        if ( item.equals( Items.ACACIA_PLANKS ) ) return 0xC26D3F;
+        if ( item.equals( Items.BAMBOO_PLANKS ) ) return 0xEFD97E;
+        if ( item.equals( Items.BIRCH_PLANKS ) ) return 0xD7CB8D;
+        if ( item.equals( Items.CHERRY_PLANKS ) ) return 0xDD9D97;
+        if ( item.equals( Items.CRIMSON_PLANKS ) ) return 0xAA4072;
+        if ( item.equals( Items.DARK_OAK_PLANKS ) ) return 0x53381A;
+        if ( item.equals( Items.JUNGLE_PLANKS ) ) return 0xBF8E6B;
+        if ( item.equals( Items.MANGROVE_PLANKS ) ) return 0x8C3539;
+        if ( item.equals( Items.OAK_PLANKS ) ) return 0x8F7448;
+        if ( item.equals( Items.SPRUCE_PLANKS ) ) return 0x644A2A;
+        if ( item.equals( Items.WARPED_PLANKS ) ) return 0x3A8E8C;
+        return 0;
+    }
+
     public static float getToolAttackDamage( String tool_type, String material_type ) {
         // these numbers are very strange and don't seem to correlate to anything.
         // but they are pulled directly from vanilla so they should match.
@@ -115,11 +130,18 @@ public class ToolGenerationUtils {
     public static int getTint( ItemStack tool ) {
         return tool.getOrCreateNbt().getInt( TINT_KEY );
     }
+    public static int getHeadTint( ItemStack tool ) {
+        return tool.getOrCreateNbt().getInt( "head"+ TINT_KEY );
+    }
 
 
     public static void addTint(ItemStack tool, int tint ) {
         BetterTools.LOGGER.error( "Added Tint to ItemStack " + tint );
         tool.getOrCreateNbt().putInt( TINT_KEY, tint);
+    }
+    public static void addHeadTint(ItemStack tool, int tint ) {
+        BetterTools.LOGGER.error( "Added Tint to ItemStack " + tint );
+        tool.getOrCreateNbt().putInt( "head" + TINT_KEY, tint);
     }
 
 }

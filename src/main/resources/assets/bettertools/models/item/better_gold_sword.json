@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bettertools:item/tinted_sword_handle",
+    "layer1": "bettertools:item/gold_tool_head/gold_sword_head"
+  }
+}
