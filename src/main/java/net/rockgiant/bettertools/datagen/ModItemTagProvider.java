@@ -10,18 +10,11 @@ import java.util.concurrent.CompletableFuture;
 
 import static net.rockgiant.bettertools.item.ModItems.*;
 
-public class ModItemTagProvider extends FabricTagProvider {
-    /**
-     * Constructs a new {@link FabricTagProvider} with the default computed path.
-     *
-     * <p>Common implementations of this class are provided.
-     *
-     * @param output           the {@link FabricDataOutput} instance
-     * @param registryKey
-     * @param registriesFuture the backing registry for the tag type
-     */
-    public ModItemTagProvider(FabricDataOutput output, RegistryKey registryKey, CompletableFuture registriesFuture) {
-        super(output, registryKey, registriesFuture);
+public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
+
+
+    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+        super(output, completableFuture);
     }
 
     @Override

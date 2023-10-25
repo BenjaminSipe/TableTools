@@ -1,5 +1,0 @@
-{
-  "type": "bettertools:bettertools_crafting",
-  "ingredient": {"item": "minecraft:iron_ingot"},
-  "output": {"item": "bettertools:better_iron_sword"}
-}

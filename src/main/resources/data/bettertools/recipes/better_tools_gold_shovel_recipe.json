@@ -1,5 +1,0 @@
-{
-  "type": "bettertools:bettertools_crafting",
-  "ingredient": {"item": "minecraft:gold_ingot" },
-  "output": {"item": "bettertools:better_gold_shovel"}
-}

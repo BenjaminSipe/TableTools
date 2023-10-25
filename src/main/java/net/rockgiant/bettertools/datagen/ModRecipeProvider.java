@@ -11,9 +11,11 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.rockgiant.bettertools.item.ModItems;
 import net.rockgiant.bettertools.item.tools.*;
+import net.rockgiant.bettertools.util.recipe.BetterToolsCraftingRecipeJsonBuilder;
 
 import java.util.Optional;
 
@@ -50,6 +52,38 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_SHOVEL, BETTER_DIAMOND_SHOVEL, "better_netherite_shovel_smithing_recipe");
         generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_SWORD, BETTER_DIAMOND_SWORD, "better_netherite_sword_smithing_recipe");
         generateSmithingTableUpgradeRecipe(exporter, BETTER_NETHERITE_HOE, BETTER_DIAMOND_HOE, "better_netherite_hoe_smithing_recipe");
+
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_AXE, Ingredient.fromTag(ItemTags.PLANKS), "better_tools_wooden_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_PICKAXE, Ingredient.fromTag(ItemTags.PLANKS), "better_tools_wooden_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SHOVEL, Ingredient.fromTag(ItemTags.PLANKS), "better_tools_wooden_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SWORD, Ingredient.fromTag(ItemTags.PLANKS), "better_tools_wooden_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_HOE, Ingredient.fromTag(ItemTags.PLANKS), "better_tools_wooden_hoe_recipe" );
+
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_AXE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_PICKAXE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SHOVEL, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SWORD, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_HOE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_hoe_recipe" );
+
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_AXE, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_PICKAXE, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_SHOVEL, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_SWORD, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_HOE, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_hoe_recipe" );
+
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_AXE, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_PICKAXE, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_SHOVEL, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_SWORD, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_HOE, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_hoe_recipe" );
+
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_AXE, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_PICKAXE, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_SHOVEL, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_SWORD, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_HOE, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_hoe_recipe" );
+
+
     }
 
     public void generateToolRodRecipe(RecipeExporter exporter, Item item, Item ingredient )
@@ -70,5 +104,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(FabricRecipeProvider.hasItem( Items.NETHERITE_INGOT ),
                         FabricRecipeProvider.conditionsFromItem( Items.NETHERITE_INGOT ) )
                 .offerTo(exporter, recipeId);
+    }
+
+    public void generateBetterToolsCraftingRecipe(RecipeExporter exporter, Item result, Ingredient ingredient, String recipeId ) {
+        BetterToolsCraftingRecipeJsonBuilder.create(ingredient,result).offerTo(exporter,recipeId);
     }
 }
