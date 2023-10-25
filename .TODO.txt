@@ -6,10 +6,13 @@ Current List
 Backlog / Planned features:
 3. Additional Tool Variants.
     > New materials:
-        > Gemstones: emerald, amethyst
-        > Sharp rocks: obsidian, flint
-        > Hard stones: Deepslate, Blackstone, endstone
-        > Soft metals: Copper,
+        > Gemstones: emerald, amethyst, quartz
+        > Soft stones: netherrack, sandstone, red sandstone
+        > Stones: Granite, Andesite, Diorite, Tuff, Calcite, Blackstone,
+        > Sharp rocks: obsidian, flint, crying_obsidian
+        > Hard stones: Deepslate, endstone, Basalt,
+        > Soft metals: Copper
+
     > New tools:
         > Multi-tools: Mattock, Adze,
         > Weapons: Knife, Bow, crossbow, spear
@@ -43,3 +46,5 @@ I think as far as tool variants are concerned, I don't really feel bad about add
 I do need to setup the ingredient repairs.
 Which will probably involve custom tags.
 Which I have yet to do.
+
+

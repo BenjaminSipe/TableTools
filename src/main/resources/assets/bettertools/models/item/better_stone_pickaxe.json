@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bettertools:item/tinted_tool_rod",
-    "layer1": "bettertools:item/stone_tool_head/stone_pickaxe_head"
-  }
-}

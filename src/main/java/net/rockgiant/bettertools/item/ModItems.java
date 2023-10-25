@@ -62,23 +62,8 @@ public class ModItems {
     public static final Item BETTER_NETHERITE_SWORD = registerItem( "better_netherite_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_NETHERITE,(int)getToolAttackDamage("sword", "netherite"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
     public static final Item BETTER_NETHERITE_SHOVEL = registerItem( "better_netherite_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_NETHERITE,getToolAttackDamage("shovel", "netherite"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
 
-    public static final Item[] TINTED_TOOL_RODS = new Item[]{
-            ACACIA_TINTED_TOOL_ROD,
-            BAMBOO_TINTED_TOOL_ROD,
-            BIRCH_TINTED_TOOL_ROD,
-            CHERRY_TINTED_TOOL_ROD,
-            CRIMSON_TINTED_TOOL_ROD,
-            DARK_OAK_TINTED_TOOL_ROD,
-            JUNGLE_TINTED_TOOL_ROD,
-            MANGROVE_TINTED_TOOL_ROD,
-            OAK_TINTED_TOOL_ROD,
-            SPRUCE_TINTED_TOOL_ROD,
-            WARPED_TINTED_TOOL_ROD
-    };
-
     private static Item registerItem(String name, Item item)
     {
-
         return Registry.register( Registries.ITEM, new Identifier(BetterTools.MOD_ID, name), item);
     }
 
@@ -90,8 +75,18 @@ public class ModItems {
 
     private static void registerModToolRods() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
-            for ( Item item : TINTED_TOOL_RODS )
-                content.addAfter( Items.STICK, item );
+            content.addAfter( Items.STICK,
+                ACACIA_TINTED_TOOL_ROD,
+                BAMBOO_TINTED_TOOL_ROD,
+                BIRCH_TINTED_TOOL_ROD,
+                CHERRY_TINTED_TOOL_ROD,
+                CRIMSON_TINTED_TOOL_ROD,
+                DARK_OAK_TINTED_TOOL_ROD,
+                JUNGLE_TINTED_TOOL_ROD,
+                MANGROVE_TINTED_TOOL_ROD,
+                OAK_TINTED_TOOL_ROD,
+                SPRUCE_TINTED_TOOL_ROD,
+                WARPED_TINTED_TOOL_ROD );
         });
     }
 

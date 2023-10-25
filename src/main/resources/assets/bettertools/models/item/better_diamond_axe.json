@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bettertools:item/tinted_tool_rod",
-    "layer1": "bettertools:item/diamond_tool_head/diamond_axe_head"
-  }
-}
