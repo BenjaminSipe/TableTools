@@ -120,7 +120,6 @@ public class ModItems {
     public static final Item BETTER_AMETHYST_SWORD = registerItem( "better_amethyst_sword", new BetterSwordItem(BetterToolsMaterial.STURDY_GEMSTONE,(int)getToolAttackDamage("sword", "gemstone"), getToolAttackSpeed("sword"), new FabricItemSettings() ));
     public static final Item BETTER_AMETHYST_SHOVEL = registerItem( "better_amethyst_shovel", new BetterShovelItem(BetterToolsMaterial.STURDY_GEMSTONE,getToolAttackDamage("shovel", "gemstone"), getToolAttackSpeed("shovel"), new FabricItemSettings() ));
 
-    // INCOMPLETE
     public static final Item BETTER_EMERALD_AXE = registerItem( "better_emerald_axe", new BetterAxeItem(BetterToolsMaterial.STURDY_GEMSTONE,getToolAttackDamage("axe", "gemstone"), getToolAttackSpeed("axe"), new FabricItemSettings() ));
     public static final Item BETTER_EMERALD_PICKAXE = registerItem( "better_emerald_pickaxe", new BetterPickaxeItem(BetterToolsMaterial.STURDY_GEMSTONE,(int)getToolAttackDamage("pickaxe", "gemstone"), getToolAttackSpeed("pickaxe"), new FabricItemSettings() ));
     public static final Item BETTER_EMERALD_HOE = registerItem( "better_emerald_hoe", new BetterHoeItem(BetterToolsMaterial.STURDY_GEMSTONE,(int)getToolAttackDamage("hoe", "gemstone"), getToolAttackSpeed("hoe"), new FabricItemSettings() ));
