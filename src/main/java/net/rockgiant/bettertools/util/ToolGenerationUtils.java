@@ -57,8 +57,11 @@ public class ToolGenerationUtils {
                 case "wood":
                     return 0;
                 case "stone":
+                case "copper":
+                case "flint":
                     return -1;
                 case "diamond":
+                case "obsidian":
                     return -3;
                 case "netherite":
                     return -4;
@@ -72,6 +75,7 @@ public class ToolGenerationUtils {
                 return 7;
             case "diamond":
             case "netherite":
+            case "obsidian":
                 return 5;
             default:
                 return 6;
@@ -136,11 +140,9 @@ public class ToolGenerationUtils {
 
 
     public static void addTint(ItemStack tool, int tint ) {
-        BetterTools.LOGGER.error( "Added Tint to ItemStack " + tint );
         tool.getOrCreateNbt().putInt( TINT_KEY, tint);
     }
     public static void addHeadTint(ItemStack tool, int tint ) {
-        BetterTools.LOGGER.error( "Added Tint to ItemStack " + tint );
         tool.getOrCreateNbt().putInt( "head" + TINT_KEY, tint);
     }
 

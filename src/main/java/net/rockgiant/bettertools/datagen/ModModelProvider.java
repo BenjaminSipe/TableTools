@@ -30,7 +30,17 @@ public class ModModelProvider extends FabricModelProvider {
         generateDiamondToolModels(itemModelGenerator);
         generateNetheriteToolModels(itemModelGenerator);
 
+        generateAmethystToolModels(itemModelGenerator);
 
+
+    }
+
+    private void generateAmethystToolModels(ItemModelGenerator img) {
+        Models.GENERATED_TWO_LAYERS.upload( ModelIds.getItemModelId(BETTER_AMETHYST_AXE), TextureMap.layered(new Identifier(BetterTools.MOD_ID, "item/tinted_tool_rod"),new Identifier(BetterTools.MOD_ID, "item/amethyst/amethyst_axe_head")), img.writer);
+        Models.GENERATED_TWO_LAYERS.upload( ModelIds.getItemModelId(BETTER_AMETHYST_HOE), TextureMap.layered(new Identifier(BetterTools.MOD_ID, "item/tinted_tool_rod"),new Identifier(BetterTools.MOD_ID, "item/amethyst/amethyst_hoe_head")), img.writer);
+        Models.GENERATED_TWO_LAYERS.upload( ModelIds.getItemModelId(BETTER_AMETHYST_PICKAXE), TextureMap.layered(new Identifier(BetterTools.MOD_ID, "item/tinted_tool_rod"),new Identifier(BetterTools.MOD_ID, "item/amethyst/amethyst_pickaxe_head")), img.writer);
+        Models.GENERATED_TWO_LAYERS.upload( ModelIds.getItemModelId(BETTER_AMETHYST_SHOVEL), TextureMap.layered(new Identifier(BetterTools.MOD_ID, "item/tinted_shovel_handle"),new Identifier(BetterTools.MOD_ID, "item/amethyst/amethyst_shovel_head")), img.writer);
+        Models.GENERATED_TWO_LAYERS.upload( ModelIds.getItemModelId(BETTER_AMETHYST_SWORD), TextureMap.layered(new Identifier(BetterTools.MOD_ID, "item/tinted_sword_handle"),new Identifier(BetterTools.MOD_ID, "item/amethyst/amethyst_sword_head")), img.writer);
     }
 
     private void generateNetheriteToolModels(ItemModelGenerator img) {

@@ -12,16 +12,10 @@ import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.rockgiant.bettertools.item.ModItems;
-import net.rockgiant.bettertools.item.tools.*;
 import net.rockgiant.bettertools.util.recipe.BetterToolsCraftingRecipeJsonBuilder;
 
-import java.util.Optional;
-
 import static net.rockgiant.bettertools.item.ModItems.*;
-import static net.rockgiant.bettertools.util.ToolGenerationUtils.getMaterial;
-import static net.rockgiant.bettertools.util.ToolGenerationUtils.getPlanks;
+
 
 public class ModRecipeProvider extends FabricRecipeProvider {
 
@@ -40,6 +34,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateBetterToolsDiamondToolsCraftingRecipes(exporter);
         generateBetterToolsNetheriteSmithingRecipes(exporter);
 
+        generateBetterToolsAmethystCraftingRecipes(exporter);
+
+    }
+
+    private void generateBetterToolsAmethystCraftingRecipes(RecipeExporter exporter) {
+
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_AXE, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_PICKAXE, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_SHOVEL, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_SWORD, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_HOE, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_hoe_recipe" );
     }
 
     public void generateToolRodRecipes(RecipeExporter exporter ) {

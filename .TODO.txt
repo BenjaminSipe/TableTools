@@ -13,6 +13,8 @@ Backlog / Planned features:
         > Hard stones: Deepslate, endstone, Basalt,
         > Soft metals: Copper
 
+        > other potentials: nether brick, brick, echo-shard
+
     > New tools:
         > Multi-tools: Mattock, Adze,
         > Weapons: Knife, Bow, crossbow, spear

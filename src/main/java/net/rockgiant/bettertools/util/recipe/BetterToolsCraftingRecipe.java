@@ -85,8 +85,6 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
         }
         if ( this.headTint != 0 ) {
             addHeadTint( output, this.headTint );
-        } else {
-            addHeadTint( output, -1 );
         }
         return output;
     }
@@ -150,17 +148,6 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
                         .forGetter( r-> r.output )
                 ).apply(in, BetterToolsCraftingRecipe::new));
 
-//        private static Codec<List<Ingredient>> validateAmount(Codec<Ingredient> delegate, int max) {
-//            return Codecs.validate(
-//                    Codecs.validate(
-//                            delegate.listOf(),
-//                            list -> list.size() > max
-//                                    ? DataResult.error(() -> "Recipe has too many ingredients!")
-//                                    : DataResult.success(list)),
-//                    list -> list.isEmpty()
-//                            ? DataResult.error(() -> "Recipe has no ingredients!")
-//                            : DataResult.success(list));
-//        }
 
         @Override
         public Codec<BetterToolsCraftingRecipe> codec() {
@@ -169,11 +156,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
 
         @Override
         public BetterToolsCraftingRecipe read(PacketByteBuf buf) {
-//            DefaultedList<Ingredient> inputs = DefaultedList.ofSize( buf.readInt(), Ingredient.EMPTY );
-//            for ( int i = 0; i < inputs.size(); i++) {
-                Ingredient i = Ingredient.fromPacket(buf);
-//            }
-
+            Ingredient i = Ingredient.fromPacket(buf);
 
             ItemStack output = buf.readItemStack();
             return new BetterToolsCraftingRecipe(i, output);
@@ -181,10 +164,6 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
 
         @Override
         public void write(PacketByteBuf buf, BetterToolsCraftingRecipe recipe) {
-//            buf.writeInt(recipe.getIngredients().size());
-//            for ( Ingredient ingredient : recipe.getIngredients()) {
-//                ingredient.write(buf);
-//            }
             recipe.recipeItem.write( buf );
             buf.writeItemStack(recipe.getResult(null));
         }

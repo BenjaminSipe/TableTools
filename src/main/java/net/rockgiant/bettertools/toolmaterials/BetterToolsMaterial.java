@@ -6,6 +6,7 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Lazy;
+import net.rockgiant.bettertools.item.ModItemTags;
 
 import java.util.function.Supplier;
 
@@ -16,18 +17,26 @@ public class BetterToolsMaterial implements ToolMaterial {
     // SWIFT tools have a 10% speed buff;
     private static final float STURDY_MODIFIER = 1.1f;
 
-
+    // VANILLA TOOL MATERIALS
     public static final BetterToolsMaterial STURDY_WOOD = new BetterToolsMaterial(0, (int) (STURDY_MODIFIER * 59 ), 2.0f, 0.0f, 15, () -> Ingredient.fromTag( ItemTags.PLANKS ));
 
-    public static final BetterToolsMaterial STURDY_STONE = new BetterToolsMaterial(1, (int) (STURDY_MODIFIER * 131), 4.0F, 1.0F, 5, () -> Ingredient.fromTag( ItemTags.STONE_TOOL_MATERIALS ));
+    public static final BetterToolsMaterial STURDY_STONE = new BetterToolsMaterial(1, (int) (STURDY_MODIFIER * 131), 4.0F, 1.0F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_STONE_VARIANTS ));
 
-    public static final BetterToolsMaterial STURDY_GOLD = new BetterToolsMaterial(0, (int) (STURDY_MODIFIER * 32), 12.0F, 0.0F, 22, () -> Ingredient.ofItems( Items.GOLD_INGOT ));
+    public static final BetterToolsMaterial STURDY_SOFT_METALS = new BetterToolsMaterial(0, (int) (STURDY_MODIFIER * 32), 12.0F, 0.0F, 22, () -> Ingredient.ofItems( Items.GOLD_INGOT, Items.COPPER_INGOT ));
 
     public static final BetterToolsMaterial STURDY_IRON = new BetterToolsMaterial(2, (int) (STURDY_MODIFIER * 250), 6.0F, 2.0F, 14, () -> Ingredient.ofItems( Items.IRON_INGOT ));
 
     public static final BetterToolsMaterial STURDY_DIAMOND = new BetterToolsMaterial(3, (int) (STURDY_MODIFIER * 1561), 8.0F, 3.0F, 10, () -> Ingredient.ofItems( Items.DIAMOND ));
 
     public static final BetterToolsMaterial STURDY_NETHERITE = new BetterToolsMaterial(4, (int) (STURDY_MODIFIER * 2031), 9.0F, 4.0F, 15, () -> Ingredient.ofItems( Items.NETHERITE_INGOT ));
+
+    // ALTERNATIVE MATERIALS
+
+    public static final BetterToolsMaterial STURDY_GEMSTONE = new BetterToolsMaterial(2, (int) (STURDY_MODIFIER * 170), 6.0F, 2.5F, 22, () -> Ingredient.fromTag(ModItemTags.BETTER_GEMSTONE_VARIANTS));
+    public static final BetterToolsMaterial STURDY_SOFTSTONES = new BetterToolsMaterial(0, (int) (STURDY_MODIFIER * 66), 6.0F, 0.0F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_SOFT_STONE_VARIANTS));
+    public static final BetterToolsMaterial STURDY_HARDSTONES = new BetterToolsMaterial(1, (int) (STURDY_MODIFIER * 230), 4.0F, 1.5F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_HARD_STONE_VARIANTS));
+    public static final BetterToolsMaterial STURDY_FLINT = new BetterToolsMaterial(1, (int) (STURDY_MODIFIER * 100), 4.0F, 1.0F, 15, () -> Ingredient.ofItems(Items.FLINT));
+    public static final BetterToolsMaterial STURDY_OBSIDIAN = new BetterToolsMaterial(3, (int) (STURDY_MODIFIER * 1761), 4.0F, 2.5F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_OBSIDIAN_VARIANTS));
 
 //    these may be removed due to a different method of implementation, but I will hang onto them for the time being.
 

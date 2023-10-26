@@ -18,6 +18,13 @@ public class ModItemTags {
 
     public static final TagKey<Item> BETTER_TOOLS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_tools"));
 
+    // repair materials
+    public static final TagKey<Item> BETTER_STONE_VARIANTS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_stone_variants"));
+    public static final TagKey<Item> BETTER_SOFT_STONE_VARIANTS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_soft_stone_variants"));
+    public static final TagKey<Item> BETTER_HARD_STONE_VARIANTS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_hard_stone_variants"));
+    public static final TagKey<Item> BETTER_GEMSTONE_VARIANTS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_gemstone_variants"));
+    public static final TagKey<Item> BETTER_OBSIDIAN_VARIANTS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_obsidian_variants"));
+
     public static void registerTags() {
 
     }
