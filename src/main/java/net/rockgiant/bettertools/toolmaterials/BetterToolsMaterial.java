@@ -32,9 +32,9 @@ public class BetterToolsMaterial implements ToolMaterial {
 
     // ALTERNATIVE MATERIALS
 
-    public static final BetterToolsMaterial STURDY_GEMSTONE = new BetterToolsMaterial(2, (int) (STURDY_MODIFIER * 170), 6.0F, 2.5F, 22, () -> Ingredient.fromTag(ModItemTags.BETTER_GEMSTONE_VARIANTS));
+    public static final BetterToolsMaterial STURDY_GEMSTONE = new BetterToolsMaterial(2, (int) (STURDY_MODIFIER * 170), 6.0F, 2F, 22, () -> Ingredient.fromTag(ModItemTags.BETTER_GEMSTONE_VARIANTS));
     public static final BetterToolsMaterial STURDY_SOFTSTONES = new BetterToolsMaterial(0, (int) (STURDY_MODIFIER * 66), 6.0F, 0.0F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_SOFT_STONE_VARIANTS));
-    public static final BetterToolsMaterial STURDY_HARDSTONES = new BetterToolsMaterial(1, (int) (STURDY_MODIFIER * 230), 4.0F, 1.5F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_HARD_STONE_VARIANTS));
+    public static final BetterToolsMaterial STURDY_HARDSTONES = new BetterToolsMaterial(1, (int) (STURDY_MODIFIER * 230), 4.0F, 1.0F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_HARD_STONE_VARIANTS));
     public static final BetterToolsMaterial STURDY_FLINT = new BetterToolsMaterial(1, (int) (STURDY_MODIFIER * 100), 4.0F, 1.0F, 15, () -> Ingredient.ofItems(Items.FLINT));
     public static final BetterToolsMaterial STURDY_OBSIDIAN = new BetterToolsMaterial(3, (int) (STURDY_MODIFIER * 1761), 4.0F, 2.5F, 5, () -> Ingredient.fromTag(ModItemTags.BETTER_OBSIDIAN_VARIANTS));
 
