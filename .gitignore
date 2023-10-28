@@ -6,6 +6,7 @@ out/
 classes/
 
 src/main/generated
+src/remappedSrc
 
 # eclipse
 

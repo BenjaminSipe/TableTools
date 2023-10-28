@@ -1,9 +1,9 @@
 package net.rockgiant.bettertools.item.tools;
 
 
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.*;
+import net.minecraft.util.ActionResult;
 
 public class BetterHoeItem extends HoeItem {
 
@@ -11,6 +11,16 @@ public class BetterHoeItem extends HoeItem {
 
         super(material, attackDamage, attackSpeed, settings);
 
+    }
+
+    @Override
+    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+        return stack.getDamage() == stack.getMaxDamage() - 1 ? 0.1f : super.getMiningSpeedMultiplier(stack, state);
+    }
+
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        return context.getStack().getMaxDamage() - 1 == context.getStack().getDamage() ? ActionResult.PASS : super.useOnBlock(context);
     }
 
 }

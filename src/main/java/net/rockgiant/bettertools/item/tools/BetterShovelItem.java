@@ -1,9 +1,8 @@
 package net.rockgiant.bettertools.item.tools;
 
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.*;
+import net.minecraft.util.ActionResult;
 
 public class BetterShovelItem extends ShovelItem {
 
@@ -11,5 +10,15 @@ public class BetterShovelItem extends ShovelItem {
 
         super(material, attackDamage, attackSpeed, settings);
 
+    }
+
+    @Override
+    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+        return stack.getDamage() == stack.getMaxDamage() - 1 ? 0.1f : super.getMiningSpeedMultiplier(stack, state);
+    }
+
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        return context.getStack().getMaxDamage() - 1 == context.getStack().getDamage() ? ActionResult.PASS : super.useOnBlock(context);
     }
 }
