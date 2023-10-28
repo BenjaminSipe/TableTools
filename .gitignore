@@ -5,8 +5,8 @@ build/
 out/
 classes/
 
-src/main/generated
-remappedSrc
+src/main/generated/
+remappedSrc/
 
 # eclipse
 
