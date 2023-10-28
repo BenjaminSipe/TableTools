@@ -26,6 +26,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
 
     private int tint = 0;
     private int headTint = 0;
+    private String handle_tooltip = "";
 
     public BetterToolsCraftingRecipe(Ingredient ingredient, ItemStack itemStack) {
         this.output = itemStack;
@@ -38,7 +39,6 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
             return false;
         }
 
-//        if ( output.getItem() instanceof BetterPickaxeItem )
         if ( Ingredient.fromTag( ModItemTags.BETTER_PICKAXES ).test( output ) )
             return matchesLists( new int[] {0,1,2}, new int[] {3,5,6,8}, new int[] {4,7}, inventory );
         if ( Ingredient.fromTag( ModItemTags.BETTER_SWORDS ).test( output ) )
@@ -82,6 +82,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
     public ItemStack getResult(DynamicRegistryManager registryManager) {
         if ( this.tint != 0 ) {
             addTint( output, this.tint );
+            addHandleTooltip(output, this.handle_tooltip );
         }
         if ( this.headTint != 0 ) {
             addHeadTint( output, this.headTint );
@@ -125,6 +126,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
         }
 
         this.tint = ((TintedToolRodItem) inventory.getStack( sticks[0] ).getItem()).getTint();
+        this.handle_tooltip = getHandleToolTip( inventory.getStack( sticks[0] ).getItem());
 
         if ( Ingredient.fromTag(ItemTags.PLANKS ).equals( recipeItem ) ) {
             this.headTint = getWoodTint(inventory.getStack(ingredients[0]).getItem());

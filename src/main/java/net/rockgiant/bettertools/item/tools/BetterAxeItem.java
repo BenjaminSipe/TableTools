@@ -2,16 +2,24 @@ package net.rockgiant.bettertools.item.tools;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+import java.util.List;
+
 import static net.rockgiant.bettertools.BetterTools.LOGGER;
+import static net.rockgiant.bettertools.util.ToolGenerationUtils.getHandleToolTip;
 
 public class BetterAxeItem extends AxeItem {
 
@@ -31,5 +39,11 @@ public class BetterAxeItem extends AxeItem {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         return context.getStack().getMaxDamage() - 1 == context.getStack().getDamage() ? ActionResult.PASS : super.useOnBlock(context);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.literal(getHandleToolTip(stack)).formatted(Formatting.GRAY));
+        super.appendTooltip(stack, world, tooltip, context);
     }
 }

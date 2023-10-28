@@ -1,22 +1,21 @@
 package net.rockgiant.bettertools.util;
 
-import com.mojang.datafixers.types.templates.Tag;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.rockgiant.bettertools.BetterTools;
+import net.rockgiant.bettertools.item.ModItems;
 
 import java.util.Optional;
 
 public class ToolGenerationUtils {
 
     public static final String TINT_KEY = "tint";
+    public static final String HEAD_TINT_KEY = "headtint";
+    public static final String HANDLE_TOOL_TIP = "handle_tooltip";
+
 
     public static float getToolAttackSpeed(String tool_type ) {
         switch (tool_type) {
@@ -112,30 +111,26 @@ public class ToolGenerationUtils {
         }
     }
 
-    public static Optional getMaterial(String material ) {
-
-        switch ( material ) {
-            case "wood":
-                return Optional.of(ItemTags.PLANKS);
-            case "stone":
-                return Optional.of( ItemTags.STONE_TOOL_MATERIALS );
-            case "iron":
-                return Optional.of( Items.IRON_INGOT );
-            case "gold":
-                return Optional.of( Items.GOLD_INGOT );
-            case "diamond":
-                return Optional.of( Items.DIAMOND );
-            case "netherite":
-            default:
-                return Optional.of( Items.NETHERITE_INGOT );
-        }
+    public static String getHandleToolTip( Item item ) {
+        if ( item.equals(ModItems.ACACIA_TINTED_TOOL_ROD ) ) return "Acacia Handle";
+        if ( item.equals( ModItems.BAMBOO_TINTED_TOOL_ROD ) ) return "Bamboo Handle";
+        if ( item.equals( ModItems.BIRCH_TINTED_TOOL_ROD ) ) return "Birch Handle";
+        if ( item.equals( ModItems.CHERRY_TINTED_TOOL_ROD ) ) return "Cherry Handle";
+        if ( item.equals( ModItems.CRIMSON_TINTED_TOOL_ROD ) ) return "Crimson Handle";
+        if ( item.equals( ModItems.DARK_OAK_TINTED_TOOL_ROD ) ) return "Dark Oak Handle";
+        if ( item.equals( ModItems.JUNGLE_TINTED_TOOL_ROD ) ) return "Jungle Handle";
+        if ( item.equals( ModItems.MANGROVE_TINTED_TOOL_ROD ) ) return "Mangrove Handle";
+        if ( item.equals( ModItems.OAK_TINTED_TOOL_ROD ) ) return "Oak Handle";
+        if ( item.equals( ModItems.SPRUCE_TINTED_TOOL_ROD ) ) return "Spruce Handle";
+        if ( item.equals( ModItems.WARPED_TINTED_TOOL_ROD ) ) return "Warped Handle";
+        return "";
     }
 
     public static int getTint( ItemStack tool ) {
         return tool.getOrCreateNbt().getInt( TINT_KEY );
     }
     public static int getHeadTint( ItemStack tool ) {
-        return tool.getOrCreateNbt().getInt( "head"+ TINT_KEY );
+        return tool.getOrCreateNbt().getInt( HEAD_TINT_KEY );
     }
 
 
@@ -143,7 +138,15 @@ public class ToolGenerationUtils {
         tool.getOrCreateNbt().putInt( TINT_KEY, tint);
     }
     public static void addHeadTint(ItemStack tool, int tint ) {
-        tool.getOrCreateNbt().putInt( "head" + TINT_KEY, tint);
+        tool.getOrCreateNbt().putInt( HEAD_TINT_KEY, tint);
+    }
+
+    public static void addHandleTooltip(ItemStack tool, String tooltip ) {
+        tool.getOrCreateNbt().putString(HANDLE_TOOL_TIP, tooltip);
+    }
+
+    public static String getHandleToolTip(ItemStack tool ) {
+        return tool.getOrCreateNbt().getString(HANDLE_TOOL_TIP);
     }
 
 }
