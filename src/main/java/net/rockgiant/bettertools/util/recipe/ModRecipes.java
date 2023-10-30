@@ -9,5 +9,7 @@ public class ModRecipes {
     public static void registerRecipes() {
         Registry.register(Registries.RECIPE_SERIALIZER, new Identifier( BetterTools.MOD_ID, BetterToolsCraftingRecipe.Serializer.ID ),
                 BetterToolsCraftingRecipe.Serializer.INSTANCE );
+        Registry.register(Registries.RECIPE_SERIALIZER, new Identifier( BetterTools.MOD_ID, BetterToolsRepairRecipe.ID ),
+                BetterToolsRepairRecipe.TOOLS_REPAIR_SERIALIZER );
     }
 }

@@ -87,6 +87,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
         if ( this.headTint != 0 ) {
             addHeadTint( output, this.headTint );
         }
+        addMaxRepairCount(output);
         return output;
     }
 

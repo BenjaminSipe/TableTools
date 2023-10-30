@@ -1,30 +1,28 @@
 TODO list for Mod:
 
 Current List
-9. Add translations for items.
-
-6. In crafting grid repairing. ( may not be desired )
-    > Add item repairs in crafting grid
-    > Add enchantment that allows enchantments to be kept when manually repairing tools
 
 Backlog / Planned features:
 3. Additional Tool Variants.
-
-
-        > other potentials: nether brick, brick, echo-shard, terrecotta,
-
+    > potential materials: nether brick, brick, echo-shard, terrecotta,
     > New tools:
         > Multi-tools: Mattock, Adze,
         > Weapons: Knife, Bow, crossbow, spear
-        > 3x3 tools: Broad Axe, Hammer, Excavator
+        > 3x3 tools: Broad Axe, Hammer, Excavator // I might hate these.
 4. Enchanting templates.
     > Add vanilla enchantment templates,
     > Add crafting/loot table templates,
     > Balance Mending enchantment,
+    > Remove enchantments from tools repaired in crafting table.
+    > Add enchantment that allows enchantments to be kept when manually repairing tools
 
 10. Make tool tip include handle material
 11. Add Tool Bindings
 12. Add sturdy and swift modifiers based on the tool rod used in construction.
+14. Rename everything to make sense.
+15. Reorganize everything by tool type because that is better I think
+16. Add unstable modifier to GEMSTONE tools.
+
 
 COMPLETED:
 13. Add Vanilla Tools Back
@@ -51,6 +49,12 @@ COMPLETED:
             NOTE: doesn't prevent usage, simply slows mining speed, and removes right-click ability.
                 Dynamically adjusting the attack damage on the fly appears quite difficult.
                 I can probably do it using AttributeModifiers, but I'm not completely sure where to change them. And I need to add in repairs first.
+9. Add translations for items.
+6. In crafting grid repairing. ( may not be desired )
+    > Add item repairs in crafting grid
+    > Cost is based on material investment in the tool. So 1 ingot will fully repair a shovel, 50% repair a sword or hoe, and 33 % repair a pick or an axe.
+    > All enchantments are removed when repairing in crafting table.
+
 
 // notes & brainstorming:
 I think as far as tool variants are concerned, I don't really feel bad about adding in the variants manually.

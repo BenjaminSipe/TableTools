@@ -5,7 +5,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.ItemTags;
+import net.rockgiant.bettertools.item.ModItemTags;
 import net.rockgiant.bettertools.item.ModItems;
 
 import java.util.Optional;
@@ -15,6 +17,7 @@ public class ToolGenerationUtils {
     public static final String TINT_KEY = "tint";
     public static final String HEAD_TINT_KEY = "headtint";
     public static final String HANDLE_TOOL_TIP = "handle_tooltip";
+    public static final String MATERIAL_COUNT = "material_count";
 
 
     public static float getToolAttackSpeed(String tool_type ) {
@@ -139,6 +142,24 @@ public class ToolGenerationUtils {
     }
     public static void addHeadTint(ItemStack tool, int tint ) {
         tool.getOrCreateNbt().putInt( HEAD_TINT_KEY, tint);
+    }
+
+    public static int getMaxRepairCount(ItemStack stack) {
+        return stack.getOrCreateNbt().getInt(MATERIAL_COUNT);
+    }
+
+    public static void addMaxRepairCount(ItemStack stack ) {
+        if (
+            Ingredient.fromTag( ModItemTags.BETTER_AXES ).test( stack ) ||
+            Ingredient.fromTag( ModItemTags.BETTER_PICKAXES ).test( stack ))
+                    stack.getOrCreateNbt().putInt(MATERIAL_COUNT, 3);
+        if (
+            Ingredient.fromTag( ModItemTags.BETTER_SWORDS ).test( stack ) ||
+            Ingredient.fromTag( ModItemTags.BETTER_HOES ).test( stack ))
+                    stack.getOrCreateNbt().putInt(MATERIAL_COUNT, 2);
+        if (
+            Ingredient.fromTag( ModItemTags.BETTER_SHOVELS ).test( stack ) )
+                    stack.getOrCreateNbt().putInt(MATERIAL_COUNT, 1);
     }
 
     public static void addHandleTooltip(ItemStack tool, String tooltip ) {
