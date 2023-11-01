@@ -121,7 +121,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_AXE, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_axe_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_AXE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_axe_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_AXE, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_AXE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_iron_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_AXE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_axe_recipe" );
     }
 
     private void generateHoeRecipes(RecipeExporter exporter) {
@@ -148,7 +148,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_HOE, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_hoe_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_HOE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_hoe_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_HOE, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_HOE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_iron_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_HOE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_hoe_recipe" );
     }
 
     private void generatePickaxeRecipes(RecipeExporter exporter) {
@@ -175,7 +175,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_PICKAXE, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_pickaxe_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_PICKAXE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_pickaxe_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_PICKAXE, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_PICKAXE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_iron_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_PICKAXE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_pickaxe_recipe" );
     }
 
     private void generateShovelRecipes(RecipeExporter exporter) {
@@ -202,7 +202,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_SHOVEL, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_shovel_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SHOVEL, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_shovel_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_SHOVEL, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SHOVEL, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_iron_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SHOVEL, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_shovel_recipe" );
     }
 
     private void generateSwordRecipes(RecipeExporter exporter) {
@@ -229,6 +229,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_SWORD, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_sword_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SWORD, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_sword_recipe" );
         generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_SWORD, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SWORD, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_iron_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SWORD, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_sword_recipe" );
     }
 }

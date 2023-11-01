@@ -29,7 +29,7 @@ public class ModLangProvider extends FabricLanguageProvider {
         translationBuilder.add( DARK_OAK_TINTED_TOOL_ROD, "Dark Oak Tool Rod");
         translationBuilder.add( JUNGLE_TINTED_TOOL_ROD, "Jungle Tool Rod");
         translationBuilder.add( MANGROVE_TINTED_TOOL_ROD, "Mangrove Tool Rod");
-        translationBuilder.add( OAK_TINTED_TOOL_ROD, "OAk Tool Rod");
+        translationBuilder.add( OAK_TINTED_TOOL_ROD, "Oak Tool Rod");
         translationBuilder.add( SPRUCE_TINTED_TOOL_ROD, "Spruce Tool Rod");
         translationBuilder.add( WARPED_TINTED_TOOL_ROD, "Warped Tool Rod");
     }
