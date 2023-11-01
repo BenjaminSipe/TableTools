@@ -1,6 +1,7 @@
 TODO list for Mod:
 
 Current List
+15. Reorganize everything by tool type because that is better I think
 
 Backlog / Planned features:
 3. Additional Tool Variants.
@@ -16,15 +17,15 @@ Backlog / Planned features:
     > Remove enchantments from tools repaired in crafting table.
     > Add enchantment that allows enchantments to be kept when manually repairing tools
 
-10. Make tool tip include handle material
+
 11. Add Tool Bindings
 12. Add sturdy and swift modifiers based on the tool rod used in construction.
 14. Rename everything to make sense.
-15. Reorganize everything by tool type because that is better I think
 16. Add unstable modifier to GEMSTONE tools.
 
 
 COMPLETED:
+10. Make tool tip include handle material
 13. Add Vanilla Tools Back
 3. Partial
     > New materials:

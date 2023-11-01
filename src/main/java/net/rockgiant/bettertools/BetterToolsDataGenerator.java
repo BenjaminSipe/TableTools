@@ -6,15 +6,8 @@ import net.rockgiant.bettertools.datagen.ModItemTagProvider;
 import net.rockgiant.bettertools.datagen.ModLangProvider;
 import net.rockgiant.bettertools.datagen.ModModelProvider;
 import net.rockgiant.bettertools.datagen.ModRecipeProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static net.rockgiant.bettertools.BetterTools.MOD_ID;
-
 
 public class BetterToolsDataGenerator implements DataGeneratorEntrypoint {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {

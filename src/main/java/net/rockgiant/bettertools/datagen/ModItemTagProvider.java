@@ -41,7 +41,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                     BETTER_IRON_SHOVEL,
                     BETTER_DIAMOND_SHOVEL,
                     BETTER_NETHERITE_SHOVEL,
-
                     BETTER_AMETHYST_SHOVEL,
                     BETTER_EMERALD_SHOVEL,
                     BETTER_QUARTZ_SHOVEL,
@@ -71,7 +70,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                     BETTER_IRON_AXE,
                     BETTER_DIAMOND_AXE,
                     BETTER_NETHERITE_AXE,
-
                     BETTER_AMETHYST_AXE,
                     BETTER_EMERALD_AXE,
                     BETTER_QUARTZ_AXE,
@@ -101,7 +99,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                     BETTER_IRON_PICKAXE,
                     BETTER_DIAMOND_PICKAXE,
                     BETTER_NETHERITE_PICKAXE,
-
                     BETTER_AMETHYST_PICKAXE,
                     BETTER_EMERALD_PICKAXE,
                     BETTER_QUARTZ_PICKAXE,
@@ -131,7 +128,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                     BETTER_IRON_SWORD,
                     BETTER_DIAMOND_SWORD,
                     BETTER_NETHERITE_SWORD,
-
                     BETTER_AMETHYST_SWORD,
                     BETTER_EMERALD_SWORD,
                     BETTER_QUARTZ_SWORD,
@@ -161,7 +157,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                     BETTER_IRON_HOE,
                     BETTER_DIAMOND_HOE,
                     BETTER_NETHERITE_HOE,
-
                     BETTER_AMETHYST_HOE,
                     BETTER_EMERALD_HOE,
                     BETTER_QUARTZ_HOE,
@@ -181,7 +176,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                     BETTER_END_STONE_HOE,
                     BETTER_BASALT_HOE,
                     BETTER_COPPER_HOE
-
                     );
 
 

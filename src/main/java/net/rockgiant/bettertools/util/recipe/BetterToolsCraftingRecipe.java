@@ -141,7 +141,6 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
         public static final String ID = "bettertools_crafting";
 
         public static final Codec<BetterToolsCraftingRecipe> CODEC = RecordCodecBuilder.create(
-
                 in -> in.group(
                         Ingredient.DISALLOW_EMPTY_CODEC
                                 .fieldOf("ingredient")
