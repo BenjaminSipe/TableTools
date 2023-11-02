@@ -12,7 +12,12 @@ Backlog / Planned features:
         > 3x3 tools: Broad Axe, Hammer, Excavator // I might hate these.
 4. Enchanting templates.
     > Add vanilla enchantment templates,
+        > Templates can be applied to any tool with a diamond.
+        > I've considered having lower tiers be applicable with cheaper materials. . . but I don't think so.
     > Add crafting/loot table templates,
+        > I think templates can be found in loot chests.
+            > Should probably figure out exactly where.
+        > Templates can be duplicated identically to armor templates. But with lapis instead of diamonds.
     > Balance Mending enchantment,
     > Remove enchantments from tools repaired in crafting table.
     > Add enchantment that allows enchantments to be kept when manually repairing tools

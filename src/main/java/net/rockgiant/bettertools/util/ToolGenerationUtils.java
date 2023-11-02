@@ -130,10 +130,14 @@ public class ToolGenerationUtils {
     }
 
     public static int getTint( ItemStack tool ) {
-        return tool.getOrCreateNbt().getInt( TINT_KEY );
+        int tint = tool.getOrCreateNbt().getInt( TINT_KEY );
+
+        return tint != 0 ? tint : 0x8F7448;
     }
     public static int getHeadTint( ItemStack tool ) {
-        return tool.getOrCreateNbt().getInt( HEAD_TINT_KEY );
+        int tint = tool.getOrCreateNbt().getInt( HEAD_TINT_KEY );
+
+        return tint != 0 ? tint : 0x8F7448;
     }
 
 

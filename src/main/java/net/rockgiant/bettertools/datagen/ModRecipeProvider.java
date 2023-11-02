@@ -18,6 +18,7 @@ import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.util.recipe.BetterToolsCraftingRecipeJsonBuilder;
@@ -67,7 +68,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     public void generateToolRodRecipe(RecipeExporter exporter, Item item, Item ingredient )
     {
-        ShapedRecipeJsonBuilder.create( RecipeCategory.TOOLS, item, 2 ).pattern("# ").pattern(" #").input('#', Ingredient.ofItems(ingredient)).criterion(FabricRecipeProvider.hasItem(ingredient), FabricRecipeProvider.conditionsFromItem(ingredient)).offerTo(exporter);
+        ShapedRecipeJsonBuilder.create( RecipeCategory.TOOLS, item, 2 )
+                .group("tool_rods").pattern("# ").pattern(" #").input('#', Ingredient.ofItems(ingredient))
+                .criterion(FabricRecipeProvider.hasItem(ingredient), FabricRecipeProvider.conditionsFromItem(ingredient)).offerTo(exporter);
     }
 
     // may be used for smithing upgrades, as I think those naturally keep nbt data. So I can still use them.
@@ -82,11 +85,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         FabricRecipeProvider.conditionsFromItem( Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
                 .criterion(FabricRecipeProvider.hasItem( Items.NETHERITE_INGOT ),
                         FabricRecipeProvider.conditionsFromItem( Items.NETHERITE_INGOT ) )
-                .offerTo(exporter, recipeId);
+                .offerTo(exporter, new Identifier( BetterTools.MOD_ID, recipeId));
     }
 
-    public void generateBetterToolsCraftingRecipe(RecipeExporter exporter, Item result, Ingredient ingredient, String recipeId ) {
-        BetterToolsCraftingRecipeJsonBuilder.create(ingredient,result).offerTo(exporter,recipeId);
+    public void generateBetterToolsCraftingRecipe(RecipeExporter exporter, Item result, Item ingredient, String recipeId ) {
+        BetterToolsCraftingRecipeJsonBuilder.create(Ingredient.ofItems( ingredient ),result, FabricRecipeProvider.conditionsFromItem(ingredient)).offerTo(exporter,recipeId);
+    }
+
+    public void generateBetterToolsCraftingRecipe(RecipeExporter exporter, Item result, TagKey<Item> ingredient, String recipeId ) {
+        BetterToolsCraftingRecipeJsonBuilder.create(Ingredient.fromTag( ingredient ),result, FabricRecipeProvider.conditionsFromTag(ingredient)).offerTo(exporter,recipeId);
     }
 
     public void generateBetterToolsNetheriteSmithingRecipes(RecipeExporter exporter) {
@@ -98,137 +105,137 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void generateAxeRecipes(RecipeExporter exporter) {
-        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_AXE, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_AXE, Ingredient.ofItems( Items.ANDESITE ), "better_tools_andesite_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_AXE, Ingredient.ofItems( Items.BASALT ), "better_tools_basalt_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_AXE, Ingredient.ofItems( Items.BLACKSTONE ), "better_tools_blackstone_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_AXE, Ingredient.ofItems( Items.CALCITE ), "better_tools_calcite_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_AXE, Ingredient.ofItems( Items.COPPER_INGOT ), "better_tools_copper_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_AXE, Ingredient.ofItems( Items.CRYING_OBSIDIAN ), "better_tools_crying_obsidian_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_AXE, Ingredient.ofItems( Items.DEEPSLATE ), "better_tools_deepslate_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_AXE, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_AXE, Ingredient.ofItems( Items.DIORITE ), "better_tools_diorite_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_AXE, Ingredient.ofItems( Items.EMERALD ), "better_tools_emerald_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_AXE, Ingredient.ofItems( Items.END_STONE ), "better_tools_endstone_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_AXE, Ingredient.ofItems( Items.FLINT ), "better_tools_flint_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_AXE, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_AXE, Ingredient.ofItems( Items.GRANITE ), "better_tools_granite_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_AXE, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_AXE, Ingredient.ofItems( Items.NETHERRACK ), "better_tools_netherrack_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_AXE, Ingredient.ofItems( Items.OBSIDIAN ), "better_tools_obsidian_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_AXE, Ingredient.ofItems( Items.QUARTZ ), "better_tools_quartz_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_AXE, Ingredient.ofItems( Items.RED_SANDSTONE ), "better_tools_red_sandstone_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_AXE, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_AXE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_AXE, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_axe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_AXE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_AXE, Items.AMETHYST_SHARD, "better_tools_amethyst_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_AXE, Items.ANDESITE, "better_tools_andesite_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_AXE, Items.BASALT, "better_tools_basalt_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_AXE, Items.BLACKSTONE, "better_tools_blackstone_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_AXE, Items.CALCITE, "better_tools_calcite_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_AXE, Items.COPPER_INGOT, "better_tools_copper_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_AXE, Items.CRYING_OBSIDIAN, "better_tools_crying_obsidian_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_AXE, Items.DEEPSLATE, "better_tools_deepslate_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_AXE, Items.DIAMOND, "better_tools_diamond_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_AXE, Items.DIORITE, "better_tools_diorite_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_AXE, Items.EMERALD, "better_tools_emerald_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_AXE, Items.END_STONE, "better_tools_endstone_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_AXE, Items.FLINT, "better_tools_flint_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_AXE, Items.GOLD_INGOT, "better_tools_gold_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_AXE, Items.GRANITE, "better_tools_granite_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_AXE, Items.IRON_INGOT, "better_tools_iron_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_AXE, Items.NETHERRACK, "better_tools_netherrack_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_AXE, Items.OBSIDIAN, "better_tools_obsidian_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_AXE, Items.QUARTZ, "better_tools_quartz_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_AXE, Items.RED_SANDSTONE, "better_tools_red_sandstone_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_AXE, Items.SANDSTONE, "better_tools_sandstone_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_AXE, Items.COBBLESTONE, "better_tools_stone_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_AXE, Items.TUFF, "better_tools_tuff_axe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_AXE, ItemTags.PLANKS, "better_tools_wooden_axe_recipe" );
     }
 
     private void generateHoeRecipes(RecipeExporter exporter) {
-        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_HOE, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_HOE, Ingredient.ofItems( Items.ANDESITE ), "better_tools_andesite_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_HOE, Ingredient.ofItems( Items.BASALT ), "better_tools_basalt_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_HOE, Ingredient.ofItems( Items.BLACKSTONE ), "better_tools_blackstone_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_HOE, Ingredient.ofItems( Items.CALCITE ), "better_tools_calcite_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_HOE, Ingredient.ofItems( Items.COPPER_INGOT ), "better_tools_copper_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_HOE, Ingredient.ofItems( Items.CRYING_OBSIDIAN ), "better_tools_crying_obsidian_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_HOE, Ingredient.ofItems( Items.DEEPSLATE ), "better_tools_deepslate_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_HOE, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_HOE, Ingredient.ofItems( Items.DIORITE ), "better_tools_diorite_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_HOE, Ingredient.ofItems( Items.EMERALD ), "better_tools_emerald_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_HOE, Ingredient.ofItems( Items.END_STONE ), "better_tools_endstone_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_HOE, Ingredient.ofItems( Items.FLINT ), "better_tools_flint_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_HOE, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_HOE, Ingredient.ofItems( Items.GRANITE ), "better_tools_granite_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_HOE, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_HOE, Ingredient.ofItems( Items.NETHERRACK ), "better_tools_netherrack_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_HOE, Ingredient.ofItems( Items.OBSIDIAN ), "better_tools_obsidian_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_HOE, Ingredient.ofItems( Items.QUARTZ ), "better_tools_quartz_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_HOE, Ingredient.ofItems( Items.RED_SANDSTONE ), "better_tools_red_sandstone_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_HOE, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_HOE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_HOE, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_hoe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_HOE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_HOE, Items.AMETHYST_SHARD, "better_tools_amethyst_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_HOE, Items.ANDESITE, "better_tools_andesite_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_HOE, Items.BASALT, "better_tools_basalt_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_HOE, Items.BLACKSTONE, "better_tools_blackstone_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_HOE, Items.CALCITE, "better_tools_calcite_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_HOE, Items.COPPER_INGOT, "better_tools_copper_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_HOE, Items.CRYING_OBSIDIAN, "better_tools_crying_obsidian_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_HOE, Items.DEEPSLATE, "better_tools_deepslate_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_HOE, Items.DIAMOND, "better_tools_diamond_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_HOE, Items.DIORITE, "better_tools_diorite_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_HOE, Items.EMERALD, "better_tools_emerald_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_HOE, Items.END_STONE, "better_tools_endstone_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_HOE, Items.FLINT, "better_tools_flint_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_HOE, Items.GOLD_INGOT, "better_tools_gold_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_HOE, Items.GRANITE, "better_tools_granite_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_HOE, Items.IRON_INGOT, "better_tools_iron_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_HOE, Items.NETHERRACK, "better_tools_netherrack_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_HOE, Items.OBSIDIAN, "better_tools_obsidian_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_HOE, Items.QUARTZ, "better_tools_quartz_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_HOE, Items.RED_SANDSTONE, "better_tools_red_sandstone_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_HOE, Items.SANDSTONE, "better_tools_sandstone_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_HOE, Items.COBBLESTONE, "better_tools_stone_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_HOE, Items.TUFF, "better_tools_tuff_hoe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_HOE, ItemTags.PLANKS, "better_tools_wooden_hoe_recipe" );
     }
 
     private void generatePickaxeRecipes(RecipeExporter exporter) {
-        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_PICKAXE, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_PICKAXE, Ingredient.ofItems( Items.ANDESITE ), "better_tools_andesite_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_PICKAXE, Ingredient.ofItems( Items.BASALT ), "better_tools_basalt_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_PICKAXE, Ingredient.ofItems( Items.BLACKSTONE ), "better_tools_blackstone_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_PICKAXE, Ingredient.ofItems( Items.CALCITE ), "better_tools_calcite_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_PICKAXE, Ingredient.ofItems( Items.COPPER_INGOT ), "better_tools_copper_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_PICKAXE, Ingredient.ofItems( Items.CRYING_OBSIDIAN ), "better_tools_crying_obsidian_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_PICKAXE, Ingredient.ofItems( Items.DEEPSLATE ), "better_tools_deepslate_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_PICKAXE, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_PICKAXE, Ingredient.ofItems( Items.DIORITE ), "better_tools_diorite_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_PICKAXE, Ingredient.ofItems( Items.EMERALD ), "better_tools_emerald_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_PICKAXE, Ingredient.ofItems( Items.END_STONE ), "better_tools_endstone_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_PICKAXE, Ingredient.ofItems( Items.FLINT ), "better_tools_flint_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_PICKAXE, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_PICKAXE, Ingredient.ofItems( Items.GRANITE ), "better_tools_granite_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_PICKAXE, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_PICKAXE, Ingredient.ofItems( Items.NETHERRACK ), "better_tools_netherrack_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_PICKAXE, Ingredient.ofItems( Items.OBSIDIAN ), "better_tools_obsidian_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_PICKAXE, Ingredient.ofItems( Items.QUARTZ ), "better_tools_quartz_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_PICKAXE, Ingredient.ofItems( Items.RED_SANDSTONE ), "better_tools_red_sandstone_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_PICKAXE, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_PICKAXE, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_PICKAXE, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_pickaxe_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_PICKAXE, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_PICKAXE, Items.AMETHYST_SHARD, "better_tools_amethyst_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_PICKAXE, Items.ANDESITE, "better_tools_andesite_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_PICKAXE, Items.BASALT, "better_tools_basalt_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_PICKAXE, Items.BLACKSTONE, "better_tools_blackstone_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_PICKAXE, Items.CALCITE, "better_tools_calcite_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_PICKAXE, Items.COPPER_INGOT, "better_tools_copper_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_PICKAXE, Items.CRYING_OBSIDIAN, "better_tools_crying_obsidian_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_PICKAXE, Items.DEEPSLATE, "better_tools_deepslate_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_PICKAXE, Items.DIAMOND, "better_tools_diamond_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_PICKAXE, Items.DIORITE, "better_tools_diorite_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_PICKAXE, Items.EMERALD, "better_tools_emerald_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_PICKAXE, Items.END_STONE, "better_tools_endstone_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_PICKAXE, Items.FLINT, "better_tools_flint_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_PICKAXE, Items.GOLD_INGOT, "better_tools_gold_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_PICKAXE, Items.GRANITE, "better_tools_granite_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_PICKAXE, Items.IRON_INGOT, "better_tools_iron_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_PICKAXE, Items.NETHERRACK, "better_tools_netherrack_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_PICKAXE, Items.OBSIDIAN, "better_tools_obsidian_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_PICKAXE, Items.QUARTZ, "better_tools_quartz_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_PICKAXE, Items.RED_SANDSTONE, "better_tools_red_sandstone_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_PICKAXE, Items.SANDSTONE, "better_tools_sandstone_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_PICKAXE, Items.COBBLESTONE, "better_tools_stone_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_PICKAXE, Items.TUFF, "better_tools_tuff_pickaxe_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_PICKAXE, ItemTags.PLANKS, "better_tools_wooden_pickaxe_recipe" );
     }
 
     private void generateShovelRecipes(RecipeExporter exporter) {
-        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_SHOVEL, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_SHOVEL, Ingredient.ofItems( Items.ANDESITE ), "better_tools_andesite_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_SHOVEL, Ingredient.ofItems( Items.BASALT ), "better_tools_basalt_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_SHOVEL, Ingredient.ofItems( Items.BLACKSTONE ), "better_tools_blackstone_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_SHOVEL, Ingredient.ofItems( Items.CALCITE ), "better_tools_calcite_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_SHOVEL, Ingredient.ofItems( Items.COPPER_INGOT ), "better_tools_copper_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_SHOVEL, Ingredient.ofItems( Items.CRYING_OBSIDIAN ), "better_tools_crying_obsidian_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_SHOVEL, Ingredient.ofItems( Items.DEEPSLATE ), "better_tools_deepslate_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_SHOVEL, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_SHOVEL, Ingredient.ofItems( Items.DIORITE ), "better_tools_diorite_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_SHOVEL, Ingredient.ofItems( Items.EMERALD ), "better_tools_emerald_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_SHOVEL, Ingredient.ofItems( Items.END_STONE ), "better_tools_endstone_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_SHOVEL, Ingredient.ofItems( Items.FLINT ), "better_tools_flint_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_SHOVEL, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_SHOVEL, Ingredient.ofItems( Items.GRANITE ), "better_tools_granite_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_SHOVEL, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_SHOVEL, Ingredient.ofItems( Items.NETHERRACK ), "better_tools_netherrack_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_SHOVEL, Ingredient.ofItems( Items.OBSIDIAN ), "better_tools_obsidian_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_SHOVEL, Ingredient.ofItems( Items.QUARTZ ), "better_tools_quartz_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_SHOVEL, Ingredient.ofItems( Items.RED_SANDSTONE ), "better_tools_red_sandstone_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_SHOVEL, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SHOVEL, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_SHOVEL, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_shovel_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SHOVEL, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_SHOVEL, Items.AMETHYST_SHARD, "better_tools_amethyst_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_SHOVEL, Items.ANDESITE, "better_tools_andesite_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_SHOVEL, Items.BASALT, "better_tools_basalt_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_SHOVEL, Items.BLACKSTONE, "better_tools_blackstone_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_SHOVEL, Items.CALCITE, "better_tools_calcite_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_SHOVEL, Items.COPPER_INGOT, "better_tools_copper_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_SHOVEL, Items.CRYING_OBSIDIAN, "better_tools_crying_obsidian_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_SHOVEL, Items.DEEPSLATE, "better_tools_deepslate_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_SHOVEL, Items.DIAMOND, "better_tools_diamond_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_SHOVEL, Items.DIORITE, "better_tools_diorite_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_SHOVEL, Items.EMERALD, "better_tools_emerald_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_SHOVEL, Items.END_STONE, "better_tools_endstone_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_SHOVEL, Items.FLINT, "better_tools_flint_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_SHOVEL, Items.GOLD_INGOT, "better_tools_gold_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_SHOVEL, Items.GRANITE, "better_tools_granite_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_SHOVEL, Items.IRON_INGOT, "better_tools_iron_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_SHOVEL, Items.NETHERRACK, "better_tools_netherrack_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_SHOVEL, Items.OBSIDIAN, "better_tools_obsidian_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_SHOVEL, Items.QUARTZ, "better_tools_quartz_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_SHOVEL, Items.RED_SANDSTONE, "better_tools_red_sandstone_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_SHOVEL, Items.SANDSTONE, "better_tools_sandstone_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SHOVEL, Items.COBBLESTONE, "better_tools_stone_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_SHOVEL, Items.TUFF, "better_tools_tuff_shovel_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SHOVEL, ItemTags.PLANKS, "better_tools_wooden_shovel_recipe" );
     }
 
     private void generateSwordRecipes(RecipeExporter exporter) {
-        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_SWORD, Ingredient.ofItems( Items.AMETHYST_SHARD ), "better_tools_amethyst_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_SWORD, Ingredient.ofItems( Items.ANDESITE ), "better_tools_andesite_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_SWORD, Ingredient.ofItems( Items.BASALT ), "better_tools_basalt_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_SWORD, Ingredient.ofItems( Items.BLACKSTONE ), "better_tools_blackstone_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_SWORD, Ingredient.ofItems( Items.CALCITE ), "better_tools_calcite_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_SWORD, Ingredient.ofItems( Items.COPPER_INGOT ), "better_tools_copper_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_SWORD, Ingredient.ofItems( Items.CRYING_OBSIDIAN ), "better_tools_crying_obsidian_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_SWORD, Ingredient.ofItems( Items.DEEPSLATE ), "better_tools_deepslate_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_SWORD, Ingredient.ofItems( Items.DIAMOND ), "better_tools_diamond_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_SWORD, Ingredient.ofItems( Items.DIORITE ), "better_tools_diorite_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_SWORD, Ingredient.ofItems( Items.EMERALD ), "better_tools_emerald_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_SWORD, Ingredient.ofItems( Items.END_STONE ), "better_tools_endstone_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_SWORD, Ingredient.ofItems( Items.FLINT ), "better_tools_flint_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_SWORD, Ingredient.ofItems( Items.GOLD_INGOT ), "better_tools_gold_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_SWORD, Ingredient.ofItems( Items.GRANITE ), "better_tools_granite_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_SWORD, Ingredient.ofItems( Items.IRON_INGOT ), "better_tools_iron_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_SWORD, Ingredient.ofItems( Items.NETHERRACK ), "better_tools_netherrack_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_SWORD, Ingredient.ofItems( Items.OBSIDIAN ), "better_tools_obsidian_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_SWORD, Ingredient.ofItems( Items.QUARTZ ), "better_tools_quartz_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_SWORD, Ingredient.ofItems( Items.RED_SANDSTONE ), "better_tools_red_sandstone_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_SWORD, Ingredient.ofItems( Items.SANDSTONE ), "better_tools_sandstone_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SWORD, Ingredient.ofItems( Items.COBBLESTONE ), "better_tools_stone_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_SWORD, Ingredient.ofItems( Items.TUFF ), "better_tools_tuff_sword_recipe" );
-        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SWORD, Ingredient.fromTag( ItemTags.PLANKS ), "better_tools_wooden_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_AMETHYST_SWORD, Items.AMETHYST_SHARD, "better_tools_amethyst_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_ANDESITE_SWORD, Items.ANDESITE, "better_tools_andesite_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BASALT_SWORD, Items.BASALT, "better_tools_basalt_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_BLACKSTONE_SWORD, Items.BLACKSTONE, "better_tools_blackstone_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CALCITE_SWORD, Items.CALCITE, "better_tools_calcite_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_COPPER_SWORD, Items.COPPER_INGOT, "better_tools_copper_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_CRYING_OBSIDIAN_SWORD, Items.CRYING_OBSIDIAN, "better_tools_crying_obsidian_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DEEPSLATE_SWORD, Items.DEEPSLATE, "better_tools_deepslate_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIAMOND_SWORD, Items.DIAMOND, "better_tools_diamond_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_DIORITE_SWORD, Items.DIORITE, "better_tools_diorite_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_EMERALD_SWORD, Items.EMERALD, "better_tools_emerald_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_END_STONE_SWORD, Items.END_STONE, "better_tools_endstone_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_FLINT_SWORD, Items.FLINT, "better_tools_flint_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GOLD_SWORD, Items.GOLD_INGOT, "better_tools_gold_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_GRANITE_SWORD, Items.GRANITE, "better_tools_granite_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_IRON_SWORD, Items.IRON_INGOT, "better_tools_iron_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_NETHERRACK_SWORD, Items.NETHERRACK, "better_tools_netherrack_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_OBSIDIAN_SWORD, Items.OBSIDIAN, "better_tools_obsidian_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_QUARTZ_SWORD, Items.QUARTZ, "better_tools_quartz_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_RED_SANDSTONE_SWORD, Items.RED_SANDSTONE, "better_tools_red_sandstone_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_SANDSTONE_SWORD, Items.SANDSTONE, "better_tools_sandstone_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_STONE_SWORD, Items.COBBLESTONE, "better_tools_stone_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_TUFF_SWORD, Items.TUFF, "better_tools_tuff_sword_recipe" );
+        generateBetterToolsCraftingRecipe(exporter, BETTER_WOODEN_SWORD, ItemTags.PLANKS, "better_tools_wooden_sword_recipe" );
     }
 }

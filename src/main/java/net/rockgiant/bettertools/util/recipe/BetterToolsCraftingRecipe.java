@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
@@ -15,7 +14,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.rockgiant.bettertools.item.ModItemTags;
 import net.rockgiant.bettertools.item.TintedToolRodItem;
-import net.rockgiant.bettertools.item.tools.*;
 
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.*;
 
@@ -23,6 +21,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
 
     private final ItemStack output;
     private final Ingredient recipeItem;
+    private final Ingredient toolRod = Ingredient.fromTag( ModItemTags.BETTER_TOOL_RODS );
 
     private int tint = 0;
     private int headTint = 0;
@@ -32,6 +31,11 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
         this.output = itemStack;
         this.recipeItem = ingredient;
     }
+
+//    @Override
+//    public boolean isIgnoredInRecipeBook() {
+//        return true;
+//    }
 
     @Override
     public boolean matches(RecipeInputInventory inventory, World world) {
@@ -93,8 +97,53 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
 
     @Override
     public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> list = DefaultedList.ofSize(1);
-        list.add( recipeItem );
+
+        if ( Ingredient.fromTag( ModItemTags.BETTER_AXES ).test( output ) ) {
+            DefaultedList<Ingredient> list = DefaultedList.ofSize(9, Ingredient.EMPTY);
+            list.set(0, recipeItem );
+            list.set(1, recipeItem );
+            list.set(3, recipeItem );
+            list.set(4, toolRod);
+            list.set(7, toolRod);
+            return list;
+        }
+
+        if ( Ingredient.fromTag( ModItemTags.BETTER_SWORDS ).test( output ) ) {
+            DefaultedList<Ingredient> list = DefaultedList.ofSize(9, Ingredient.EMPTY);
+            list.set(1, recipeItem );
+            list.set(4, recipeItem );
+            list.set(7, toolRod);
+            return list;
+        }
+
+        if ( Ingredient.fromTag( ModItemTags.BETTER_SHOVELS ).test( output ) ) {
+            DefaultedList<Ingredient> list = DefaultedList.ofSize(9, Ingredient.EMPTY);
+            list.set(1, recipeItem );
+            list.set(4, toolRod);
+            list.set(7, toolRod);
+            return list;
+        }
+
+        if ( Ingredient.fromTag( ModItemTags.BETTER_PICKAXES ).test( output ) ) {
+            DefaultedList<Ingredient> list = DefaultedList.ofSize(9, Ingredient.EMPTY);
+            list.set(0, recipeItem );
+            list.set(1, recipeItem );
+            list.set(2, recipeItem );
+            list.set(4, toolRod);
+            list.set(7, toolRod);
+            return list;
+        }
+
+        if ( Ingredient.fromTag( ModItemTags.BETTER_HOES ).test( output ) ) {
+            DefaultedList<Ingredient> list = DefaultedList.ofSize(9, Ingredient.EMPTY);
+            list.set(0, recipeItem );
+            list.set(1, recipeItem );
+            list.set(4, toolRod);
+            list.set(7, toolRod);
+            return list;
+        }
+
+        DefaultedList<Ingredient> list = DefaultedList.ofSize(0);
         return list;
     }
 
@@ -115,7 +164,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
 
     public boolean matchesLists(int[] ingredients, int[] air, int[] sticks, Inventory inventory ) {
         for ( int stick : sticks ) {
-            if ( ! Ingredient.fromTag( ModItemTags.BETTER_TOOL_RODS ).test( inventory.getStack(stick) ) ) return false;
+            if ( ! toolRod.test( inventory.getStack(stick) ) ) return false;
         }
 
         for ( int index : ingredients ) {
@@ -133,6 +182,12 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
             this.headTint = getWoodTint(inventory.getStack(ingredients[0]).getItem());
         }
         return true;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        DefaultedList<Ingredient> defaultedList = this.getIngredients();
+        return defaultedList.isEmpty() || defaultedList.stream().filter(ingredient -> !ingredient.isEmpty()).anyMatch(ingredient -> ingredient.getMatchingStacks().length == 0);
     }
 
     public static class Serializer implements RecipeSerializer<BetterToolsCraftingRecipe> {
@@ -169,5 +224,7 @@ class BetterToolsCraftingRecipe implements CraftingRecipe {
             recipe.recipeItem.write( buf );
             buf.writeItemStack(recipe.getResult(null));
         }
+
+
     }
 }
