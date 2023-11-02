@@ -24,8 +24,6 @@ public class ModItems {
 
         registerModToolRods();
 
-        // not registering all items, as that is too many.
-
     }
 
     private static void registerModToolRods() {

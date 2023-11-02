@@ -2,10 +2,6 @@ package net.rockgiant.bettertools.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.ModelIds;
-import net.minecraft.data.client.Models;
-import net.minecraft.data.client.TextureMap;
 import net.minecraft.data.server.recipe.ComplexRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
@@ -13,17 +9,13 @@ import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.util.recipe.BetterToolsCraftingRecipeJsonBuilder;
 import net.rockgiant.bettertools.util.recipe.BetterToolsRepairRecipe;
-import net.rockgiant.bettertools.util.recipe.ModRecipes;
 
 import static net.rockgiant.bettertools.item.ModItems.*;
 

@@ -6,11 +6,8 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.tag.ItemTags;
 import net.rockgiant.bettertools.item.ModItemTags;
 import net.rockgiant.bettertools.item.ModItems;
-
-import java.util.Optional;
 
 public class ToolGenerationUtils {
 

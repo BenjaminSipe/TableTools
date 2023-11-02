@@ -3,7 +3,6 @@ package net.rockgiant.bettertools;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.item.Item;
-import net.rockgiant.bettertools.item.ModItemTags;
 import net.rockgiant.bettertools.item.TintedToolRodItem;
 
 import static net.rockgiant.bettertools.item.ModItems.*;
@@ -169,6 +168,6 @@ public class BetterToolsClient implements ClientModInitializer {
 				new Item[] {
 						BETTER_WOODEN_PICKAXE, BETTER_WOODEN_AXE, BETTER_WOODEN_HOE, BETTER_WOODEN_SWORD, BETTER_WOODEN_SHOVEL
 				} );
-	};
+	}
 
 }

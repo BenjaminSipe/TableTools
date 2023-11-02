@@ -1,24 +1,13 @@
 package net.rockgiant.bettertools.util.recipe;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.rockgiant.bettertools.item.ModItemTags;
-import net.rockgiant.bettertools.item.TintedToolRodItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

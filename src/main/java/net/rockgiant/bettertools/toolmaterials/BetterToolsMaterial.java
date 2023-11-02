@@ -1,6 +1,5 @@
 package net.rockgiant.bettertools.toolmaterials;
 
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
