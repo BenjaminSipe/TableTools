@@ -1,15 +1,20 @@
 TODO list for Mod:
-
+INDEX: 20
 Current List
-15. Reorganize everything by tool type because that is better I think
+
 
 Backlog / Planned features:
-3. Additional Tool Variants.
-    > potential materials: nether brick, brick, echo-shard, terrecotta,
-    > New tools:
-        > Multi-tools: Mattock, Adze,
-        > Weapons: Knife, Bow, crossbow, spear
-        > 3x3 tools: Broad Axe, Hammer, Excavator // I might hate these.
+17. Add New Small Tool Types: Mattock(axe shovel ), Adze(pick shovel)
+18. Add New Weapon Tool Types: Knife, Bow, Crossbow, Spear
+19. Add New 3x3 Tools: Broad Axe, Hammer, Excavator
+20. Additional Potential Materials:
+    > nether brick
+    > brick
+    > echo-shard
+    > terracotta
+    > glowstone
+    > glass
+    > dripstone
 4. Enchanting templates.
     > Add vanilla enchantment templates,
         > Templates can be applied to any tool with a diamond.
@@ -18,6 +23,10 @@ Backlog / Planned features:
         > I think templates can be found in loot chests.
             > Should probably figure out exactly where.
         > Templates can be duplicated identically to armor templates. But with lapis instead of diamonds.
+        > Base materials will be either Gilded Blackstone. This will be prohibitive, as neither of these are renewable materials.
+        > They are both more prominent in the nether, and make enchanting highly reliant on bastions.
+        > With Piglin bartering, some enchantments will be entirely farmable ( lapis from villagers, crying obsidian from piglin trading),
+        > Templates that need gilded blackstone will be finite, but not rare, you can probably get a full stockpile of tools from 1 bastion.
     > Balance Mending enchantment,
     > Remove enchantments from tools repaired in crafting table.
     > Add enchantment that allows enchantments to be kept when manually repairing tools
@@ -32,7 +41,7 @@ Backlog / Planned features:
 COMPLETED:
 10. Make tool tip include handle material
 13. Add Vanilla Tools Back
-3. Partial
+3. Add additional materials
     > New materials:
         > Gemstones: emerald, amethyst, quartz
         > Soft stones: netherrack, sandstone, red sandstone
@@ -60,7 +69,9 @@ COMPLETED:
     > Add item repairs in crafting grid
     > Cost is based on material investment in the tool. So 1 ingot will fully repair a shovel, 50% repair a sword or hoe, and 33 % repair a pick or an axe.
     > All enchantments are removed when repairing in crafting table.
+15. Reorganize everything by tool type because that is better I think
 
+VOIDED
 
 // notes & brainstorming:
 I think as far as tool variants are concerned, I don't really feel bad about adding in the variants manually.

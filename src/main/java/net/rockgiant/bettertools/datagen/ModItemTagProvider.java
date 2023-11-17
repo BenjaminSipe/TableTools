@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.rockgiant.bettertools.item.ModItemTags;
+import net.rockgiant.bettertools.item.ModItems;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -190,6 +191,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ModItemTags.BETTER_STONE_VARIANTS).add(Items.COBBLESTONE, Items.GRANITE,Items.ANDESITE,Items.DIORITE,Items.TUFF,Items.CALCITE,Items.BLACKSTONE);
         getOrCreateTagBuilder(ModItemTags.BETTER_HARD_STONE_VARIANTS).add(Items.COBBLED_DEEPSLATE,Items.END_STONE,Items.BASALT);
         getOrCreateTagBuilder(ModItemTags.BETTER_OBSIDIAN_VARIANTS).add(Items.OBSIDIAN,Items.CRYING_OBSIDIAN);
+
+        getOrCreateTagBuilder(ModItemTags.ENCHANTMENT_SMITHING_TEMPLATES).add(EFFICIENCY_SMITHING_TEMPLATE);
 
     }
 }

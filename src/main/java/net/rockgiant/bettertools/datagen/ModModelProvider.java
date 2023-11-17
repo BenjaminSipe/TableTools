@@ -29,6 +29,18 @@ public class ModModelProvider extends FabricModelProvider {
         generateShovelModels(itemModelGenerator);
         generateSwordModels(itemModelGenerator);
 
+        generateSmithingTemplateModels( itemModelGenerator );
+
+    }
+
+    private void generateSmithingTemplateModels(ItemModelGenerator img) {
+        Models.GENERATED.upload(ModelIds.getItemModelId(EFFICIENCY_SMITHING_TEMPLATE), TextureMap.layer0(new Identifier(BetterTools.MOD_ID, "item/templates/efficiency_smithing_template")), img.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(UNBREAKING_SMITHING_TEMPLATE), TextureMap.layer0(new Identifier(BetterTools.MOD_ID, "item/templates/unbreaking_smithing_template")), img.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(FORTUNE_SMITHING_TEMPLATE), TextureMap.layer0(new Identifier(BetterTools.MOD_ID, "item/templates/fortune_smithing_template")), img.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(SILKTOUCH_SMITHING_TEMPLATE), TextureMap.layer0(new Identifier(BetterTools.MOD_ID, "item/templates/silktouch_smithing_template")), img.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(SHARPNESS_SMITHING_TEMPLATE), TextureMap.layer0(new Identifier(BetterTools.MOD_ID, "item/templates/sharpness_smithing_template")), img.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(MENDING_SMITHING_TEMPLATE), TextureMap.layer0(new Identifier(BetterTools.MOD_ID, "item/templates/mending_smithing_template")), img.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(LOOTING_SMITHING_TEMPLATE), TextureMap.layer0(new Identifier(BetterTools.MOD_ID, "item/templates/looting_smithing_template")), img.writer);
     }
 
     private void generateToolRodModels(ItemModelGenerator img) {

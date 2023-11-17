@@ -24,6 +24,8 @@ public class ModItemTags {
     public static final TagKey<Item> BETTER_GEMSTONE_VARIANTS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_gemstone_variants"));
     public static final TagKey<Item> BETTER_OBSIDIAN_VARIANTS = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "better_obsidian_variants"));
 
+    public static final TagKey<Item> ENCHANTMENT_SMITHING_TEMPLATES = TagKey.of( RegistryKeys.ITEM, new Identifier(BetterTools.MOD_ID, "enchantment_smithing_templates"));
+
     public static void registerTags() {
 
     }

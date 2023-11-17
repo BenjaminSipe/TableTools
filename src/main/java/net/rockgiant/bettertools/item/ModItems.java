@@ -2,18 +2,25 @@ package net.rockgiant.bettertools.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.tools.*;
 import net.rockgiant.bettertools.toolmaterials.BetterToolsMaterial;
 
+import java.util.List;
+
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackDamage;
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackSpeed;
 
 public class ModItems {
+
+    public static final Block BURNING_OBSIDIAN = new Block(FabricBlockSettings.create().requiresTool().strength(50.0f, 1200.0f));
 
     private static Item registerItem(String name, Item item)
     {
@@ -23,7 +30,8 @@ public class ModItems {
     public static void registerModItems() {
 
         registerModToolRods();
-
+        Registry.register( Registries.BLOCK, new Identifier(BetterTools.MOD_ID, "burning_obsidian"), BURNING_OBSIDIAN );
+        Registry.register( Registries.ITEM, new Identifier(BetterTools.MOD_ID, "burning_obsidian" ), new BlockItem( BURNING_OBSIDIAN, new FabricItemSettings() ) );
     }
 
     private static void registerModToolRods() {
@@ -64,6 +72,51 @@ public class ModItems {
                 return false;
         }
     }
+
+    private static final List<Identifier> all = List.of(
+            new Identifier("item/empty_slot_hoe"),
+            new Identifier("item/empty_slot_axe"),
+            new Identifier("item/empty_slot_sword"),
+            new Identifier("item/empty_slot_shovel"),
+            new Identifier("item/empty_slot_pickaxe"));
+
+    private static final List<Identifier> tools = List.of(
+            new Identifier("item/empty_slot_hoe"),
+            new Identifier("item/empty_slot_axe"),
+            new Identifier("item/empty_slot_shovel"),
+            new Identifier("item/empty_slot_pickaxe"));
+
+    private static final List<Identifier> weapons = List.of(
+            new Identifier("item/empty_slot_axe"),
+            new Identifier("item/empty_slot_sword"));
+
+    public static final Item EFFICIENCY_SMITHING_TEMPLATE = registerItem( "efficiency_smithing_template",
+            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), all, List.of(new Identifier("item/empty_slot_diamond"))));
+
+    public static final Item UNBREAKING_SMITHING_TEMPLATE = registerItem( "unbreaking_smithing_template",
+            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), all, List.of(new Identifier("item/empty_slot_diamond"))));
+
+    public static final Item FORTUNE_SMITHING_TEMPLATE = registerItem( "fortune_smithing_template",
+            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), tools, List.of(new Identifier("item/empty_slot_diamond"))));
+
+    public static final Item SILKTOUCH_SMITHING_TEMPLATE = registerItem( "silktouch_smithing_template",
+            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), tools, List.of(new Identifier("item/empty_slot_diamond"))));
+
+    public static final Item SHARPNESS_SMITHING_TEMPLATE = registerItem( "sharpness_smithing_template",
+            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), weapons, List.of(new Identifier("item/empty_slot_diamond"))));
+
+    public static final Item MENDING_SMITHING_TEMPLATE = registerItem( "mending_smithing_template",
+            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), all, List.of(new Identifier("item/empty_slot_diamond"))));
+
+    public static final Item LOOTING_SMITHING_TEMPLATE = registerItem( "looting_smithing_template",
+            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), weapons, List.of(new Identifier("item/empty_slot_diamond"))));
+
+
+
+
+
+
+
 
     public static final Item ACACIA_TINTED_TOOL_ROD = registerItem( "acacia_tinted_tool_rod", new TintedToolRodItem(0xC26D3F, new FabricItemSettings()));
     public static final Item BAMBOO_TINTED_TOOL_ROD = registerItem( "bamboo_tinted_tool_rod", new TintedToolRodItem(0xEFD97E, new FabricItemSettings()));

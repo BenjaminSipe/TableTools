@@ -6,6 +6,8 @@ import net.minecraft.data.server.recipe.ComplexRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -14,6 +16,9 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
+import net.rockgiant.bettertools.item.ModItemTags;
+import net.rockgiant.bettertools.item.ModItems;
+import net.rockgiant.bettertools.util.recipe.BetterSmithingRecipeJsonBuilder;
 import net.rockgiant.bettertools.util.recipe.BetterToolsCraftingRecipeJsonBuilder;
 import net.rockgiant.bettertools.util.recipe.BetterToolsRepairRecipe;
 
@@ -38,9 +43,56 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         generateBetterToolsNetheriteSmithingRecipes(exporter);
 
+        generateEnchantingSmithingTemplateRecipes(exporter);
+
+
         // ADD special repair recipe...
         ComplexRecipeJsonBuilder.create(BetterToolsRepairRecipe.TOOLS_REPAIR_SERIALIZER).offerTo(exporter, new Identifier(BetterTools.MOD_ID, BetterToolsRepairRecipe.ID ));
 
+
+    }
+
+    private void generateEnchantingSmithingTemplateRecipes(RecipeExporter exporter) {
+        // efficiency
+        generateEnchantingSmithingTemplateRecipe(exporter, EFFICIENCY_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_AXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.EFFICIENCY, "better_tools_efficiency_axe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, EFFICIENCY_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_HOES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.EFFICIENCY, "better_tools_efficiency_hoe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, EFFICIENCY_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SHOVELS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.EFFICIENCY, "better_tools_efficiency_shovel_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, EFFICIENCY_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_PICKAXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.EFFICIENCY, "better_tools_efficiency_pickaxe_smithing_recipe");
+
+        // unbreaking
+        generateEnchantingSmithingTemplateRecipe(exporter, UNBREAKING_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_TOOLS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.UNBREAKING, "better_tools_unbreaking_smithing_recipe");
+
+        // fortune
+        generateEnchantingSmithingTemplateRecipe(exporter, FORTUNE_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_AXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.FORTUNE, "better_tools_fortune_axe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, FORTUNE_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_HOES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.FORTUNE, "better_tools_fortune_hoe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, FORTUNE_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SHOVELS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.FORTUNE, "better_tools_fortune_shovel_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, FORTUNE_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_PICKAXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.FORTUNE, "better_tools_fortune_pickaxe_smithing_recipe");
+
+        //silktouch
+        generateEnchantingSmithingTemplateRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_AXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SILK_TOUCH, "better_tools_silktouch_axe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_HOES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SILK_TOUCH, "better_tools_silktouch_hoe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SHOVELS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SILK_TOUCH, "better_tools_silktouch_shovel_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_PICKAXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SILK_TOUCH, "better_tools_silktouch_pick_smithing_recipe");
+
+        //sharpness
+        generateEnchantingSmithingTemplateRecipe(exporter, SHARPNESS_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_AXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SHARPNESS, "better_tools_sharpness_axe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, SHARPNESS_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SWORDS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SHARPNESS, "better_tools_sharpness_sword_smithing_recipe");
+
+        // mending
+        generateEnchantingSmithingTemplateRecipe(exporter, MENDING_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_TOOLS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.MENDING, "better_tools_mending_smithing_recipe");
+
+        //looting
+        generateEnchantingSmithingTemplateRecipe(exporter, LOOTING_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_AXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.LOOTING, "better_tools_looting_axe_smithing_recipe");
+        generateEnchantingSmithingTemplateRecipe(exporter, LOOTING_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SWORDS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.LOOTING, "better_tools_looting_sword_smithing_recipe");
+
+        // duplication recipes:
+        generateSmithingTemplateDuplicationRecipe(exporter, EFFICIENCY_SMITHING_TEMPLATE);
+        generateSmithingTemplateDuplicationRecipe(exporter, UNBREAKING_SMITHING_TEMPLATE);
+        generateSmithingTemplateDuplicationRecipe(exporter, FORTUNE_SMITHING_TEMPLATE);
+        generateSmithingTemplateDuplicationRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE);
+        generateSmithingTemplateDuplicationRecipe(exporter, SHARPNESS_SMITHING_TEMPLATE);
+        generateSmithingTemplateDuplicationRecipe(exporter, MENDING_SMITHING_TEMPLATE);
+        generateSmithingTemplateDuplicationRecipe(exporter, LOOTING_SMITHING_TEMPLATE);
 
     }
 
@@ -65,6 +117,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(FabricRecipeProvider.hasItem(ingredient), FabricRecipeProvider.conditionsFromItem(ingredient)).offerTo(exporter);
     }
 
+    public void generateSmithingTemplateDuplicationRecipe(RecipeExporter exporter, Item item )
+    {
+        ShapedRecipeJsonBuilder.create( RecipeCategory.TOOLS, item, 2 )
+                .group("smithing_recipes").pattern("LLL").pattern("L#L").pattern("LBL")
+                .input( 'L', Ingredient.ofItems(Items.LAPIS_LAZULI))
+                .input('#', Ingredient.ofItems( item ))
+                .input( 'B', Ingredient.ofItems(BURNING_OBSIDIAN))
+                .criterion(FabricRecipeProvider.hasItem(item), FabricRecipeProvider.conditionsFromItem(item)).offerTo(exporter);
+    }
+
     // may be used for smithing upgrades, as I think those naturally keep nbt data. So I can still use them.
     public void generateSmithingTableUpgradeRecipe(RecipeExporter exporter, Item result, Item ingredient, String recipeId ) {
         SmithingTransformRecipeJsonBuilder.create(
@@ -82,6 +144,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     public void generateBetterToolsCraftingRecipe(RecipeExporter exporter, Item result, Item ingredient, String recipeId ) {
         BetterToolsCraftingRecipeJsonBuilder.create(Ingredient.ofItems( ingredient ),result, FabricRecipeProvider.conditionsFromItem(ingredient)).offerTo(exporter,recipeId);
+    }
+
+    public void generateEnchantingSmithingTemplateRecipe(RecipeExporter exporter, Item template, Ingredient base, Ingredient addition, Enchantment enchantment, String recipeId)
+    {
+        BetterSmithingRecipeJsonBuilder.create(Ingredient.ofItems( template ),base, addition, enchantment, FabricRecipeProvider.conditionsFromItem(template)).offerTo(exporter,recipeId);
+
     }
 
     public void generateBetterToolsCraftingRecipe(RecipeExporter exporter, Item result, TagKey<Item> ingredient, String recipeId ) {
