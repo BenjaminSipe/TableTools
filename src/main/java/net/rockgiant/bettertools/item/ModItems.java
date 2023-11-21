@@ -2,9 +2,18 @@ package net.rockgiant.bettertools.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.entry.EmptyEntry;
+import net.minecraft.loot.entry.GroupEntry;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
@@ -13,7 +22,10 @@ import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.tools.*;
 import net.rockgiant.bettertools.toolmaterials.BetterToolsMaterial;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackDamage;
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackSpeed;
@@ -32,6 +44,38 @@ public class ModItems {
         registerModToolRods();
         Registry.register( Registries.BLOCK, new Identifier(BetterTools.MOD_ID, "burning_obsidian"), BURNING_OBSIDIAN );
         Registry.register( Registries.ITEM, new Identifier(BetterTools.MOD_ID, "burning_obsidian" ), new BlockItem( BURNING_OBSIDIAN, new FabricItemSettings() ) );
+
+        Set<Identifier> LOOT_TABLES = Set.of(
+                LootTables.DESERT_PYRAMID_CHEST,
+                LootTables.ANCIENT_CITY_CHEST,
+                LootTables.NETHER_BRIDGE_CHEST,
+                LootTables.END_CITY_TREASURE_CHEST,
+                LootTables.ABANDONED_MINESHAFT_CHEST,
+                LootTables.STRONGHOLD_LIBRARY_CHEST,
+                LootTables.STRONGHOLD_CORRIDOR_CHEST,
+                LootTables.STRONGHOLD_CROSSING_CHEST,
+                LootTables.BASTION_TREASURE_CHEST,
+                LootTables.BASTION_BRIDGE_CHEST,
+                LootTables.BASTION_HOGLIN_STABLE_CHEST,
+                LootTables.BASTION_OTHER_CHEST,
+                LootTables.BURIED_TREASURE_CHEST
+                );
+
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+            if (source.isBuiltin() && LOOT_TABLES.contains(id)) {
+                LootPool.Builder poolBuilder = LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
+                        .with(EmptyEntry.builder().weight(28))
+                        .with(ItemEntry.builder(EFFICIENCY_SMITHING_TEMPLATE))
+                        .with(ItemEntry.builder(FORTUNE_SMITHING_TEMPLATE))
+                        .with(ItemEntry.builder(SILKTOUCH_SMITHING_TEMPLATE))
+                        .with(ItemEntry.builder(UNBREAKING_SMITHING_TEMPLATE))
+                        .with(ItemEntry.builder(SHARPNESS_SMITHING_TEMPLATE))
+                        .with(ItemEntry.builder(LOOTING_SMITHING_TEMPLATE))
+                        .with(ItemEntry.builder(MENDING_SMITHING_TEMPLATE)
+                        );
+                tableBuilder.pool(poolBuilder);
+            }
+        });
     }
 
     private static void registerModToolRods() {
@@ -51,8 +95,6 @@ public class ModItems {
         });
     }
 
-
-    // UNUSED but should be kept for the information.
     private static boolean isSturdyMaterial( String wood_type ) {
         switch (wood_type)
         {
