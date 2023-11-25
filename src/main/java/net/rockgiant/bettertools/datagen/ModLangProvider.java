@@ -2,6 +2,9 @@ package net.rockgiant.bettertools.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+import net.rockgiant.bettertools.BetterTools;
 
 import static net.rockgiant.bettertools.item.ModItems.*;
 
@@ -18,6 +21,27 @@ public class ModLangProvider extends FabricLanguageProvider {
         generatePickaxeTranslations(translationBuilder);
         generateSwordTranslations(translationBuilder);
         generateToolRodTranslations(translationBuilder);
+        generateSmithingTemplateTranslations(translationBuilder);
+    }
+
+    private void generateSmithingTemplateTranslations(TranslationBuilder translationBuilder) {
+        translationBuilder.add( EFFICIENCY_SMITHING_TEMPLATE, "Smithing Template");
+        translationBuilder.add( UNBREAKING_SMITHING_TEMPLATE, "Smithing Template");
+        translationBuilder.add( FORTUNE_SMITHING_TEMPLATE, "Smithing Template");
+        translationBuilder.add( SILKTOUCH_SMITHING_TEMPLATE, "Smithing Template");
+        translationBuilder.add( MENDING_SMITHING_TEMPLATE, "Smithing Template");
+
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.efficiency_template.title")),"Efficiency Template");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.fortune_template.title")),"Fortune Template");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.unbreaking_template.title")),"Unbreaking Template");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.mending_template.title")),"Mending Template");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.silktouch_template.title")),"Silk Touch Template");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.enchantment_upgrade.ingredients")),"Diamond");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.applies_to_tool")), "Mining Tools" );
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.applies_to_all")), "Tools" );
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.base_slot_description_tool")), "Add to any mining tool");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.base_slot_description_all")), "Add to any tool");
+        translationBuilder.add( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.enchantment_upgrade.additions_slot_description")), "Add Diamond");
     }
 
     private void generateToolRodTranslations(TranslationBuilder translationBuilder) {

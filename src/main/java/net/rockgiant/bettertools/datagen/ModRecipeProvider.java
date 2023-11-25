@@ -74,25 +74,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         generateEnchantingSmithingTemplateRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SHOVELS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SILK_TOUCH, "better_tools_silktouch_shovel_smithing_recipe");
         generateEnchantingSmithingTemplateRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_PICKAXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SILK_TOUCH, "better_tools_silktouch_pick_smithing_recipe");
 
-        //sharpness
-        generateEnchantingSmithingTemplateRecipe(exporter, SHARPNESS_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_AXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SHARPNESS, "better_tools_sharpness_axe_smithing_recipe");
-        generateEnchantingSmithingTemplateRecipe(exporter, SHARPNESS_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SWORDS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.SHARPNESS, "better_tools_sharpness_sword_smithing_recipe");
-
         // mending
         generateEnchantingSmithingTemplateRecipe(exporter, MENDING_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_TOOLS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.MENDING, "better_tools_mending_smithing_recipe");
-
-        //looting
-        generateEnchantingSmithingTemplateRecipe(exporter, LOOTING_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_AXES ), Ingredient.ofItems(Items.DIAMOND), Enchantments.LOOTING, "better_tools_looting_axe_smithing_recipe");
-        generateEnchantingSmithingTemplateRecipe(exporter, LOOTING_SMITHING_TEMPLATE, Ingredient.fromTag( ModItemTags.BETTER_SWORDS ), Ingredient.ofItems(Items.DIAMOND), Enchantments.LOOTING, "better_tools_looting_sword_smithing_recipe");
 
         // duplication recipes:
         generateSmithingTemplateDuplicationRecipe(exporter, EFFICIENCY_SMITHING_TEMPLATE);
         generateSmithingTemplateDuplicationRecipe(exporter, UNBREAKING_SMITHING_TEMPLATE);
         generateSmithingTemplateDuplicationRecipe(exporter, FORTUNE_SMITHING_TEMPLATE);
         generateSmithingTemplateDuplicationRecipe(exporter, SILKTOUCH_SMITHING_TEMPLATE);
-        generateSmithingTemplateDuplicationRecipe(exporter, SHARPNESS_SMITHING_TEMPLATE);
         generateSmithingTemplateDuplicationRecipe(exporter, MENDING_SMITHING_TEMPLATE);
-        generateSmithingTemplateDuplicationRecipe(exporter, LOOTING_SMITHING_TEMPLATE);
 
     }
 

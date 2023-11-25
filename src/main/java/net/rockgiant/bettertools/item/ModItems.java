@@ -16,8 +16,10 @@ import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.tools.*;
 import net.rockgiant.bettertools.toolmaterials.BetterToolsMaterial;
@@ -27,8 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackDamage;
-import static net.rockgiant.bettertools.util.ToolGenerationUtils.getToolAttackSpeed;
+import static net.rockgiant.bettertools.util.ToolGenerationUtils.*;
 
 public class ModItems {
 
@@ -64,13 +65,11 @@ public class ModItems {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (source.isBuiltin() && LOOT_TABLES.contains(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
-                        .with(EmptyEntry.builder().weight(28))
+                        .with(EmptyEntry.builder().weight(20))
                         .with(ItemEntry.builder(EFFICIENCY_SMITHING_TEMPLATE))
                         .with(ItemEntry.builder(FORTUNE_SMITHING_TEMPLATE))
                         .with(ItemEntry.builder(SILKTOUCH_SMITHING_TEMPLATE))
                         .with(ItemEntry.builder(UNBREAKING_SMITHING_TEMPLATE))
-                        .with(ItemEntry.builder(SHARPNESS_SMITHING_TEMPLATE))
-                        .with(ItemEntry.builder(LOOTING_SMITHING_TEMPLATE))
                         .with(ItemEntry.builder(MENDING_SMITHING_TEMPLATE)
                         );
                 tableBuilder.pool(poolBuilder);
@@ -92,7 +91,26 @@ public class ModItems {
                 OAK_TINTED_TOOL_ROD,
                 SPRUCE_TINTED_TOOL_ROD,
                 WARPED_TINTED_TOOL_ROD );
+            content.addAfter( Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
+                    EFFICIENCY_SMITHING_TEMPLATE,
+                    FORTUNE_SMITHING_TEMPLATE,
+                    SILKTOUCH_SMITHING_TEMPLATE,
+                    UNBREAKING_SMITHING_TEMPLATE,
+                    MENDING_SMITHING_TEMPLATE);
         });
+    }
+
+
+    private static Item registerSmithingItem( String itemName, List<Identifier> outlines, String title, String type ) {
+        return registerItem( itemName,
+                new SmithingTemplateItem(
+                        Text.translatable(Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.applies_to_" + type))).formatted(DESCRIPTION_FORMATTING),
+                        ENCHANTMENT_TEMPLATE_INGREDIENTS_TEXT,
+                        Text.translatable(title ).formatted(TITLE_FORMATTING),
+                        Text.translatable( Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.base_slot_description_" + type ))),
+                        ENCHANTMENT_TEMPLATE_ADDITIONS_SLOT_DESCRIPTION_TEXT,
+                        outlines,
+                        List.of(new Identifier("item/empty_slot_diamond"))));
     }
 
     private static boolean isSturdyMaterial( String wood_type ) {
@@ -132,33 +150,11 @@ public class ModItems {
             new Identifier("item/empty_slot_axe"),
             new Identifier("item/empty_slot_sword"));
 
-    public static final Item EFFICIENCY_SMITHING_TEMPLATE = registerItem( "efficiency_smithing_template",
-            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), all, List.of(new Identifier("item/empty_slot_diamond"))));
-
-    public static final Item UNBREAKING_SMITHING_TEMPLATE = registerItem( "unbreaking_smithing_template",
-            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), all, List.of(new Identifier("item/empty_slot_diamond"))));
-
-    public static final Item FORTUNE_SMITHING_TEMPLATE = registerItem( "fortune_smithing_template",
-            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), tools, List.of(new Identifier("item/empty_slot_diamond"))));
-
-    public static final Item SILKTOUCH_SMITHING_TEMPLATE = registerItem( "silktouch_smithing_template",
-            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), tools, List.of(new Identifier("item/empty_slot_diamond"))));
-
-    public static final Item SHARPNESS_SMITHING_TEMPLATE = registerItem( "sharpness_smithing_template",
-            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), weapons, List.of(new Identifier("item/empty_slot_diamond"))));
-
-    public static final Item MENDING_SMITHING_TEMPLATE = registerItem( "mending_smithing_template",
-            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), all, List.of(new Identifier("item/empty_slot_diamond"))));
-
-    public static final Item LOOTING_SMITHING_TEMPLATE = registerItem( "looting_smithing_template",
-            new SmithingTemplateItem(Text.of("appliesToText"), Text.of("ingredientsText"), Text.of("titleText"), Text.of("baseSlotDescriptionText"), Text.of("additionsSlotDescriptionText"), weapons, List.of(new Identifier("item/empty_slot_diamond"))));
-
-
-
-
-
-
-
+    public static final Item EFFICIENCY_SMITHING_TEMPLATE = registerSmithingItem( "efficiency_smithing_template", all, Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.efficiency_template.title")), "tool" );
+    public static final Item UNBREAKING_SMITHING_TEMPLATE = registerSmithingItem( "unbreaking_smithing_template", all, Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.unbreaking_template.title")), "all" );
+    public static final Item FORTUNE_SMITHING_TEMPLATE = registerSmithingItem( "fortune_smithing_template", tools, Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.fortune_template.title")),"tool" );
+    public static final Item SILKTOUCH_SMITHING_TEMPLATE = registerSmithingItem( "silktouch_smithing_template", tools, Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.silktouch_template.title")), "tool" );
+    public static final Item MENDING_SMITHING_TEMPLATE = registerSmithingItem( "mending_smithing_template", all, Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.mending_template.title")), "all" );
 
     public static final Item ACACIA_TINTED_TOOL_ROD = registerItem( "acacia_tinted_tool_rod", new TintedToolRodItem(0xC26D3F, new FabricItemSettings()));
     public static final Item BAMBOO_TINTED_TOOL_ROD = registerItem( "bamboo_tinted_tool_rod", new TintedToolRodItem(0xEFD97E, new FabricItemSettings()));

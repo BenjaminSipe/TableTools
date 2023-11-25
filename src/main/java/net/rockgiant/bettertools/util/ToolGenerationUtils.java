@@ -6,6 +6,11 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.ModItemTags;
 import net.rockgiant.bettertools.item.ModItems;
 
@@ -16,7 +21,13 @@ public class ToolGenerationUtils {
     public static final String HANDLE_TOOL_TIP = "handle_tooltip";
     public static final String MATERIAL_COUNT = "material_count";
 
-
+    public static final Formatting TITLE_FORMATTING = Formatting.GRAY;
+    public static final Formatting DESCRIPTION_FORMATTING = Formatting.BLUE;
+    public static final Text ENCHANTMENT_TEMPLATE_APPLIES_TO_TEXT = Text.translatable(Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.applies_to"))).formatted(DESCRIPTION_FORMATTING);
+    public static final Text ENCHANTMENT_TEMPLATE_INGREDIENTS_TEXT = Text.translatable(Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.enchantment_upgrade.ingredients"))).formatted(DESCRIPTION_FORMATTING);
+    public static final Text ENCHANTMENT_TEMPLATE_BASE_SLOT_DESCRIPTION_TEXT_TOOL = Text.translatable(Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.base_slot_description_tool")));
+    public static final Text ENCHANTMENT_TEMPLATE_BASE_SLOT_DESCRIPTION_TEXT_ALL = Text.translatable(Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID,"smithing_template.enchantment_upgrade.base_slot_description_all")));
+    public static final Text ENCHANTMENT_TEMPLATE_ADDITIONS_SLOT_DESCRIPTION_TEXT = Text.translatable(Util.createTranslationKey("item", new Identifier(BetterTools.MOD_ID, "smithing_template.enchantment_upgrade.additions_slot_description")));
     public static float getToolAttackSpeed(String tool_type ) {
         switch (tool_type) {
             case "sword":
