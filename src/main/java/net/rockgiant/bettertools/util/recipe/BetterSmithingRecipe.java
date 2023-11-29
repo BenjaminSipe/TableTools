@@ -59,7 +59,7 @@ public class BetterSmithingRecipe implements SmithingRecipe {
             int level = EnchantmentHelper.getLevel( enchantment, output) + 1;
             Map<Enchantment, Integer> enchantments = EnchantmentHelper.get( this.output);
             if (enchantment.getMaxLevel() < level ) return false;
-            if (! EnchantmentHelper.isCompatible(enchantments.keySet(), enchantment)) return false;
+            if (enchantments.getOrDefault(enchantment, -1 ) == -1 && ! EnchantmentHelper.isCompatible(enchantments.keySet(), enchantment )) return false;
             enchantments.put(enchantment, level );
             EnchantmentHelper.set( enchantments, output );
             return true;

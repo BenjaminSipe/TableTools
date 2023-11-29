@@ -78,6 +78,7 @@ public class ModItems {
     }
 
     private static void registerModToolRods() {
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(content -> content.addAfter( Items.CRYING_OBSIDIAN, BURNING_OBSIDIAN ) );
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
             content.addAfter( Items.STICK,
                 ACACIA_TINTED_TOOL_ROD,
