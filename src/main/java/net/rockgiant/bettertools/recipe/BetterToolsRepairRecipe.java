@@ -1,4 +1,4 @@
-package net.rockgiant.bettertools.util.recipe;
+package net.rockgiant.bettertools.recipe;
 
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;

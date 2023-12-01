@@ -1,4 +1,4 @@
-package net.rockgiant.bettertools.util.recipe;
+package net.rockgiant.bettertools.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.advancement.*;

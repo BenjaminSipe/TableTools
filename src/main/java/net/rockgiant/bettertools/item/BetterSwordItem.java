@@ -1,5 +1,4 @@
-package net.rockgiant.bettertools.item.tools;
-
+package net.rockgiant.bettertools.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -14,9 +13,9 @@ import java.util.List;
 
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getHandleToolTip;
 
-public class BetterHoeItem extends HoeItem {
+public class BetterSwordItem extends SwordItem {
 
-    public BetterHoeItem(ToolMaterial material, int attackDamage, float attackSpeed, Item.Settings settings) {
+    public BetterSwordItem(ToolMaterial material, int attackDamage, float attackSpeed, Item.Settings settings) {
 
         super(material, attackDamage, attackSpeed, settings);
 
@@ -34,7 +33,8 @@ public class BetterHoeItem extends HoeItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal(getHandleToolTip(stack)).formatted(Formatting.GRAY));
+        tooltip.add(Text.literal(" " + getHandleToolTip(stack)).formatted(Formatting.GRAY));
         super.appendTooltip(stack, world, tooltip, context);
     }
+
 }

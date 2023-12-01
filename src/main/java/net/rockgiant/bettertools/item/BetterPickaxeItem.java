@@ -1,4 +1,4 @@
-package net.rockgiant.bettertools.item.tools;
+package net.rockgiant.bettertools.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -13,12 +13,11 @@ import java.util.List;
 
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getHandleToolTip;
 
-public class BetterShovelItem extends ShovelItem {
+public class BetterPickaxeItem extends PickaxeItem {
 
-    public BetterShovelItem(ToolMaterial material, float attackDamage, float attackSpeed, Item.Settings settings) {
 
+    public BetterPickaxeItem(ToolMaterial material, int attackDamage, float attackSpeed, Item.Settings settings) {
         super(material, attackDamage, attackSpeed, settings);
-
     }
 
     @Override

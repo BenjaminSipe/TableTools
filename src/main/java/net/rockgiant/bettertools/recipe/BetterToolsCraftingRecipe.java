@@ -1,4 +1,4 @@
-package net.rockgiant.bettertools.util.recipe;
+package net.rockgiant.bettertools.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

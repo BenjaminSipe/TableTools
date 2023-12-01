@@ -5,10 +5,8 @@ import net.fabricmc.api.ModInitializer;
 import net.rockgiant.bettertools.item.ModItemTags;
 import net.rockgiant.bettertools.item.ModItems;
 
-import net.rockgiant.bettertools.util.recipe.ModRecipes;
+import net.rockgiant.bettertools.recipe.ModRecipes;
 import net.rockgiant.bettertools.world.gen.ModWorldGeneration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BetterTools implements ModInitializer {
 

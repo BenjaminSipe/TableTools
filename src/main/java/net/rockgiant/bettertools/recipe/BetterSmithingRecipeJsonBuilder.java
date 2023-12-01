@@ -1,4 +1,4 @@
-package net.rockgiant.bettertools.util.recipe;
+package net.rockgiant.bettertools.recipe;
 
         import com.google.gson.JsonObject;
         import net.minecraft.advancement.*;
@@ -7,11 +7,9 @@ package net.rockgiant.bettertools.util.recipe;
         import net.minecraft.data.server.recipe.RecipeJsonProvider;
         import net.minecraft.enchantment.Enchantment;
         import net.minecraft.enchantment.EnchantmentHelper;
-        import net.minecraft.item.Item;
         import net.minecraft.recipe.Ingredient;
         import net.minecraft.recipe.RecipeSerializer;
         import net.minecraft.recipe.book.RecipeCategory;
-        import net.minecraft.registry.Registries;
         import net.minecraft.util.Identifier;
         import net.rockgiant.bettertools.BetterTools;
         import org.jetbrains.annotations.Nullable;

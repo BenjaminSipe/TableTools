@@ -179,12 +179,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                         BETTER_WOODEN_SWORD
                         );
 
-                getOrCreateTagBuilder(ModItemTags.BETTER_TOOLS)
-                        .forceAddTag( ModItemTags.BETTER_PICKAXES )
-                        .forceAddTag( ModItemTags.BETTER_AXES )
-                        .forceAddTag( ModItemTags.BETTER_SHOVELS )
-                        .forceAddTag( ModItemTags.BETTER_SWORDS )
-                        .forceAddTag( ModItemTags.BETTER_HOES );
+        getOrCreateTagBuilder(ModItemTags.BETTER_TOOLS)
+                .forceAddTag( ModItemTags.BETTER_PICKAXES )
+                .forceAddTag( ModItemTags.BETTER_AXES )
+                .forceAddTag( ModItemTags.BETTER_SHOVELS )
+                .forceAddTag( ModItemTags.BETTER_SWORDS )
+                .forceAddTag( ModItemTags.BETTER_HOES );
 
         getOrCreateTagBuilder(ModItemTags.BETTER_GEMSTONE_VARIANTS).add(Items.AMETHYST_SHARD,Items.QUARTZ, Items.EMERALD);
         getOrCreateTagBuilder(ModItemTags.BETTER_SOFT_STONE_VARIANTS).add(Items.NETHERRACK, Items.SANDSTONE,Items.RED_SANDSTONE );

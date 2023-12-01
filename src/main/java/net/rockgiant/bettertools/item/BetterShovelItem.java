@@ -1,11 +1,8 @@
-package net.rockgiant.bettertools.item.tools;
+package net.rockgiant.bettertools.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -16,16 +13,14 @@ import java.util.List;
 
 import static net.rockgiant.bettertools.util.ToolGenerationUtils.getHandleToolTip;
 
-public class BetterAxeItem extends AxeItem {
+public class BetterShovelItem extends ShovelItem {
 
+    public BetterShovelItem(ToolMaterial material, float attackDamage, float attackSpeed, Item.Settings settings) {
 
-    public BetterAxeItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(material, attackDamage, attackSpeed, settings);
+
     }
 
-    // when on last hit, speed will be very slow on last attack.
-    // using on wrong material may result in breaking your tool if you are unlucky.
-    // should be 50 % chance.
     @Override
     public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
         return stack.getDamage() == stack.getMaxDamage() - 1 ? 0.1f : super.getMiningSpeedMultiplier(stack, state);

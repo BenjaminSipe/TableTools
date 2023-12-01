@@ -17,10 +17,9 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.rockgiant.bettertools.BetterTools;
 import net.rockgiant.bettertools.item.ModItemTags;
-import net.rockgiant.bettertools.item.ModItems;
-import net.rockgiant.bettertools.util.recipe.BetterSmithingRecipeJsonBuilder;
-import net.rockgiant.bettertools.util.recipe.BetterToolsCraftingRecipeJsonBuilder;
-import net.rockgiant.bettertools.util.recipe.BetterToolsRepairRecipe;
+import net.rockgiant.bettertools.recipe.BetterSmithingRecipeJsonBuilder;
+import net.rockgiant.bettertools.recipe.BetterToolsCraftingRecipeJsonBuilder;
+import net.rockgiant.bettertools.recipe.BetterToolsRepairRecipe;
 
 import static net.rockgiant.bettertools.item.ModItems.*;
 

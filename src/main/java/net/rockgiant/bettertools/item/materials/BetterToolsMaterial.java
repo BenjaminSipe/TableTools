@@ -1,4 +1,4 @@
-package net.rockgiant.bettertools.toolmaterials;
+package net.rockgiant.bettertools.item.materials;
 
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
