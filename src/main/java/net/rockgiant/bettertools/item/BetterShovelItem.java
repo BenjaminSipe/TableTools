@@ -7,7 +7,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class BetterShovelItem extends ShovelItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.literal(getHandleToolTip(stack)).formatted(Formatting.GRAY));
         super.appendTooltip(stack, world, tooltip, context);
     }
