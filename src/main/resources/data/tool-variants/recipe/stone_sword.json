@@ -1,0 +1,13 @@
+{
+  "type": "tool-variants:tool_variant_crafting",
+  "toolType": "SWORD_BLADE",
+  "headIngredient": {
+    "tag": "minecraft:stone_tool_materials"
+  },
+  "handleIngredient": {
+    "tag": "tool-variants:tool_handles"
+  },
+  "result": {
+    "id": "tool-variants:stone_sword"
+  }
+}

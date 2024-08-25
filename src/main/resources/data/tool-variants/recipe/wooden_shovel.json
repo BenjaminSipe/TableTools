@@ -1,0 +1,13 @@
+{
+  "type": "tool-variants:tool_variant_crafting",
+  "toolType": "SHOVEL_HEAD",
+  "headIngredient": {
+    "tag": "minecraft:planks"
+  },
+  "handleIngredient": {
+    "tag": "tool-variants:tool_handles"
+  },
+  "result": {
+    "id": "tool-variants:wooden_shovel"
+  }
+}

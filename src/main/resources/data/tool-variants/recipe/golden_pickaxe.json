@@ -1,0 +1,13 @@
+{
+  "type": "tool-variants:tool_variant_crafting",
+  "toolType": "PICKAXE_HEAD",
+  "headIngredient": {
+    "item": "minecraft:gold_ingot"
+  },
+  "handleIngredient": {
+    "tag": "tool-variants:tool_handles"
+  },
+  "result": {
+    "id": "tool-variants:golden_pickaxe"
+  }
+}

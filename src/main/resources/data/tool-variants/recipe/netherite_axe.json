@@ -1,0 +1,16 @@
+{
+  "type": "tool-variants:tool_variant_smithing",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "tool-variants:diamond_axe"
+  },
+  "result": {
+    "count": 1,
+    "id": "tool-variants:netherite_axe"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}
