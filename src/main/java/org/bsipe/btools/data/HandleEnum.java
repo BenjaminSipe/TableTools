@@ -1,4 +1,4 @@
-package org.bsipe.btools.enums;
+package org.bsipe.btools.data;
 
 public enum HandleEnum {
     BASIC_HANDLE( "tool_handle" ),

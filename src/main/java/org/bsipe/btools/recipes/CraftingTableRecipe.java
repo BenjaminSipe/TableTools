@@ -3,7 +3,9 @@ package org.bsipe.btools.recipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.component.type.NbtComponent;
+import net.minecraft.component.type.ToolComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -15,11 +17,14 @@ import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import org.bsipe.btools.enums.ComponentEnum;
-import org.bsipe.btools.enums.HandleMaterialsEnum;
-import org.bsipe.btools.enums.HeadMaterialsEnum;
+import org.bsipe.btools.data.ComponentEnum;
+import org.bsipe.btools.data.HandleMaterialsEnum;
+import org.bsipe.btools.data.HeadMaterialsEnum;
+
+import java.util.List;
 
 public class CraftingTableRecipe implements CraftingRecipe {
     private final ComponentEnum toolType;
@@ -118,6 +123,11 @@ public class CraftingTableRecipe implements CraftingRecipe {
         compound.put( "layer1", NbtString.of( layer1 ) );
 
         result.set( DataComponentTypes.CUSTOM_DATA, NbtComponent.of( compound ) );
+        result.set( DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT );
+
+//        result.set( DataComponentTypes.MAX_DAMAGE, 500 );
+//        ToolComponent tc = result.get( DataComponentTypes.TOOL );
+//        result.set( DataComponentTypes.TOOL, createComponent());
 
         return result;
     }
@@ -217,4 +227,10 @@ public class CraftingTableRecipe implements CraftingRecipe {
         }
     }
 
+
+//    ToolComponent createComponent() {
+//        return new ToolComponent(
+//                List.of(ToolComponent.Rule.ofNeverDropping(BlockTags.INCORRECT_FOR_IRON_TOOL), ToolComponent.Rule.ofAlwaysDropping(BlockTags.PICKAXE_MINEABLE, 100f)), 1.0F, 1
+//        );
+//    }
 }

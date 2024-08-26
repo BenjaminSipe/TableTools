@@ -18,8 +18,8 @@ import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 import org.bsipe.btools.ModItems;
-import org.bsipe.btools.enums.ComponentEnum;
-import org.bsipe.btools.enums.HeadMaterialsEnum;
+import org.bsipe.btools.data.ComponentEnum;
+import org.bsipe.btools.data.HeadMaterialsEnum;
 
 import static net.minecraft.component.DataComponentTypes.CUSTOM_DATA;
 

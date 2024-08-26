@@ -1,4 +1,4 @@
-package org.bsipe.btools.enums;
+package org.bsipe.btools.data;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,7 +15,7 @@ public enum HandleMaterialsEnum {
     BirchShovelHandle( ModItems.BIRCH_TOOL_HANDLE, HandleEnum.SHOVEL_HANDLE, "btools:item/birch_shovel_handle"  ),
     BirchSwordHandle( ModItems.BIRCH_TOOL_HANDLE, HandleEnum.SWORD_HILT, "btools:item/birch_sword_handle"  ),
 
-    AcaciaToolHandle( ModItems.ACACIA_TOOL_HANDLE, HandleEnum.BASIC_HANDLE, "btools:item/acacia_tool_handle.json"  ),
+    AcaciaToolHandle( ModItems.ACACIA_TOOL_HANDLE, HandleEnum.BASIC_HANDLE, "btools:item/acacia_tool_handle"  ),
     AcaciaShovelHandle( ModItems.ACACIA_TOOL_HANDLE, HandleEnum.SHOVEL_HANDLE, "btools:item/acacia_shovel_handle"  ),
     AcaciaSwordHandle( ModItems.ACACIA_TOOL_HANDLE, HandleEnum.SWORD_HILT, "btools:item/acacia_sword_handle"  ),
 

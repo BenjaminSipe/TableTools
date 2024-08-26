@@ -1,4 +1,4 @@
-package org.bsipe.btools.enums;
+package org.bsipe.btools.data;
 
 
 import net.minecraft.item.Item;
