@@ -1,0 +1,16 @@
+{
+  "type": "btools:btools_smithing",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "btools:diamond_sword"
+  },
+  "result": {
+    "count": 1,
+    "id": "btools:netherite_sword"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

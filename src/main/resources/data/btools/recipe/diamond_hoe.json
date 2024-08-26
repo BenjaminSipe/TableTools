@@ -1,0 +1,13 @@
+{
+  "type": "btools:btools_crafting",
+  "toolType": "HOE_HEAD",
+  "headIngredient": {
+    "item": "minecraft:diamond"
+  },
+  "handleIngredient": {
+    "tag": "btools:tool_handles"
+  },
+  "result": {
+    "id": "btools:diamond_hoe"
+  }
+}

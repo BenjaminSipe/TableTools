@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "tool-variants",
+	"id": "btools",
 	"version": "0.0.1-1.21.1",
-	"name": "Ben's Tool Variants",
+	"name": "Better Tools",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
 		"bsipe"
@@ -12,21 +12,21 @@
 		"XanthianZ ( curseforge )" : "Wooden tool head textures scraped from Variant Sticks & Stuff"
 	},
 	"license": "MIT",
-	"icon": "assets/tool-variants/icon.png",
+	"icon": "assets/btools/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"org.bsipe.toolvariants.BensToolVariants"
+			"org.bsipe.btools.BetterToolsModInitializer"
 		],
 		"client": [
-			"org.bsipe.toolvariants.BensToolVariantsClient"
+			"org.bsipe.btools.ModClient"
 		],
 		"fabric-datagen": [
-			"org.bsipe.toolvariants.BensToolVariantsDataGenerator"
+			"org.bsipe.btools.DataGenerator"
 		]
 	},
 	"mixins": [
-		"tool-variants.mixins.json"
+		"btools.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",

@@ -1,0 +1,13 @@
+{
+  "type": "btools:btools_crafting",
+  "toolType": "PICKAXE_HEAD",
+  "headIngredient": {
+    "tag": "minecraft:stone_tool_materials"
+  },
+  "handleIngredient": {
+    "tag": "btools:tool_handles"
+  },
+  "result": {
+    "id": "btools:stone_pickaxe"
+  }
+}
