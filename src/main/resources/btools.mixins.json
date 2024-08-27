@@ -3,7 +3,7 @@
 	"package": "org.bsipe.btools.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+      "RepairItemRecipeMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

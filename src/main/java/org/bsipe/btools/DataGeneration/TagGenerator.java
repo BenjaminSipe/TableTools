@@ -41,5 +41,6 @@ public class TagGenerator extends FabricTagProvider.ItemTagProvider {
                         OAK_TOOL_HANDLE,
                         SPRUCE_TOOL_HANDLE,
                         WARPED_TOOL_HANDLE);
+
     }
 }
