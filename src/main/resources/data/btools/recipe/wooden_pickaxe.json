@@ -1,6 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolType": "PICKAXE_HEAD",
+  "toolComponent": "PICKAXE_HEAD",
   "headIngredient": {
     "tag": "minecraft:planks"
   },

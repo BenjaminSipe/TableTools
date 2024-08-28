@@ -5,8 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.component.type.NbtComponent;
-import net.minecraft.component.type.ToolComponent;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtString;
@@ -17,27 +15,22 @@ import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import org.bsipe.btools.data.ComponentEnum;
-import org.bsipe.btools.data.HandleMaterialsEnum;
-import org.bsipe.btools.data.HeadMaterialsEnum;
-
-import java.util.List;
+import org.bsipe.btools.data.*;
 
 public class CraftingTableRecipe implements CraftingRecipe {
-    private final ComponentEnum toolType;
+    private final ToolComponent toolComponent;
     private final Ingredient headIngredient;
     private final Ingredient handleIngredient;
     private final ItemStack result;
 
 
-    private Item headItem;
-    private Item handleItem;
+    private ItemStack headItem;
+    private ItemStack handleItem;
 
-    public CraftingTableRecipe(ComponentEnum toolType, Ingredient headIngredient, Ingredient handleIngredient, ItemStack result) {
-        this.toolType = toolType;
+    public CraftingTableRecipe(ToolComponent toolComponent, Ingredient headIngredient, Ingredient handleIngredient, ItemStack result) {
+        this.toolComponent = toolComponent;
         this.result = result;
         this.headIngredient = headIngredient;
         this.handleIngredient = handleIngredient;
@@ -51,12 +44,12 @@ public class CraftingTableRecipe implements CraftingRecipe {
     public boolean matches(CraftingRecipeInput inventory, World world) {
         if ( world.isClient() ) return false;
 
-        return switch( toolType ) {
+        return switch( toolComponent ) {
             case AXE_HEAD ->  matchesSize(3, 2, inventory ) && ( matchesLists( ZOT, F, RI, inventory ) || matchesLists( ZOR, I, TF, inventory ) );
             case HOE_HEAD -> matchesSize(3,2, inventory ) && ( matchesLists( ZO, TF, RI, inventory ) || matchesLists( ZO, RI, TF, inventory ) );
             case PICKAXE_HEAD -> matchesSize( 3,3,inventory ) && matchesLists( ZOT, RISG, FE, inventory );
             case SHOVEL_HEAD ->  matchesSize(3,1, inventory ) && matchesLists( Z, N, OT, inventory );
-            case SWORD_BLADE ->  matchesSize(3,1, inventory ) && matchesLists( ZO, N, T, inventory );
+            default /*SWORD_HEAD*/ -> matchesSize(3,1, inventory ) && matchesLists( ZO, N, T, inventory );
         };
     }
 
@@ -79,7 +72,8 @@ public class CraftingTableRecipe implements CraftingRecipe {
         return input.getHeight() == height && input.getWidth() == width;
     }
     public boolean matchesLists(int[] ingredients, int[] air, int[] sticks, CraftingRecipeInput inventory ) {
-        headItem = inventory.getStackInSlot(ingredients[0]).getItem();
+        headItem = inventory.getStackInSlot(ingredients[0]);
+        handleItem = inventory.getStackInSlot(sticks[0]);
 
         for ( int stick : sticks ) {
             if ( ! handleIngredient.test( inventory.getStackInSlot(stick) ) ) return false;
@@ -91,10 +85,9 @@ public class CraftingTableRecipe implements CraftingRecipe {
 
         for ( int index : ingredients ) {
             if ( ! headIngredient.test( inventory.getStackInSlot( index  ) ) ) return false;
-            if ( ! Ingredient.ofItems( headItem ).test( inventory.getStackInSlot( index ) ) ) return false;
+            if ( ! Ingredient.ofStacks( headItem ).test( inventory.getStackInSlot( index ) ) ) return false;
         }
 
-        handleItem = inventory.getStackInSlot(sticks[0]).getItem();
         return true;
     }
 
@@ -111,11 +104,13 @@ public class CraftingTableRecipe implements CraftingRecipe {
     @Override
     public ItemStack getResult(RegistryWrapper.WrapperLookup lookup) {
 
-        String layer0 = HandleMaterialsEnum.getSpriteByItem( handleItem, toolType.getHandleType() );
-        String layer1 = HeadMaterialsEnum.getSpriteByItem( headItem, toolType );
+//        String layer0 = Material.getSpriteText( handleItem, tool )
 
-        if ( layer0.equals( "" )) HandleMaterialsEnum.getSpriteByIngredient( handleIngredient, toolType.getHandleType() );
-        if ( layer1.equals( "" )) HeadMaterialsEnum.getSpriteByIngredient( headIngredient, toolType );
+        String layer1 = Material.getSpriteText( headItem, toolComponent );
+        String layer0 = Material.getSpriteText( handleItem, toolComponent.getHandleReference() );
+
+        System.out.println( layer1 );
+        System.out.println( layer0 );
 
         NbtCompound compound = new NbtCompound();
 
@@ -123,7 +118,6 @@ public class CraftingTableRecipe implements CraftingRecipe {
         compound.put( "layer1", NbtString.of( layer1 ) );
 
         result.set( DataComponentTypes.CUSTOM_DATA, NbtComponent.of( compound ) );
-        result.set( DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT );
 
 //        result.set( DataComponentTypes.MAX_DAMAGE, 500 );
 //        ToolComponent tc = result.get( DataComponentTypes.TOOL );
@@ -140,7 +134,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
         list.set(7, handleIngredient );
 
         int i = 2; // used to keep the switch-case clean.
-        switch ( toolType ) {
+        switch ( toolComponent ) {
             case SWORD_BLADE:
                 list.set(4, headIngredient );
                 break;
@@ -185,7 +179,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
 
         public static final MapCodec<CraftingTableRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 in -> in.group(
-                        ComponentEnum.CODEC.fieldOf( "toolType" ).forGetter( r->r.toolType),
+                        ToolComponent.CODEC.fieldOf( "toolComponent" ).forGetter( r->r.toolComponent),
                         Ingredient.DISALLOW_EMPTY_CODEC
                                 .fieldOf("headIngredient")
                                 .forGetter(r->r.headIngredient),
@@ -211,7 +205,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
         );
 
         private static CraftingTableRecipe read(RegistryByteBuf buf) {
-            ComponentEnum component = ComponentEnum.valueOf( PacketCodecs.STRING.decode( buf ) );
+            ToolComponent component = ToolComponent.valueOf( PacketCodecs.STRING.decode( buf ) );
             Ingredient headIngredient = Ingredient.PACKET_CODEC.decode( buf );
             Ingredient handleIngredient = Ingredient.PACKET_CODEC.decode( buf );
             ItemStack result = ItemStack.PACKET_CODEC.decode( buf );
@@ -219,7 +213,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
         }
 
         private static void write(RegistryByteBuf buf, CraftingTableRecipe recipe) {
-            PacketCodecs.STRING.encode( buf, recipe.toolType.name() );
+            PacketCodecs.STRING.encode( buf, recipe.toolComponent.name() );
 
             Ingredient.PACKET_CODEC.encode( buf, recipe.headIngredient );
             Ingredient.PACKET_CODEC.encode( buf, recipe.handleIngredient );

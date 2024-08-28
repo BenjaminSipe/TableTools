@@ -1,6 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolType": "SWORD_BLADE",
+  "toolComponent": "SWORD_BLADE",
   "headIngredient": {
     "item": "minecraft:diamond"
   },

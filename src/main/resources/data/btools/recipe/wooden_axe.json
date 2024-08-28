@@ -1,6 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolType": "AXE_HEAD",
+  "toolComponent": "AXE_HEAD",
   "headIngredient": {
     "tag": "minecraft:planks"
   },

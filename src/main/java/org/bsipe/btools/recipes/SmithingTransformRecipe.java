@@ -18,8 +18,8 @@ import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 import org.bsipe.btools.ModItems;
-import org.bsipe.btools.data.ComponentEnum;
-import org.bsipe.btools.data.HeadMaterialsEnum;
+import org.bsipe.btools.data.Material;
+import org.bsipe.btools.data.ToolComponent;
 
 import static net.minecraft.component.DataComponentTypes.CUSTOM_DATA;
 
@@ -41,13 +41,13 @@ public class SmithingTransformRecipe implements SmithingRecipe {
     public boolean matches(SmithingRecipeInput smithingRecipeInput, World world) {
         boolean matches = this.template.test(smithingRecipeInput.template()) && this.base.test(smithingRecipeInput.base()) && this.addition.test(smithingRecipeInput.addition());
         if ( matches ) {
-            ComponentEnum e = ComponentEnum.AXE_HEAD; // default to axe because why not.
-            if ( base.test( ModItems.DIAMOND_SHOVEL.getDefaultStack() ) ) e = ComponentEnum.SHOVEL_HEAD;
-            if ( base.test( ModItems.DIAMOND_PICKAXE.getDefaultStack() ) ) e = ComponentEnum.PICKAXE_HEAD;
-            if ( base.test( ModItems.DIAMOND_HOE.getDefaultStack() ) ) e = ComponentEnum.HOE_HEAD;
-            if ( base.test( ModItems.DIAMOND_SWORD.getDefaultStack() ) ) e = ComponentEnum.SWORD_BLADE;
+            ToolComponent e = ToolComponent.AXE_HEAD; // default to axe because why not.
+            if ( base.test( ModItems.DIAMOND_SHOVEL.getDefaultStack() ) ) e = ToolComponent.SHOVEL_HEAD;
+            if ( base.test( ModItems.DIAMOND_PICKAXE.getDefaultStack() ) ) e = ToolComponent.PICKAXE_HEAD;
+            if ( base.test( ModItems.DIAMOND_HOE.getDefaultStack() ) ) e = ToolComponent.HOE_HEAD;
+            if ( base.test( ModItems.DIAMOND_SWORD.getDefaultStack() ) ) e = ToolComponent.SWORD_BLADE;
             compound = smithingRecipeInput.base().get( CUSTOM_DATA ).getNbt().copy();
-            String layer1 = HeadMaterialsEnum.getSpriteByItem(Items.NETHERITE_INGOT, e );
+            String layer1 = Material.getSpriteText(Items.NETHERITE_INGOT.getDefaultStack(), e );
             compound.put( "layer1", NbtString.of( layer1 ) );
         }
         return matches;

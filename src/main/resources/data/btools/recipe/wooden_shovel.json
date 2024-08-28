@@ -1,6 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolType": "SHOVEL_HEAD",
+  "toolComponent": "SHOVEL_HEAD",
   "headIngredient": {
     "tag": "minecraft:planks"
   },
