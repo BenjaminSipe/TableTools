@@ -1,0 +1,13 @@
+{
+  "type": "btools:btools_crafting",
+  "toolType": "SWORD_BLADE",
+  "headIngredient": {
+    "tag": "minecraft:planks"
+  },
+  "handleIngredient": {
+    "tag": "btools:tool_handles"
+  },
+  "result": {
+    "id": "btools:wooden_sword"
+  }
+}
