@@ -4,11 +4,11 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "btools:diamond_pickaxe"
+    "item": "btools:pickaxe"
   },
   "result": {
     "count": 1,
-    "id": "btools:netherite_pickaxe"
+    "id": "btools:pickaxe"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

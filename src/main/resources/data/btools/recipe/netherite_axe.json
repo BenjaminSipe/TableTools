@@ -4,11 +4,11 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "btools:diamond_axe"
+    "item": "btools:axe"
   },
   "result": {
     "count": 1,
-    "id": "btools:netherite_axe"
+    "id": "btools:axe"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

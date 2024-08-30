@@ -68,7 +68,17 @@ public class ModelLoadingPlugin implements net.fabricmc.fabric.api.client.model.
             modelId( "netherite_hoe", true ),
             modelId( "netherite_hoe", false ),
             modelId( "netherite_sword", true ),
-            modelId( "netherite_sword", false )
+            modelId( "netherite_sword", false ),
+            modelId( "pickaxe", true ),
+            modelId( "pickaxe", false ),
+            modelId( "axe", true ),
+            modelId( "axe", false ),
+            modelId( "shovel", true ),
+            modelId( "shovel", false ),
+            modelId( "hoe", true ),
+            modelId( "hoe", false ),
+            modelId( "sword", true ),
+            modelId( "sword", false )
     );
 
     private static BetterToolsBakedModel modelBaker = new BetterToolsBakedModel();

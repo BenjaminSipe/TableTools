@@ -17,8 +17,8 @@ public class BetterToolsModInitializer implements ModInitializer {
 	public void onInitialize() {
 
 		ModRecipes.initialize();
-
 		ModItems.initialize();
+		ModTags.initialize();
 
 	}
 }

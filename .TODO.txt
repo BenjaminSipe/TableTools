@@ -1,1 +1,3 @@
->> RESET TODO LIST because it was dated and not helpful.
+1. Add material Binding At Time of Crafting to avoid hard coded durrability and mining speed.
+2. Remove gold tools
+3. Add gold tools as material only

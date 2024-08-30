@@ -2,10 +2,10 @@ package org.bsipe.btools;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import org.bsipe.btools.DataGeneration.ModelGenerator;
-import org.bsipe.btools.DataGeneration.RecipeGenerator;
-import org.bsipe.btools.DataGeneration.TagGenerator;
-import org.bsipe.btools.DataGeneration.TranslationGenerator;
+import org.bsipe.btools.data.generation.ModelGenerator;
+import org.bsipe.btools.data.generation.RecipeGenerator;
+import org.bsipe.btools.data.generation.TagGenerator;
+import org.bsipe.btools.data.generation.TranslationGenerator;
 
 public class DataGenerator implements DataGeneratorEntrypoint {
 

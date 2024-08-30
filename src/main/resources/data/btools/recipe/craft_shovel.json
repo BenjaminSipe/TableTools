@@ -1,0 +1,13 @@
+{
+  "type": "btools:btools_crafting",
+  "toolComponent": "SHOVEL_HEAD",
+  "headIngredient": {
+    "tag": "btools:tool_materials"
+  },
+  "handleIngredient": {
+    "tag": "btools:tool_handles"
+  },
+  "result": {
+    "id": "btools:shovel"
+  }
+}

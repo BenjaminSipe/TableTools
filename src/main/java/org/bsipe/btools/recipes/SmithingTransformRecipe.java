@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.stream.Stream;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,8 +19,10 @@ import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 import org.bsipe.btools.ModItems;
-import org.bsipe.btools.data.Material;
-import org.bsipe.btools.data.ToolComponent;
+import org.bsipe.btools.data.DataComponentHelper;
+import org.bsipe.btools.data.ModToolHandleMaterial;
+import org.bsipe.btools.data.ModToolHeadMaterial;
+import org.bsipe.btools.data.ModToolComponent;
 
 import static net.minecraft.component.DataComponentTypes.CUSTOM_DATA;
 
@@ -30,6 +33,7 @@ public class SmithingTransformRecipe implements SmithingRecipe {
     final ItemStack result;
 
     private NbtCompound compound;
+    private ModToolComponent toolComponent;
 
     public SmithingTransformRecipe(Ingredient template, Ingredient base, Ingredient addition, ItemStack result) {
         this.template = template;
@@ -39,16 +43,25 @@ public class SmithingTransformRecipe implements SmithingRecipe {
     }
 
     public boolean matches(SmithingRecipeInput smithingRecipeInput, World world) {
-        boolean matches = this.template.test(smithingRecipeInput.template()) && this.base.test(smithingRecipeInput.base()) && this.addition.test(smithingRecipeInput.addition());
+        boolean matches =
+                this.template.test(smithingRecipeInput.template()) &&
+                this.base.test(smithingRecipeInput.base()) &&
+                this.addition.test(smithingRecipeInput.addition()) &&
+                DataComponentHelper.testToolsMatch( smithingRecipeInput.base(), ModToolHeadMaterial.DIAMOND );
+
         if ( matches ) {
-            ToolComponent e = ToolComponent.AXE_HEAD; // default to axe because why not.
-            if ( base.test( ModItems.DIAMOND_SHOVEL.getDefaultStack() ) ) e = ToolComponent.SHOVEL_HEAD;
-            if ( base.test( ModItems.DIAMOND_PICKAXE.getDefaultStack() ) ) e = ToolComponent.PICKAXE_HEAD;
-            if ( base.test( ModItems.DIAMOND_HOE.getDefaultStack() ) ) e = ToolComponent.HOE_HEAD;
-            if ( base.test( ModItems.DIAMOND_SWORD.getDefaultStack() ) ) e = ToolComponent.SWORD_BLADE;
-            compound = smithingRecipeInput.base().get( CUSTOM_DATA ).getNbt().copy();
-            String layer1 = Material.getSpriteText(Items.NETHERITE_INGOT.getDefaultStack(), e );
+            ModToolComponent e = ModToolComponent.AXE_HEAD; // default to axe because why not.
+            if ( base.test( ModItems.SHOVEL.getDefaultStack() ) ) e = ModToolComponent.SHOVEL_HEAD;
+            if ( base.test( ModItems.PICKAXE.getDefaultStack() ) ) e = ModToolComponent.PICKAXE_HEAD;
+            if ( base.test( ModItems.HOE.getDefaultStack() ) ) e = ModToolComponent.HOE_HEAD;
+            if ( base.test( ModItems.SWORD.getDefaultStack() ) ) e = ModToolComponent.SWORD_BLADE;
+
+            toolComponent = e;
+
+            compound = smithingRecipeInput.base().get( CUSTOM_DATA ).copyNbt();
+            String layer1 = ModToolHeadMaterial.getSpriteText(Items.NETHERITE_INGOT.getDefaultStack(), e );
             compound.put( "layer1", NbtString.of( layer1 ) );
+            compound.put( "material", NbtString.of( ModToolHeadMaterial.NETHERITE.getGroupId() ) );
         }
         return matches;
     }
@@ -56,13 +69,13 @@ public class SmithingTransformRecipe implements SmithingRecipe {
     public ItemStack craft(SmithingRecipeInput smithingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = smithingRecipeInput.base().copyComponentsToNewStack(this.result.getItem(), this.result.getCount());
         itemStack.applyUnvalidatedChanges(this.result.getComponentChanges());
+        DataComponentHelper.addToolComponents( result, Items.NETHERITE_INGOT.getDefaultStack(), ModItems.ACACIA_TOOL_HANDLE.getDefaultStack(), toolComponent);
         itemStack.set( CUSTOM_DATA, NbtComponent.of( compound ) );
         return itemStack;
     }
 
     @Override
     public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        result.set( CUSTOM_DATA, NbtComponent.of( compound ) );
         return this.result;
     }
 

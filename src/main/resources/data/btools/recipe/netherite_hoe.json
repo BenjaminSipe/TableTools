@@ -4,11 +4,11 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "btools:diamond_hoe"
+    "item": "btools:hoe"
   },
   "result": {
     "count": 1,
-    "id": "btools:netherite_hoe"
+    "id": "btools:hoe"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

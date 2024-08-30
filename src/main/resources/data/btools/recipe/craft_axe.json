@@ -1,0 +1,13 @@
+{
+  "type": "btools:btools_crafting",
+  "toolComponent": "AXE_HEAD",
+  "headIngredient": {
+    "tag": "btools:tool_materials"
+  },
+  "handleIngredient": {
+    "tag": "btools:tool_handles"
+  },
+  "result": {
+    "id": "btools:axe"
+  }
+}
