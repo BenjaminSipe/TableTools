@@ -1,0 +1,7 @@
+{
+  "id" : "btools:soft_stone",
+  "enchantability": 5,
+  "durability": 78,
+  "mining_speed": 4.0,
+  "mining_level": "STONE"
+}

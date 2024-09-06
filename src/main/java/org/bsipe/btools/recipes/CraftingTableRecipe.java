@@ -2,36 +2,34 @@ package org.bsipe.btools.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtString;
+import net.minecraft.item.Items;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.bsipe.btools.data.*;
 
 public class CraftingTableRecipe implements CraftingRecipe {
     private final ModToolComponent modToolComponent;
-    private final Ingredient headIngredient;
     private final Ingredient handleIngredient;
     private final ItemStack result;
 
+    private ModToolIngredient headIngredient;
 
-    private ItemStack headItem;
     private ItemStack handleItem;
 
-    public CraftingTableRecipe(ModToolComponent modToolComponent, Ingredient headIngredient, Ingredient handleIngredient, ItemStack result) {
+    public CraftingTableRecipe(ModToolComponent modToolComponent, Ingredient handleIngredient, ItemStack result) {
         this.modToolComponent = modToolComponent;
         this.result = result;
-        this.headIngredient = headIngredient;
         this.handleIngredient = handleIngredient;
     }
 
@@ -71,8 +69,9 @@ public class CraftingTableRecipe implements CraftingRecipe {
         return input.getHeight() == height && input.getWidth() == width;
     }
     public boolean matchesLists(int[] ingredients, int[] air, int[] sticks, CraftingRecipeInput inventory ) {
-        headItem = inventory.getStackInSlot(ingredients[0]);
         handleItem = inventory.getStackInSlot(sticks[0]);
+        headIngredient = ModToolIngredient.get( inventory.getStackInSlot(ingredients[0]), ModToolIngredient.ToolSource.CRAFTING );
+        if ( headIngredient == null ) return false;
 
         for ( int stick : sticks ) {
             if ( ! handleIngredient.test( inventory.getStackInSlot(stick) ) ) return false;
@@ -83,8 +82,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
         }
 
         for ( int index : ingredients ) {
-            if ( ! headIngredient.test( inventory.getStackInSlot( index  ) ) ) return false;
-            if ( ! Ingredient.ofStacks( headItem ).test( inventory.getStackInSlot( index ) ) ) return false;
+            if ( ! headIngredient.getIngredient().test( inventory.getStackInSlot( index ) ) ) return false;
         }
 
         return true;
@@ -102,7 +100,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
 
     @Override
     public ItemStack getResult(RegistryWrapper.WrapperLookup lookup) {
-        DataComponentHelper.addToolComponents( result, headItem, handleItem, modToolComponent );
+        DataComponentHelper.addToolComponents( result, headIngredient != null ? headIngredient : ModToolIngredient.get( Items.IRON_INGOT.getDefaultStack() ), handleItem, modToolComponent );
 
         return result;
     }
@@ -110,6 +108,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
     @Override
     public DefaultedList<Ingredient> getIngredients() {
         DefaultedList<Ingredient> list = DefaultedList.ofSize(9, Ingredient.EMPTY);
+        Ingredient headIngredient = ModToolIngredient.getAllIngredients(ModToolIngredient.ToolSource.CRAFTING);
         list.set(1, headIngredient );
 
         list.set(7, handleIngredient );
@@ -117,7 +116,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
         int i = 2; // used to keep the switch-case clean.
         switch (modToolComponent) {
             case SWORD_BLADE:
-                list.set(4, headIngredient );
+//                list.set(4, headIngredient.getIngredient() );
                 break;
             case AXE_HEAD:
                 i+=1;
@@ -162,9 +161,6 @@ public class CraftingTableRecipe implements CraftingRecipe {
                 in -> in.group(
                         ModToolComponent.CODEC.fieldOf( "toolComponent" ).forGetter(r->r.modToolComponent),
                         Ingredient.DISALLOW_EMPTY_CODEC
-                                .fieldOf("headIngredient")
-                                .forGetter(r->r.headIngredient),
-                        Ingredient.DISALLOW_EMPTY_CODEC
                                 .fieldOf("handleIngredient")
                                 .forGetter(r->r.handleIngredient),
                         ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
@@ -188,24 +184,15 @@ public class CraftingTableRecipe implements CraftingRecipe {
         private static CraftingTableRecipe read(RegistryByteBuf buf) {
             ModToolComponent component = ModToolComponent.valueOf( PacketCodecs.STRING.decode( buf ) );
             Ingredient headIngredient = Ingredient.PACKET_CODEC.decode( buf );
-            Ingredient handleIngredient = Ingredient.PACKET_CODEC.decode( buf );
             ItemStack result = ItemStack.PACKET_CODEC.decode( buf );
-            return new CraftingTableRecipe( component, headIngredient, handleIngredient, result );
+            return new CraftingTableRecipe( component, headIngredient, result );
         }
 
         private static void write(RegistryByteBuf buf, CraftingTableRecipe recipe) {
             PacketCodecs.STRING.encode( buf, recipe.modToolComponent.name() );
 
-            Ingredient.PACKET_CODEC.encode( buf, recipe.headIngredient );
             Ingredient.PACKET_CODEC.encode( buf, recipe.handleIngredient );
             ItemStack.PACKET_CODEC.encode( buf, recipe.result );
         }
     }
-
-
-//    ToolComponent createComponent() {
-//        return new ToolComponent(
-//                List.of(ToolComponent.Rule.ofNeverDropping(BlockTags.INCORRECT_FOR_IRON_TOOL), ToolComponent.Rule.ofAlwaysDropping(BlockTags.PICKAXE_MINEABLE, 100f)), 1.0F, 1
-//        );
-//    }
 }

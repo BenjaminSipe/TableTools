@@ -1,0 +1,7 @@
+{
+  "type": "btools:btools_smithing",
+  "component": "HOE_HEAD",
+  "base": {
+    "item": "btools:hoe"
+  }
+}

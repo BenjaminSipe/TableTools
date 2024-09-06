@@ -1,9 +1,6 @@
 {
   "type": "btools:btools_crafting",
   "toolComponent": "SWORD_BLADE",
-  "headIngredient": {
-    "tag": "btools:tool_materials"
-  },
   "handleIngredient": {
     "tag": "btools:tool_handles"
   },

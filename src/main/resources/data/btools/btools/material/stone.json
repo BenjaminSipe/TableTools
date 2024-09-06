@@ -1,0 +1,7 @@
+{
+  "id" : "btools:stone",
+  "enchantability": 5,
+  "durability": 131,
+  "mining_speed": 4.0,
+  "mining_level": "STONE"
+}

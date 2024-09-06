@@ -1,0 +1,7 @@
+{
+  "id": "btools:blackstone",
+  "path": "btools:item/tool_heads/blackstone/blackstone_",
+  "material_group": "btools:stone",
+  "material": "minecraft:blackstone",
+  "source": "CRAFTING"
+}

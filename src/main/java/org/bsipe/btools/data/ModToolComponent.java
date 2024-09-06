@@ -57,4 +57,5 @@ public enum ModToolComponent implements StringIdentifiable {
         return null;
     }
 
+    public String getSuffix() { return suffix; }
 }

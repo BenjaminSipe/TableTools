@@ -1,0 +1,7 @@
+{
+  "type": "btools:btools_smithing",
+  "component": "PICKAXE_HEAD",
+  "base": {
+    "item": "btools:pickaxe"
+  }
+}

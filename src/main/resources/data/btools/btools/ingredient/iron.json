@@ -1,0 +1,7 @@
+{
+  "id": "btools:iron",
+  "path": "btools:item/tool_heads/iron/iron_",
+  "material_group": "btools:iron",
+  "material": "minecraft:iron_ingot",
+  "source": "CRAFTING"
+}

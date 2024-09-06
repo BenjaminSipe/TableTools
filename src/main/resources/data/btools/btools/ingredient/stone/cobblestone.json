@@ -1,0 +1,7 @@
+{
+  "id": "btools:cobblestone",
+  "path": "btools:item/tool_heads/stone/stone_",
+  "material_group": "btools:stone",
+  "material": "minecraft:cobblestone",
+  "source": "CRAFTING"
+}

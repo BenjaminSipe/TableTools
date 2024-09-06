@@ -16,6 +16,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
 
 import java.util.List;
@@ -43,61 +44,38 @@ public class DataComponentHelper {
                     BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 4,
                     BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 5 );
 
-    public static NbtComponent getCustomData(ItemStack head, ItemStack handle, ModToolComponent component, ToolMaterial material ) {
-        String layer1 = ModToolHeadMaterial.getSpriteText( head, component);
-        String layer0 = ModToolHandleMaterial.getSpriteText( handle, component.getHandleReference() );
+    public static NbtComponent getCustomData(ModToolIngredient modToolIngredient, String handleSprite, ModToolComponent component ) {
+
+        String layer1 = modToolIngredient.path + component.suffix;
+        String layer0 = handleSprite;
 
         NbtCompound compound = new NbtCompound();
 
         compound.put( "layer0", NbtString.of( layer0 ) );
         compound.put( "layer1", NbtString.of( layer1 ) );
-        compound.put( "material", NbtString.of( ((ModToolHeadMaterial) material ).getGroupId() ) );
+        compound.put( "material", NbtString.of( modToolIngredient.modToolMaterial.getId().toString() ) );
         return NbtComponent.of( compound );
     }
 
-    public static int getMaxDamage(ToolMaterial material ) {
-        return material.getDurability();
+    public static int getMaxDamage(ModToolIngredient modToolIngredient ) {
+        return modToolIngredient.getDurability();
     }
 
-    /**
-     * Damage and attack speed are slightly simplified from vanilla tools for simplicity.
-     * For damage, all tools have a base attack damage of 1.
-     * For a Hoe, damage stays at one.
-     * For Pickaxes, Shovels, and Swords. . . a base value is added to a gradient based on the mining tier of the tool
-     * For Axes, there is a 3 tier system. . . low (wood + gold ), mid( stone, iron, diamond), and high(netherite)
-     * EXAMPLE: Stone axe: damageVar = 0. . . axe_damage_map( stone_tool ) returns 8.
-     * Which is added to the base damage of 1 by the AttributeModifiersComponent.Builder to give a total damage of 9. . .
-     *
-     * For attack speed, some simplification was used. . .
-     * In vanilla, Pickaxes, Shovels, and Swords all have constant attack speed.
-     * The attack speed of a Hoe uses a gradient going from wood ( attack speed matches other wood tools )
-     * to netherite ( attack speed matches a non weapon item ). . .
-     * This could be useful, except hoes only ever do 1 damage, so scaling attack speed becomes rather meaningless.
-     * For axes, the attack speed hovers around 3 with iron and stone having slightly longer attack speeds (3.1/3.2)
-     * to compensate for doing as much damage as a diamond axe. . .
-     * Again, unless you are very precise with your timings, this .1 second won't matter. . .
-     *
-     * Hence, to simplify, attack speed for tools is based on tool type only.
-     *
-     * @param component used to know what tool is being used, and what damage and attack speed are used.
-     * @param material used to calculate damage based on tool tier
-     * @return AttributeModifiersComponent in a normal tool, this controls the damage and attack speed when attacking in main hand. . .
-     */
-    public static AttributeModifiersComponent getAttributeModifiers( ModToolComponent component, ToolMaterial material ) {
+    public static AttributeModifiersComponent getAttributeModifiers( ModToolComponent component, ModToolIngredient ingredient ) {
 
 
         float damage = 0;
         if ( AXE_HEAD.equals( component ) ) {
-            damage = AXE_DAMAGE_MAP.get( material.getInverseTag() );
+            damage = AXE_DAMAGE_MAP.get( ingredient.getInverseTag() );
         } else if ( ModToolComponent.isGradient( component ) ) {
-            damage = ModToolComponent.getBaseDamage( component ) + GRADIENT_DAMAGE_MAP.get( material.getInverseTag() );
+            damage = ModToolComponent.getBaseDamage( component ) + GRADIENT_DAMAGE_MAP.get( ingredient.getInverseTag() );
         }
 
         return AttributeModifiersComponent.builder()
                 .add(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE,
                         new EntityAttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, damage, EntityAttributeModifier.Operation.ADD_VALUE
+                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, damage + ingredient.getDamage(), EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND
                 )
@@ -109,17 +87,23 @@ public class DataComponentHelper {
                 .build();
     }
 
-    public static ToolComponent getTool(ModToolComponent component, ToolMaterial material ) {
-        return SWORD_BLADE.equals( component ) ? SWORD_TOOL_COMPONENT : material.createComponent( component.getEffectiveBlock() );
+    public static ToolComponent getTool(ModToolComponent component, ModToolIngredient ingredient ) {
+        return SWORD_BLADE.equals( component ) ? SWORD_TOOL_COMPONENT : new ToolComponent(
+                List.of(ToolComponent.Rule.ofNeverDropping(ingredient.getInverseTag()), ToolComponent.Rule.ofAlwaysDropping(component.getEffectiveBlock(), ingredient.getMiningSpeedMultiplier())), 1.0F, 1
+        );
     }
 
-    public static void addToolComponents(ItemStack result, ItemStack headItem, ItemStack handleItem, ModToolComponent component ) {
-        ToolMaterial material = ModToolHeadMaterial.getMaterial( headItem );
-        result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( headItem, handleItem, component, material ) );
-        result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(material) );
-        if ( material.equals( ModToolHeadMaterial.NETHERITE ) ) result.set( DataComponentTypes.FIRE_RESISTANT, Unit.INSTANCE );
-        result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, getAttributeModifiers( component, material ));
-        result.set( DataComponentTypes.TOOL, getTool(component, material) );
+    public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ItemStack handleItem, ModToolComponent component ) {
+        addToolComponents( result, modToolIngredient, ModToolHandleMaterial.getSpriteText( handleItem, component.getHandleReference() ), component);
+    }
+
+    public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, String handleItemSprite, ModToolComponent component ) {
+
+        result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, handleItemSprite, component ) );
+        result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient) );
+        result.set( DataComponentTypes.FIRE_RESISTANT, modToolIngredient.isFireResistent() ? Unit.INSTANCE : null );
+        result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, getAttributeModifiers( component, modToolIngredient ));
+        result.set( DataComponentTypes.TOOL, getTool(component, modToolIngredient) );
     }
 
     public static void copyToolComponents( ItemStack base, ItemStack result ) {
@@ -133,17 +117,22 @@ public class DataComponentHelper {
     public static boolean testToolsMatch( ItemStack one, ItemStack two ) {
         if ( one.get( DataComponentTypes.CUSTOM_DATA).isEmpty() || two.get( DataComponentTypes.CUSTOM_DATA).isEmpty()) return false;
         return one.get(DataComponentTypes.CUSTOM_DATA).getNbt().getString("material").equals(
-                one.get(DataComponentTypes.CUSTOM_DATA).getNbt().getString("material")
+                two.get(DataComponentTypes.CUSTOM_DATA).getNbt().getString("material")
         );
     }
 
-    public static boolean testToolsMatch( ItemStack one, ModToolHeadMaterial two ) {
+    public static boolean testToolsMatch( ItemStack one, ModToolIngredient two ) {
         return ( ! one.get( DataComponentTypes.CUSTOM_DATA).isEmpty() )
-                && one.get( DataComponentTypes.CUSTOM_DATA).getNbt().getString( "material" ).equals( two.groupId );
+                && one.get( DataComponentTypes.CUSTOM_DATA).getNbt().getString( "material" ).equals( two.modToolMaterial.getId().toString() );
     }
 
     public static final ToolComponent SWORD_TOOL_COMPONENT = new ToolComponent(
             List.of(ToolComponent.Rule.ofAlwaysDropping(List.of(Blocks.COBWEB), 15.0F), ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5F)), 1.0F, 2
             );
+
+    public static ModToolMaterial getMaterial( ItemStack item ) {
+        if ( item.get( DataComponentTypes.CUSTOM_DATA).isEmpty()) return null;
+        return ModToolMaterial.MATERIAL_LIST.get( Identifier.of(item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("material")));
+    }
 
 }

@@ -1,0 +1,7 @@
+{
+  "id": "btools:diamond",
+  "path": "btools:item/tool_heads/diamond/diamond_",
+  "material_group": "btools:diamond",
+  "material": "minecraft:diamond",
+  "source": "CRAFTING"
+}

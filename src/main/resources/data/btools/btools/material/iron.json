@@ -1,0 +1,7 @@
+{
+  "id" : "btools:iron",
+  "enchantability": 14,
+  "durability": 250,
+  "mining_speed": 6.0,
+  "mining_level": "IRON"
+}

@@ -1,0 +1,7 @@
+{
+  "id" : "btools:obsidian",
+  "enchantability": 5,
+  "durability": 2031,
+  "mining_speed": 4.0,
+  "mining_level": "DIAMOND"
+}

@@ -12,70 +12,71 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SmithingRecipe;
 import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
+
 import net.minecraft.world.World;
+import org.bsipe.btools.BetterToolsModInitializer;
 import org.bsipe.btools.ModItems;
 import org.bsipe.btools.data.DataComponentHelper;
-import org.bsipe.btools.data.ModToolHandleMaterial;
-import org.bsipe.btools.data.ModToolHeadMaterial;
 import org.bsipe.btools.data.ModToolComponent;
+import org.bsipe.btools.data.ModToolIngredient;
+import org.bsipe.btools.data.ModToolMaterial;
 
 import static net.minecraft.component.DataComponentTypes.CUSTOM_DATA;
 
 public class SmithingTransformRecipe implements SmithingRecipe {
-    final Ingredient template;
+    final Ingredient template = Ingredient.ofItems( Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE );
+    final ModToolComponent component;
     final Ingredient base;
-    final Ingredient addition;
-    final ItemStack result;
 
-    private NbtCompound compound;
-    private ModToolComponent toolComponent;
+    private ModToolIngredient ingredient;
 
-    public SmithingTransformRecipe(Ingredient template, Ingredient base, Ingredient addition, ItemStack result) {
-        this.template = template;
+    private ItemStack result = ModItems.AXE.getDefaultStack();
+    private String layer0;
+
+    public SmithingTransformRecipe(ModToolComponent component, Ingredient base) {
+        this.component = component;
         this.base = base;
-        this.addition = addition;
-        this.result = result;
     }
 
     public boolean matches(SmithingRecipeInput smithingRecipeInput, World world) {
-        boolean matches =
-                this.template.test(smithingRecipeInput.template()) &&
-                this.base.test(smithingRecipeInput.base()) &&
-                this.addition.test(smithingRecipeInput.addition()) &&
-                DataComponentHelper.testToolsMatch( smithingRecipeInput.base(), ModToolHeadMaterial.DIAMOND );
 
-        if ( matches ) {
-            ModToolComponent e = ModToolComponent.AXE_HEAD; // default to axe because why not.
-            if ( base.test( ModItems.SHOVEL.getDefaultStack() ) ) e = ModToolComponent.SHOVEL_HEAD;
-            if ( base.test( ModItems.PICKAXE.getDefaultStack() ) ) e = ModToolComponent.PICKAXE_HEAD;
-            if ( base.test( ModItems.HOE.getDefaultStack() ) ) e = ModToolComponent.HOE_HEAD;
-            if ( base.test( ModItems.SWORD.getDefaultStack() ) ) e = ModToolComponent.SWORD_BLADE;
+        if ( ( world.isClient() && layer0 != null ) // probably way less efficient. . . but oh well.
+                || smithingRecipeInput.getSize() != 3
+                || ! this.template.test( smithingRecipeInput.template())
+                || ! this.base.test( smithingRecipeInput.base()) ) return false;
 
-            toolComponent = e;
+        ingredient = ModToolIngredient.get( smithingRecipeInput.addition(), ModToolIngredient.ToolSource.SMITHING );
 
-            compound = smithingRecipeInput.base().get( CUSTOM_DATA ).copyNbt();
-            String layer1 = ModToolHeadMaterial.getSpriteText(Items.NETHERITE_INGOT.getDefaultStack(), e );
-            compound.put( "layer1", NbtString.of( layer1 ) );
-            compound.put( "material", NbtString.of( ModToolHeadMaterial.NETHERITE.getGroupId() ) );
-        }
-        return matches;
+        if ( ingredient == null ) return false;
+
+        ModToolMaterial material = DataComponentHelper.getMaterial( smithingRecipeInput.base() );
+
+        if ( ! ingredient.getBaseMaterial().equals( material.getId() )) return false;
+        layer0 = smithingRecipeInput.base().get( CUSTOM_DATA ).copyNbt().getString( "layer0" );
+
+        result = smithingRecipeInput.base().copy();
+        DataComponentHelper.addToolComponents( result, ModToolIngredient.get( smithingRecipeInput.addition() ), layer0, component);
+
+        return true;
     }
 
     public ItemStack craft(SmithingRecipeInput smithingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
-        ItemStack itemStack = smithingRecipeInput.base().copyComponentsToNewStack(this.result.getItem(), this.result.getCount());
-        itemStack.applyUnvalidatedChanges(this.result.getComponentChanges());
-        DataComponentHelper.addToolComponents( result, Items.NETHERITE_INGOT.getDefaultStack(), ModItems.ACACIA_TOOL_HANDLE.getDefaultStack(), toolComponent);
-        itemStack.set( CUSTOM_DATA, NbtComponent.of( compound ) );
-        return itemStack;
+        result = smithingRecipeInput.base().copy();
+        DataComponentHelper.addToolComponents( result, ModToolIngredient.get( smithingRecipeInput.addition() ), layer0, component);
+
+        return this.result;
     }
 
     @Override
     public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
+        // the problem is that this is working from the client side. . .
+        result.set(CUSTOM_DATA, DataComponentHelper.getCustomData(ingredient, layer0, component));
         return this.result;
     }
 
@@ -91,7 +92,7 @@ public class SmithingTransformRecipe implements SmithingRecipe {
 
     @Override
     public boolean testAddition(ItemStack stack) {
-        return this.addition.test(stack);
+        return ModToolIngredient.get( stack, ModToolIngredient.ToolSource.SMITHING ) != null;
     }
 
     @Override
@@ -101,7 +102,7 @@ public class SmithingTransformRecipe implements SmithingRecipe {
 
     @Override
     public boolean isEmpty() {
-        return Stream.of(this.template, this.base, this.addition).anyMatch(Ingredient::isEmpty);
+        return Stream.of(this.template, this.base).anyMatch(Ingredient::isEmpty);
     }
 
     public static class Serializer implements RecipeSerializer<SmithingTransformRecipe> {
@@ -112,10 +113,8 @@ public class SmithingTransformRecipe implements SmithingRecipe {
 
         private static final MapCodec<SmithingTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 instance -> instance.group(
-                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("template").forGetter(recipe -> recipe.template),
-                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
-                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition),
-                                ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                                ModToolComponent.CODEC.fieldOf( "component" ).forGetter( recipe -> recipe.component ),
+                                Ingredient.ALLOW_EMPTY_CODEC.fieldOf("base").forGetter(recipe -> recipe.base)
                         )
                         .apply(instance, SmithingTransformRecipe::new)
         );
@@ -134,18 +133,14 @@ public class SmithingTransformRecipe implements SmithingRecipe {
         }
 
         private static SmithingTransformRecipe read(RegistryByteBuf buf) {
+            ModToolComponent component = ModToolComponent.valueOf( PacketCodecs.STRING.decode( buf ) );
             Ingredient ingredient = Ingredient.PACKET_CODEC.decode(buf);
-            Ingredient ingredient2 = Ingredient.PACKET_CODEC.decode(buf);
-            Ingredient ingredient3 = Ingredient.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = ItemStack.PACKET_CODEC.decode(buf);
-            return new SmithingTransformRecipe(ingredient, ingredient2, ingredient3, itemStack);
+            return new SmithingTransformRecipe(component, ingredient);
         }
 
         private static void write(RegistryByteBuf buf, SmithingTransformRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buf, recipe.template);
-            Ingredient.PACKET_CODEC.encode(buf, recipe.base);
-            Ingredient.PACKET_CODEC.encode(buf, recipe.addition);
-            ItemStack.PACKET_CODEC.encode(buf, recipe.result);
+            PacketCodecs.STRING.encode( buf, recipe.component.name() );
+            Ingredient.PACKET_CODEC.encode( buf, recipe.base );
         }
     }
 }

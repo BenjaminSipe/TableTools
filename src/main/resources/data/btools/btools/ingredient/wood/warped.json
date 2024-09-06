@@ -1,0 +1,7 @@
+{
+  "id": "btools:warped",
+  "path": "btools:item/tool_heads/warped/warped_",
+  "material_group": "btools:wood",
+  "material": "minecraft:warped_planks",
+  "source": "CRAFTING"
+}

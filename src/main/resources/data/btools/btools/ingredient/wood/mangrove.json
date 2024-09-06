@@ -1,0 +1,7 @@
+{
+  "id": "btools:mangrove",
+  "path": "btools:item/tool_heads/mangrove/mangrove_",
+  "material_group": "btools:wood",
+  "material": "minecraft:mangrove_planks",
+  "source": "CRAFTING"
+}

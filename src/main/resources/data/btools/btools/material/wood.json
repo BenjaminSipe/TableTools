@@ -1,0 +1,7 @@
+{
+  "id": "btools:wood",
+  "enchantability": 15,
+  "durability": 59,
+  "mining_speed": 2.0,
+  "mining_level": "WOOD"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "btools:gold",
+  "path": "btools:item/tool_heads/gold/gold_",
+  "material_group": "btools:soft_metal",
+  "material": "minecraft:gold_ingot",
+  "source": "CRAFTING"
+}

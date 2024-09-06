@@ -1,0 +1,7 @@
+{
+  "id": "btools:birch",
+  "path": "btools:item/tool_heads/birch/birch_",
+  "material_group": "btools:wood",
+  "material": "minecraft:birch_planks",
+  "source": "CRAFTING"
+}

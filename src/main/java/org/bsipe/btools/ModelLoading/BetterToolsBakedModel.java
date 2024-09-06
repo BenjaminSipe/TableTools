@@ -87,9 +87,10 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
 
-        NbtCompound data = stack.get( DataComponentTypes.CUSTOM_DATA ).copyNbt();
-        String layer0 = data.getString("layer0");
-        String layer1 = data.getString("layer1");
+        NbtCompound data = stack.get( DataComponentTypes.CUSTOM_DATA ) != null ? stack.get( DataComponentTypes.CUSTOM_DATA ).copyNbt() : null;
+
+        String layer0 = data == null ? "" : data.getString("layer0");
+        String layer1 = data == null ? "" : data.getString("layer1");
         if ( layer0.equals( "" ) ) {
             if ( tempBakedModel == null )
             {

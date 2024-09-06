@@ -1,0 +1,7 @@
+{
+  "id": "btools:oak",
+  "path": "btools:item/tool_heads/oak/oak_",
+  "material_group": "btools:wood",
+  "material": "minecraft:oak_planks",
+  "source": "CRAFTING"
+}
