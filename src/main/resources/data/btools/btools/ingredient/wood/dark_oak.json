@@ -1,7 +1,7 @@
 {
-  "id": "btools:dark_oak",
+  "id": "btools:ingredient/dark_oak",
   "path": "btools:item/tool_heads/dark_oak/dark_oak_",
-  "material_group": "btools:wood",
+  "material_group": "btools:material/wood",
   "material": "minecraft:dark_oak_planks",
   "source": "CRAFTING"
 }

@@ -1,7 +1,7 @@
 {
-  "id": "btools:spruce",
+  "id": "btools:ingredient/spruce",
   "path": "btools:item/tool_heads/spruce/spruce_",
-  "material_group": "btools:wood",
+  "material_group": "btools:material/wood",
   "material": "minecraft:spruce_planks",
   "source": "CRAFTING"
 }

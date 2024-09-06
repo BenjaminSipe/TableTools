@@ -1,7 +1,7 @@
 {
-  "id": "btools:copper",
+  "id": "btools:ingredient/copper",
   "path": "btools:item/tool_heads/copper/copper_",
-  "material_group": "btools:soft_metal",
+  "material_group": "btools:material/soft_metal",
   "material": "minecraft:copper_ingot",
   "source": "CRAFTING"
 }

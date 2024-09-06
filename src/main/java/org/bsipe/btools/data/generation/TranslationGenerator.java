@@ -28,52 +28,42 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add( ModItems.SPRUCE_TOOL_HANDLE, "Spruce Tool Handle");
         translationBuilder.add( ModItems.WARPED_TOOL_HANDLE, "Warped Tool Handle");
 
-        translationBuilder.add( ModItems.AXE, "Axe" );
-        translationBuilder.add( ModItems.HOE, "Hoe" );
-        translationBuilder.add( ModItems.PICKAXE, "Pickaxe" );
-        translationBuilder.add( ModItems.SWORD, "Sword" );
-        translationBuilder.add( ModItems.SHOVEL, "Shovel" );
-
-
-//        translationBuilder.add( ModItems.WOODEN_AXE, "Wooden Axe" );
-//        translationBuilder.add( ModItems.WOODEN_HOE, "Wooden Hoe" );
-//        translationBuilder.add( ModItems.WOODEN_PICKAXE, "Wooden Pickaxe" );
-//        translationBuilder.add( ModItems.WOODEN_SWORD, "Wooden Sword" );
-//        translationBuilder.add( ModItems.WOODEN_SHOVEL, "Wooden Shovel" );
-//
-//        translationBuilder.add( ModItems.STONE_AXE, "Stone Axe" );
-//        translationBuilder.add( ModItems.STONE_HOE, "Stone Hoe" );
-//        translationBuilder.add( ModItems.STONE_PICKAXE, "Stone Pickaxe" );
-//        translationBuilder.add( ModItems.STONE_SWORD, "Stone Sword" );
-//        translationBuilder.add( ModItems.STONE_SHOVEL, "Stone Shovel" );
-//
-//        translationBuilder.add( ModItems.GOLDEN_AXE, "Golden Axe" );
-//        translationBuilder.add( ModItems.GOLDEN_HOE, "Golden Hoe" );
-//        translationBuilder.add( ModItems.GOLDEN_PICKAXE, "Golden Pickaxe" );
-//        translationBuilder.add( ModItems.GOLDEN_SWORD, "Golden Sword" );
-//        translationBuilder.add( ModItems.GOLDEN_SHOVEL, "Golden Shovel" );
-//
-//        translationBuilder.add( ModItems.IRON_AXE, "Iron Axe" );
-//        translationBuilder.add( ModItems.IRON_HOE, "Iron Hoe" );
-//        translationBuilder.add( ModItems.IRON_PICKAXE, "Iron Pickaxe" );
-//        translationBuilder.add( ModItems.IRON_SWORD, "Iron Sword" );
-//        translationBuilder.add( ModItems.IRON_SHOVEL, "Iron Shovel" );
-//
-//        translationBuilder.add( ModItems.DIAMOND_AXE, "Diamond Axe" );
-//        translationBuilder.add( ModItems.DIAMOND_HOE, "Diamond Hoe" );
-//        translationBuilder.add( ModItems.DIAMOND_PICKAXE, "Diamond Pickaxe" );
-//        translationBuilder.add( ModItems.DIAMOND_SWORD, "Diamond Sword" );
-//        translationBuilder.add( ModItems.DIAMOND_SHOVEL, "Diamond Shovel" );
-//
-//        translationBuilder.add( ModItems.NETHERITE_AXE, "Netherite Axe" );
-//        translationBuilder.add( ModItems.NETHERITE_HOE, "Netherite Hoe" );
-//        translationBuilder.add( ModItems.NETHERITE_PICKAXE, "Netherite Pickaxe" );
-//        translationBuilder.add( ModItems.NETHERITE_SWORD, "Netherite Sword" );
-//        translationBuilder.add( ModItems.NETHERITE_SHOVEL, "Netherite Shovel" );
+        translationBuilder.add( ModItems.AXE, "%s Axe" );
+        translationBuilder.add( ModItems.HOE, "%s Hoe" );
+        translationBuilder.add( ModItems.PICKAXE, "%s Pickaxe" );
+        translationBuilder.add( ModItems.SWORD, "%s Sword" );
+        translationBuilder.add( ModItems.SHOVEL, "%s Shovel" );
 
         translationBuilder.add(ModTags.TOOL_HANDLES, "Tool Handles" );
-        translationBuilder.add(ModTags.TOOL_HEAD_INGREDIENTS, "Tool Head Ingredients" );
 
+        // hard coded langs that I might as well put in data gen for simplicity...
+
+        translationBuilder.add("btools:ingredient/acacia", "Acacia");
+        translationBuilder.add("btools:ingredient/bamboo", "Bamboo");
+        translationBuilder.add("btools:ingredient/birch", "Birch");
+        translationBuilder.add("btools:ingredient/cherry", "Cherry");
+        translationBuilder.add("btools:ingredient/crimson", "Crimson");
+        translationBuilder.add("btools:ingredient/dark_oak", "Dark Oak");
+        translationBuilder.add("btools:ingredient/jungle", "Jungle");
+        translationBuilder.add("btools:ingredient/mangrove", "Mangrove");
+        translationBuilder.add("btools:ingredient/oak", "Oak");
+        translationBuilder.add("btools:ingredient/spruce", "Spruce");
+        translationBuilder.add("btools:ingredient/warped", "Warped");
+        translationBuilder.add("btools:ingredient/cobblestone", "Cobblestone");
+        translationBuilder.add("btools:ingredient/cobbled_deepslate", "Deepslate");
+        translationBuilder.add("btools:ingredient/blackstone", "Blackstone");
+        translationBuilder.add("btools:ingredient/iron", "Iron");
+        translationBuilder.add("btools:ingredient/diamond", "Diamond");
+        translationBuilder.add("btools:ingredient/gold", "Gold");
+        translationBuilder.add("btools:ingredient/copper", "Copper");
+        translationBuilder.add("btools:ingredient/netherite", "Netherite");
+
+        translationBuilder.add("btools:material/diamond", "Diamond");
+        translationBuilder.add("btools:material/soft_metal", "Soft Metal");
+        translationBuilder.add("btools:material/stone", "Stone");
+        translationBuilder.add("btools:material/netherite", "Netherite");
+        translationBuilder.add("btools:material/iron", "Iron");
+        translationBuilder.add("btools:material/wood", "Wood");
 
     }
 }

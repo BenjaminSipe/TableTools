@@ -16,6 +16,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
 
@@ -99,6 +100,8 @@ public class DataComponentHelper {
 
     public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, String handleItemSprite, ModToolComponent component ) {
 
+
+        result.set( DataComponentTypes.ITEM_NAME, Text.translatable( result.getTranslationKey() , Text.translatable( modToolIngredient.getId() ) ) );
         result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, handleItemSprite, component ) );
         result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient) );
         result.set( DataComponentTypes.FIRE_RESISTANT, modToolIngredient.isFireResistent() ? Unit.INSTANCE : null );
@@ -107,6 +110,7 @@ public class DataComponentHelper {
     }
 
     public static void copyToolComponents( ItemStack base, ItemStack result ) {
+        result.set( DataComponentTypes.ITEM_NAME, base.get( DataComponentTypes.ITEM_NAME) );
         result.set( DataComponentTypes.CUSTOM_DATA, base.get( DataComponentTypes.CUSTOM_DATA) );
         result.set( DataComponentTypes.MAX_DAMAGE, base.get( DataComponentTypes.MAX_DAMAGE) );
         if ( base.get( DataComponentTypes.FIRE_RESISTANT ) != null ) result.set( DataComponentTypes.FIRE_RESISTANT, Unit.INSTANCE );
@@ -120,12 +124,7 @@ public class DataComponentHelper {
                 two.get(DataComponentTypes.CUSTOM_DATA).getNbt().getString("material")
         );
     }
-
-    public static boolean testToolsMatch( ItemStack one, ModToolIngredient two ) {
-        return ( ! one.get( DataComponentTypes.CUSTOM_DATA).isEmpty() )
-                && one.get( DataComponentTypes.CUSTOM_DATA).getNbt().getString( "material" ).equals( two.modToolMaterial.getId().toString() );
-    }
-
+    
     public static final ToolComponent SWORD_TOOL_COMPONENT = new ToolComponent(
             List.of(ToolComponent.Rule.ofAlwaysDropping(List.of(Blocks.COBWEB), 15.0F), ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5F)), 1.0F, 2
             );

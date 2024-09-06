@@ -1,7 +1,6 @@
 package org.bsipe.btools.data;
 
 import net.minecraft.block.Block;
-import net.minecraft.component.type.ToolComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
@@ -10,9 +9,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
@@ -41,6 +38,9 @@ public class ModToolIngredient {
     String path;
     ToolSource source;
 
+    public String getId() {
+        return id.toString();
+    }
 
     public static void clearList() {
         INGREDIENT_LIST = new HashMap<>();

@@ -1,5 +1,5 @@
 {
-  "id" : "btools:soft_metal",
+  "id" : "btools:material/soft_metal",
   "enchantability": 22,
   "durability": 32,
   "mining_speed": 12.0,

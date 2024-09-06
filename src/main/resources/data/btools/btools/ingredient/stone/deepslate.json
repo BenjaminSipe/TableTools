@@ -1,7 +1,7 @@
 {
-  "id": "btools:cobbled_deepslate",
+  "id": "btools:ingredient/cobbled_deepslate",
   "path": "btools:item/tool_heads/deepslate/deepslate_",
-  "material_group": "btools:stone",
+  "material_group": "btools:material/stone",
   "material": "minecraft:cobbled_deepslate",
   "source": "CRAFTING"
 }

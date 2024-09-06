@@ -1,5 +1,5 @@
 {
-  "id" : "btools:stone",
+  "id" : "btools:material/stone",
   "enchantability": 5,
   "durability": 131,
   "mining_speed": 4.0,
