@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/granite",
+  "path": "btools:item/tool_heads/granite/granite_",
+  "material_group": "btools:material/stone",
+  "material": "minecraft:granite",
+  "source": "CRAFTING"
+}

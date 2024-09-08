@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/quartz",
+  "path": "btools:item/tool_heads/quartz/quartz_",
+  "material_group": "btools:material/gemstone",
+  "material": "minecraft:quartz",
+  "source": "CRAFTING"
+}

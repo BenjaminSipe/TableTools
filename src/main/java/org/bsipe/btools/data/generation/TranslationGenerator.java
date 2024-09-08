@@ -49,17 +49,45 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add("btools:ingredient/oak", "Oak");
         translationBuilder.add("btools:ingredient/spruce", "Spruce");
         translationBuilder.add("btools:ingredient/warped", "Warped");
+
         translationBuilder.add("btools:ingredient/cobblestone", "Cobblestone");
         translationBuilder.add("btools:ingredient/cobbled_deepslate", "Deepslate");
         translationBuilder.add("btools:ingredient/blackstone", "Blackstone");
-        translationBuilder.add("btools:ingredient/iron", "Iron");
-        translationBuilder.add("btools:ingredient/diamond", "Diamond");
+        translationBuilder.add("btools:ingredient/andesite", "Andesite");
+        translationBuilder.add("btools:ingredient/diorite", "Diorite");
+        translationBuilder.add("btools:ingredient/granite", "Granite");
+        translationBuilder.add("btools:ingredient/endstone", "Endstone");
+        translationBuilder.add("btools:ingredient/tuff", "Tuff");
+        translationBuilder.add("btools:ingredient/basalt", "Basalt");
+
         translationBuilder.add("btools:ingredient/gold", "Gold");
         translationBuilder.add("btools:ingredient/copper", "Copper");
+
+        translationBuilder.add("btools:ingredient/netherrack", "Netherrack");
+        translationBuilder.add("btools:ingredient/calcite", "Calcite");
+        translationBuilder.add("btools:ingredient/sandstone", "Sandstone");
+        translationBuilder.add("btools:ingredient/red_sandstone", "Red Sandstone");
+        translationBuilder.add("btools:ingredient/flint", "Flint");
+
+        translationBuilder.add("btools:ingredient/quartz", "Quartz");
+        translationBuilder.add("btools:ingredient/amethyst", "Amethyst");
+        translationBuilder.add("btools:ingredient/emerald", "Emerald");
+
+        translationBuilder.add("btools:ingredient/obsidian", "Obsidian");
+        translationBuilder.add("btools:ingredient/crying_obsidian", "Crying Obsidian");
+
+        translationBuilder.add("btools:ingredient/echo_shard", "Echoing");
+        translationBuilder.add("btools:ingredient/nether_star", "Nether Forged");
+
+        translationBuilder.add("btools:ingredient/iron", "Iron");
+        translationBuilder.add("btools:ingredient/diamond", "Diamond");
         translationBuilder.add("btools:ingredient/netherite", "Netherite");
 
         translationBuilder.add("btools:material/diamond", "Diamond");
         translationBuilder.add("btools:material/soft_metal", "Soft Metal");
+        translationBuilder.add("btools:material/gemstone", "Gemstone");
+        translationBuilder.add("btools:material/soft_stone", "Soft Stone");
+        translationBuilder.add("btools:material/obsidian", "Obsidian");
         translationBuilder.add("btools:material/stone", "Stone");
         translationBuilder.add("btools:material/netherite", "Netherite");
         translationBuilder.add("btools:material/iron", "Iron");

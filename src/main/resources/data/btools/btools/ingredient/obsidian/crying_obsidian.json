@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/crying_obsidian",
+  "path": "btools:item/tool_heads/crying_obsidian/crying_obsidian_",
+  "material_group": "btools:material/obsidian",
+  "material": "minecraft:crying_obsidian",
+  "source": "CRAFTING"
+}

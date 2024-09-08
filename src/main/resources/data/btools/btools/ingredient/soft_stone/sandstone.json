@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/sandstone",
+  "path": "btools:item/tool_heads/sandstone/sandstone_",
+  "material_group": "btools:material/soft_stone",
+  "material": "minecraft:sandstone",
+  "source": "CRAFTING"
+}

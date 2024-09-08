@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/emerald",
+  "path": "btools:item/tool_heads/emerald/emerald_",
+  "material_group": "btools:material/gemstone",
+  "material": "minecraft:emerald",
+  "source": "CRAFTING"
+}

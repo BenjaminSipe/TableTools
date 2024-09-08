@@ -124,7 +124,7 @@ public class DataComponentHelper {
                 two.get(DataComponentTypes.CUSTOM_DATA).getNbt().getString("material")
         );
     }
-    
+
     public static final ToolComponent SWORD_TOOL_COMPONENT = new ToolComponent(
             List.of(ToolComponent.Rule.ofAlwaysDropping(List.of(Blocks.COBWEB), 15.0F), ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5F)), 1.0F, 2
             );

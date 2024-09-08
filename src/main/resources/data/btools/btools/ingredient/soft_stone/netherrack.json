@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/netherrack",
+  "path": "btools:item/tool_heads/netherrack/netherrack_",
+  "material_group": "btools:material/soft_stone",
+  "material": "minecraft:netherrack",
+  "source": "CRAFTING"
+}

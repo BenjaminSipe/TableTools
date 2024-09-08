@@ -1,0 +1,8 @@
+{
+  "id": "btools:ingredient/echo_shard",
+  "path": "btools:item/tool_heads/echo_shard/echo_shard_",
+  "material_group": "btools:material/echo_shard",
+  "material": "minecraft:echo_shard",
+  "source": "SMITHING",
+  "base_material" : "btools:material/gemstone"
+}

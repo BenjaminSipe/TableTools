@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/andesite",
+  "path": "btools:item/tool_heads/andesite/andesite_",
+  "material_group": "btools:material/stone",
+  "material": "minecraft:andesite",
+  "source": "CRAFTING"
+}
