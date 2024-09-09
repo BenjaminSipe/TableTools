@@ -7,10 +7,6 @@
 	"authors": [
 		"bsipe"
 	],
-	"credits": {
-		"u/FloppySwedish_Fish" : "Varying wood type tool texture reference image",
-		"XanthianZ ( curseforge )" : "Wooden tool head textures scraped from Variant Sticks & Stuff"
-	},
 	"license": "MIT",
 	"icon": "assets/btools/icon.png",
 	"environment": "*",
