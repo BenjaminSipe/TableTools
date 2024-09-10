@@ -1,3 +1,47 @@
-1. Add modToolMaterial Binding At Time of Crafting to avoid hard coded durrability and mining speed.
-2. Remove gold tools
-3. Add gold tools as modToolMaterial only
+Basic goals for the time being:
+
+Recipe Integration with a recipe provider mod.
+Make tool handles data-driven.
+Make tool handles control stats ( either additive or multiplicative, all? stats)
+Make Mod book.
+Add tool bindings.
+
+In total, how many data folders will there be?
+Material
+Ingredient
+Handle
+Binding
+Modifier ? Probably no more than that.
+
+I don't think any of the others will need a "Material" esk folder
+As tool heads will always be the primary motivator behind tool stats.
+
+After those, it is time for the non-vanilla changes?
+Remove item combos. . .
+
+Getting right into the simplified enchantment systems. . . what enchantments do I want?
+
+1. Decide what enchantments I actually want on tools...
+
+Basic tool enchantments...
+Silk touch, Fortune, Unbreaking, Efficiency, Mending
+
+Additional weapon enchantments?
+Sharpness, Sweeping edge?
+
+I think I want it to be based on a single material for each:
+// I think perhaps this is where I need to start thinking about alloying.
+Lets think about it this way. . . I would like
+
+Starting with this:
+Alloying two materials together needs a special crafting block.
+
+I would like the
+
+
+Silk touch:
+Fortune:
+Unbreaking:
+Efficiency:
+Mending:
+Sharpness:
