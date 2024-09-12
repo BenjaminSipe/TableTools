@@ -1,0 +1,7 @@
+{
+  "id": "btools:jungle_tool_handle",
+  "prefix": "btools:item/jungle_",
+  "sprite": "btools:item/jungle_tool_handle",
+  "item": "minecraft:jungle_planks",
+  "transform": "CRAFTED"
+}

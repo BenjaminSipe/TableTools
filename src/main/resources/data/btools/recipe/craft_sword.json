@@ -1,9 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolComponent": "SWORD_BLADE",
-  "handleIngredient": {
-    "tag": "btools:tool_handles"
-  },
+  "component": "SWORD_BLADE",
   "result": {
     "id": "btools:sword"
   }

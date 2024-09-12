@@ -1,9 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolComponent": "HOE_HEAD",
-  "handleIngredient": {
-    "tag": "btools:tool_handles"
-  },
+  "component": "HOE_HEAD",
   "result": {
     "id": "btools:hoe"
   }

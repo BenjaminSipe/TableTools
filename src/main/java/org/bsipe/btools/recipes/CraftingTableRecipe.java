@@ -10,33 +10,29 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.bsipe.btools.ModItems;
 import org.bsipe.btools.data.*;
 
 public class CraftingTableRecipe implements CraftingRecipe {
     private final ModToolComponent modToolComponent;
-    private final Ingredient handleIngredient;
     private final ItemStack result;
 
     private ModToolIngredient headIngredient;
+    private ModToolHandle handleIngredient;
 
-    private ItemStack handleItem;
-
-    public CraftingTableRecipe(ModToolComponent modToolComponent, Ingredient handleIngredient, ItemStack result) {
+    public CraftingTableRecipe(ModToolComponent modToolComponent, ItemStack result) {
         this.modToolComponent = modToolComponent;
         this.result = result;
-        this.handleIngredient = handleIngredient;
     }
 
-    @Override
-    public boolean isIgnoredInRecipeBook() {
-        return false;
+    @Override public boolean isIgnoredInRecipeBook() {
+        return true;
     }
+    @Override public boolean showNotification() { return false; }
+
     @Override
     public boolean matches(CraftingRecipeInput inventory, World world) {
         if ( world.isClient() ) return false;
@@ -69,12 +65,14 @@ public class CraftingTableRecipe implements CraftingRecipe {
         return input.getHeight() == height && input.getWidth() == width;
     }
     public boolean matchesLists(int[] ingredients, int[] air, int[] sticks, CraftingRecipeInput inventory ) {
-        handleItem = inventory.getStackInSlot(sticks[0]);
         headIngredient = ModToolIngredient.get( inventory.getStackInSlot(ingredients[0]), ModToolIngredient.ToolSource.CRAFTING );
+        handleIngredient = ModToolHandle.getModToolHandle( inventory.getStackInSlot(sticks[0]));
+
         if ( headIngredient == null ) return false;
+        if ( handleIngredient == null ) return false;
 
         for ( int stick : sticks ) {
-            if ( ! handleIngredient.test( inventory.getStackInSlot(stick) ) ) return false;
+            if ( ! handleIngredient.getIngredient().test( inventory.getStackInSlot(stick) ) ) return false;
         }
 
         for ( int index : air ) {
@@ -95,12 +93,18 @@ public class CraftingTableRecipe implements CraftingRecipe {
 
     @Override
     public boolean fits(int width, int height ) {
-        return height >= 3;
+        if ( height != 3 ) return false;
+        return switch( modToolComponent ) {
+            case HOE_HEAD, AXE_HEAD -> width == 2;
+            case SHOVEL_HEAD, SWORD_BLADE -> width == 1;
+            default -> width==3;
+        };
     }
 
     @Override
     public ItemStack getResult(RegistryWrapper.WrapperLookup lookup) {
-        DataComponentHelper.addToolComponents( result, headIngredient != null ? headIngredient : ModToolIngredient.get( Items.IRON_INGOT.getDefaultStack() ), handleItem, modToolComponent );
+        if ( headIngredient == null || handleIngredient == null ) return ItemStack.EMPTY;
+        DataComponentHelper.addToolComponents( result, headIngredient, handleIngredient, modToolComponent );
 
         return result;
     }
@@ -111,7 +115,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
         Ingredient headIngredient = ModToolIngredient.getAllIngredients(ModToolIngredient.ToolSource.CRAFTING);
         list.set(1, headIngredient );
 
-        list.set(7, handleIngredient );
+        list.set(7, Ingredient.ofItems( ModItems.TOOL_HANDLE ) );
 
         int i = 2; // used to keep the switch-case clean.
         switch (modToolComponent) {
@@ -125,7 +129,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
             case HOE_HEAD:
                 list.set(0, headIngredient );
             case SHOVEL_HEAD:
-                list.set(4, handleIngredient );
+                list.set(4, Ingredient.ofItems( ModItems.TOOL_HANDLE ) );
         }
         return list;
     }
@@ -159,10 +163,7 @@ public class CraftingTableRecipe implements CraftingRecipe {
 
         public static final MapCodec<CraftingTableRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 in -> in.group(
-                        ModToolComponent.CODEC.fieldOf( "toolComponent" ).forGetter(r->r.modToolComponent),
-                        Ingredient.DISALLOW_EMPTY_CODEC
-                                .fieldOf("handleIngredient")
-                                .forGetter(r->r.handleIngredient),
+                        ModToolComponent.CODEC.fieldOf( "component" ).forGetter(r->r.modToolComponent),
                         ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
                 ).apply(in, CraftingTableRecipe::new));
 
@@ -183,15 +184,12 @@ public class CraftingTableRecipe implements CraftingRecipe {
 
         private static CraftingTableRecipe read(RegistryByteBuf buf) {
             ModToolComponent component = ModToolComponent.valueOf( PacketCodecs.STRING.decode( buf ) );
-            Ingredient headIngredient = Ingredient.PACKET_CODEC.decode( buf );
             ItemStack result = ItemStack.PACKET_CODEC.decode( buf );
-            return new CraftingTableRecipe( component, headIngredient, result );
+            return new CraftingTableRecipe( component, result );
         }
 
         private static void write(RegistryByteBuf buf, CraftingTableRecipe recipe) {
             PacketCodecs.STRING.encode( buf, recipe.modToolComponent.name() );
-
-            Ingredient.PACKET_CODEC.encode( buf, recipe.handleIngredient );
             ItemStack.PACKET_CODEC.encode( buf, recipe.result );
         }
     }

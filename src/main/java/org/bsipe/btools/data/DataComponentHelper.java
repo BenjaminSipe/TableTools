@@ -45,16 +45,17 @@ public class DataComponentHelper {
                     BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 4,
                     BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 5 );
 
-    public static NbtComponent getCustomData(ModToolIngredient modToolIngredient, String handleSprite, ModToolComponent component ) {
+    public static NbtComponent getCustomData(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
 
         String layer1 = modToolIngredient.path + component.suffix;
-        String layer0 = handleSprite;
+        String layer0 = toolHandle.getHandleSprite( component.handleReference );
 
         NbtCompound compound = new NbtCompound();
 
         compound.put( "layer0", NbtString.of( layer0 ) );
         compound.put( "layer1", NbtString.of( layer1 ) );
         compound.put( "material", NbtString.of( modToolIngredient.modToolMaterial.getId().toString() ) );
+        compound.put( "handle-id", NbtString.of( toolHandle.getId().toString() ) );
         return NbtComponent.of( compound );
     }
 
@@ -94,15 +95,31 @@ public class DataComponentHelper {
         );
     }
 
-    public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ItemStack handleItem, ModToolComponent component ) {
-        addToolComponents( result, modToolIngredient, ModToolHandleMaterial.getSpriteText( handleItem, component.getHandleReference() ), component);
+    public static void addHandleComponents( ItemStack result, ModToolHandle handleMaterial ) {
+        /*
+        String layer1 = modToolIngredient.path + component.suffix;
+        String layer0 = handleSprite;
+
+        NbtCompound compound = new NbtCompound();
+
+        compound.put( "layer0", NbtString.of( layer0 ) );
+        compound.put( "layer1", NbtString   .of( layer1 ) );
+        compound.put( "material", NbtString.of( modToolIngredient.modToolMaterial.getId().toString() ) );
+        return NbtComponent.of( compound );
+         */
+//        String layer0 = handleMaterial.getPrefix();
+        String layer0 = handleMaterial.getSprite();
+        NbtCompound compound = new NbtCompound();
+        compound.put( "layer0", NbtString.of( layer0 ) );
+        compound.put( "handle-id", NbtString.of( handleMaterial.getId().toString() ) );
+        result.set( DataComponentTypes.CUSTOM_DATA, NbtComponent.of( compound ) );
     }
 
-    public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, String handleItemSprite, ModToolComponent component ) {
+    public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
 
 
         result.set( DataComponentTypes.ITEM_NAME, Text.translatable( result.getTranslationKey() , Text.translatable( modToolIngredient.getId() ) ) );
-        result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, handleItemSprite, component ) );
+        result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, toolHandle, component ) );
         result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient) );
         result.set( DataComponentTypes.FIRE_RESISTANT, modToolIngredient.isFireResistent() ? Unit.INSTANCE : null );
         result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, getAttributeModifiers( component, modToolIngredient ));

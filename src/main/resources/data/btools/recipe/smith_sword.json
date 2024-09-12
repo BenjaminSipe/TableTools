@@ -1,7 +1,7 @@
 {
   "type": "btools:btools_smithing",
   "component": "SWORD_BLADE",
-  "base": {
-    "item": "btools:sword"
+  "result": {
+    "id": "btools:sword"
   }
 }

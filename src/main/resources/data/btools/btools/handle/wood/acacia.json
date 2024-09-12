@@ -1,0 +1,7 @@
+{
+  "id": "btools:acacia_tool_handle",
+  "prefix": "btools:item/acacia_",
+  "sprite": "btools:item/acacia_tool_handle",
+  "item": "minecraft:acacia_planks",
+  "transform": "CRAFTED"
+}

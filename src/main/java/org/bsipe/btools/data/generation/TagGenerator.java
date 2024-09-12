@@ -29,18 +29,5 @@ public class TagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.HOES)
                 .add( HOE );
 
-        getOrCreateTagBuilder(TOOL_HANDLES)
-                .add( ACACIA_TOOL_HANDLE,
-                        BAMBOO_TOOL_HANDLE,
-                        BIRCH_TOOL_HANDLE,
-                        CHERRY_TOOL_HANDLE,
-                        CRIMSON_TOOL_HANDLE,
-                        DARK_OAK_TOOL_HANDLE,
-                        JUNGLE_TOOL_HANDLE,
-                        MANGROVE_TOOL_HANDLE,
-                        OAK_TOOL_HANDLE,
-                        SPRUCE_TOOL_HANDLE,
-                        WARPED_TOOL_HANDLE);
-
     }
 }

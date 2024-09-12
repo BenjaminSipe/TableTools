@@ -1,0 +1,6 @@
+{
+  "id": "btools:bone_tool_handle",
+  "prefix": "btools:item/bone_",
+  "item": "minecraft:bone",
+  "transform": "IDENTITY"
+}

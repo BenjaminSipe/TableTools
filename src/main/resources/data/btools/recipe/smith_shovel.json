@@ -1,7 +1,7 @@
 {
   "type": "btools:btools_smithing",
   "component": "SHOVEL_HEAD",
-  "base": {
-    "item": "btools:shovel"
+  "result": {
+    "id": "btools:shovel"
   }
 }

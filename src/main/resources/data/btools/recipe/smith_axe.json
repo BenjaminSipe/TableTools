@@ -1,7 +1,7 @@
 {
   "type": "btools:btools_smithing",
   "component": "AXE_HEAD",
-  "base": {
-    "item": "btools:axe"
+  "result": {
+    "id": "btools:axe"
   }
 }

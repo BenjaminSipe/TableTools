@@ -1,9 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolComponent": "AXE_HEAD",
-  "handleIngredient": {
-    "tag": "btools:tool_handles"
-  },
+  "component": "AXE_HEAD",
   "result": {
     "id": "btools:axe"
   }

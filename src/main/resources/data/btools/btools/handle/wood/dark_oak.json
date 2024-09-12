@@ -1,0 +1,7 @@
+{
+  "id": "btools:dark_oak_tool_handle",
+  "prefix": "btools:item/dark_oak_",
+  "sprite": "btools:item/dark_oak_tool_handle",
+  "item": "minecraft:dark_oak_planks",
+  "transform": "CRAFTED"
+}

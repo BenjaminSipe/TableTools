@@ -28,15 +28,16 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
     private static Function<SpriteIdentifier, Sprite> TEXTURE_GETTER;
     private ModelBakeSettings MODEL_BAKE_SETTINGS;
 
-    private final ToolModelClass exampleItem = new ToolModelClass(List.of( "minecraft:item/gold_ingot", "minecraft:item/iron_shovel" ));
     static final ItemModelGenerator ITEM_MODEL_GENERATOR = new ItemModelGenerator();
-
+    private static Baker BAKER;
     private JsonUnbakedModel ITEM_HANDHELD;
 
     private Map<String, BakedModel> BAKED_MODEL_CACHE = new HashMap<>();
-    private BakedModel tempBakedModel;
+    private UnbakedModel original;
+    private BakedModel bakedModel;
 
-    public BetterToolsBakedModel()  {
+    public BetterToolsBakedModel(UnbakedModel original)  {
+        this.original = original;
     }
 
     @Override
@@ -92,18 +93,13 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
         String layer0 = data == null ? "" : data.getString("layer0");
         String layer1 = data == null ? "" : data.getString("layer1");
         if ( layer0.equals( "" ) ) {
-            if ( tempBakedModel == null )
-            {
-                JsonUnbakedModel model = deserialize( exampleItem.toString() );
-                tempBakedModel = ITEM_MODEL_GENERATOR.create( TEXTURE_GETTER, model).bake(new DummyBaker(), model, TEXTURE_GETTER, this.MODEL_BAKE_SETTINGS, false);
-            }
-            tempBakedModel.emitItemQuads( stack, randomSupplier, context );
+            bakedModel.emitItemQuads( stack, randomSupplier, context);
             return;
         }
         if ( ! BAKED_MODEL_CACHE.containsKey( layer0 + layer1 ) )
         {
             JsonUnbakedModel model = deserialize( new ToolModelClass( data ).toString() );
-            BAKED_MODEL_CACHE.put( layer0 + layer1, ITEM_MODEL_GENERATOR.create( TEXTURE_GETTER, model).bake(new DummyBaker(), model, TEXTURE_GETTER, this.MODEL_BAKE_SETTINGS, false) );
+            BAKED_MODEL_CACHE.put( layer0 + layer1, ITEM_MODEL_GENERATOR.create( TEXTURE_GETTER, model).bake(BAKER, model, TEXTURE_GETTER, this.MODEL_BAKE_SETTINGS, false) );
         }
         BAKED_MODEL_CACHE.get( layer0+layer1 ).emitItemQuads( stack, randomSupplier, context );
     }
@@ -157,20 +153,9 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
     public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer) {
         TEXTURE_GETTER = textureGetter;
         MODEL_BAKE_SETTINGS = rotationContainer;
+        BAKER = baker;
+        this.bakedModel = this.original.bake(baker, textureGetter, rotationContainer);
 
         return this;
-    }
-
-    public class DummyBaker implements Baker {
-        @Override
-        public UnbakedModel getOrLoadModel(Identifier id) {
-            return null;
-        }
-
-        @Nullable
-        @Override
-        public BakedModel bake(Identifier id, ModelBakeSettings settings) {
-            return null;
-        }
     }
 }

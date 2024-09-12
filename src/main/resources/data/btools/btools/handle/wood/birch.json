@@ -1,0 +1,7 @@
+{
+  "id": "btools:birch_tool_handle",
+  "prefix": "btools:item/birch_",
+  "sprite": "btools:item/birch_tool_handle",
+  "item": "minecraft:birch_planks",
+  "transform": "CRAFTED"
+}

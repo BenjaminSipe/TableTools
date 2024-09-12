@@ -18,18 +18,18 @@ public class ModelLoadingPlugin implements net.fabricmc.fabric.api.client.model.
             modelId( "hoe", true ),
             modelId( "hoe", false ),
             modelId( "sword", true ),
-            modelId( "sword", false )
+            modelId( "sword", false ),
+            modelId( "tool_handle", true ),
+            modelId( "tool_handle", false )
     );
 
-    private static BetterToolsBakedModel modelBaker = new BetterToolsBakedModel();
 
     @Override
     public void onInitializeModelLoader(Context pluginContext) {
         pluginContext.modifyModelOnLoad().register((original, context) -> {
-
             if ( context.topLevelId() == null ) return original;
             if ( MODELS.contains( context.topLevelId() ) )
-                return modelBaker;
+                return new BetterToolsBakedModel( original );
             return original;
         });
     }

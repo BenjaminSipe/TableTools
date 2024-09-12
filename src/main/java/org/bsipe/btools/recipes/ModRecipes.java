@@ -10,7 +10,10 @@ public class ModRecipes {
         Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, CraftingTableRecipe.Serializer.ID ),
                  CraftingTableRecipe.Serializer.INSTANCE );
 
-        Registry.register( Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, SmithingTransformRecipe.Serializer.ID ),
-                SmithingTransformRecipe.Serializer.INSTANCE );
+        Registry.register( Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, ToolHandleSpecialCraftingRecipe.ID ),
+                ToolHandleSpecialCraftingRecipe.INSTANCE );
+
+        Registry.register( Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, ModSmithingTransformRecipe.Serializer.ID ),
+                ModSmithingTransformRecipe.Serializer.INSTANCE );
     }
 }

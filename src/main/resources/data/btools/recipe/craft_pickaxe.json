@@ -1,9 +1,6 @@
 {
   "type": "btools:btools_crafting",
-  "toolComponent": "PICKAXE_HEAD",
-  "handleIngredient": {
-    "tag": "btools:tool_handles"
-  },
+  "component": "PICKAXE_HEAD",
   "result": {
     "id": "btools:pickaxe"
   }

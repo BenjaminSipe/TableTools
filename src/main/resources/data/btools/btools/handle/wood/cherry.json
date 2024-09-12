@@ -1,0 +1,7 @@
+{
+  "id": "btools:cherry_tool_handle",
+  "prefix": "btools:item/cherry_",
+  "sprite": "btools:item/cherry_tool_handle",
+  "item": "minecraft:cherry_planks",
+  "transform": "CRAFTED"
+}

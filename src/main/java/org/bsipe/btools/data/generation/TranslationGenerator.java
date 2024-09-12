@@ -16,17 +16,17 @@ public class TranslationGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
-        translationBuilder.add( ModItems.ACACIA_TOOL_HANDLE, "Acacia Tool Handle");
-        translationBuilder.add( ModItems.BAMBOO_TOOL_HANDLE, "Bamboo Tool Handle");
-        translationBuilder.add( ModItems.BIRCH_TOOL_HANDLE, "Birch Tool Handle");
-        translationBuilder.add( ModItems.CHERRY_TOOL_HANDLE, "Cherry Tool Handle");
-        translationBuilder.add( ModItems.CRIMSON_TOOL_HANDLE, "Crimson Tool Handle");
-        translationBuilder.add( ModItems.DARK_OAK_TOOL_HANDLE, "Dark Oak Tool Handle");
-        translationBuilder.add( ModItems.JUNGLE_TOOL_HANDLE, "Jungle Tool Handle");
-        translationBuilder.add( ModItems.MANGROVE_TOOL_HANDLE, "Mangrove Tool Handle");
-        translationBuilder.add( ModItems.OAK_TOOL_HANDLE, "Oak Tool Handle");
-        translationBuilder.add( ModItems.SPRUCE_TOOL_HANDLE, "Spruce Tool Handle");
-        translationBuilder.add( ModItems.WARPED_TOOL_HANDLE, "Warped Tool Handle");
+//        translationBuilder.add( ModItems.ACACIA_TOOL_HANDLE, "Acacia Tool Handle");
+//        translationBuilder.add( ModItems.BAMBOO_TOOL_HANDLE, "Bamboo Tool Handle");
+//        translationBuilder.add( ModItems.BIRCH_TOOL_HANDLE, "Birch Tool Handle");
+//        translationBuilder.add( ModItems.CHERRY_TOOL_HANDLE, "Cherry Tool Handle");
+//        translationBuilder.add( ModItems.CRIMSON_TOOL_HANDLE, "Crimson Tool Handle");
+//        translationBuilder.add( ModItems.DARK_OAK_TOOL_HANDLE, "Dark Oak Tool Handle");
+//        translationBuilder.add( ModItems.JUNGLE_TOOL_HANDLE, "Jungle Tool Handle");
+//        translationBuilder.add( ModItems.MANGROVE_TOOL_HANDLE, "Mangrove Tool Handle");
+//        translationBuilder.add( ModItems.OAK_TOOL_HANDLE, "Oak Tool Handle");
+//        translationBuilder.add( ModItems.SPRUCE_TOOL_HANDLE, "Spruce Tool Handle");
+//        translationBuilder.add( ModItems.WARPED_TOOL_HANDLE, "Warped Tool Handle");
 
         translationBuilder.add( ModItems.AXE, "%s Axe" );
         translationBuilder.add( ModItems.HOE, "%s Hoe" );
