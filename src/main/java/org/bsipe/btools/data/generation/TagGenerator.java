@@ -8,7 +8,6 @@ import net.minecraft.registry.tag.ItemTags;
 import java.util.concurrent.CompletableFuture;
 
 import static org.bsipe.btools.ModItems.*;
-import static org.bsipe.btools.ModTags.*;
 
 public class TagGenerator extends FabricTagProvider.ItemTagProvider {
 

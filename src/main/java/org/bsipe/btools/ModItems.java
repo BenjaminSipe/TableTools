@@ -8,7 +8,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 import static org.bsipe.btools.BetterToolsModInitializer.MOD_ID;
-import static org.bsipe.btools.ModTags.TOOL_HANDLES;
 
 public class ModItems {
     public static Item AXE = register( new AxeItem(ToolMaterials.NETHERITE, new Item.Settings()), "axe" );
@@ -20,7 +19,6 @@ public class ModItems {
     public static Item TOOL_HANDLE = register( new Item( new Item.Settings() ), "tool_handle" );
 
     public static void initialize() {
-        FuelRegistry.INSTANCE.add(TOOL_HANDLES, 15 * 20 );
     }
 
     public static Item register(Item item, String name )

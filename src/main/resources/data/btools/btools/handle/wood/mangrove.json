@@ -1,5 +1,5 @@
 {
-  "id": "btools:mangrove_tool_handle",
+  "id": "btools:handle/mangrove",
   "prefix": "btools:item/mangrove_",
   "sprite": "btools:item/mangrove_tool_handle",
   "item": "minecraft:mangrove_planks",

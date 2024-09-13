@@ -113,12 +113,12 @@ public class DataComponentHelper {
         compound.put( "layer0", NbtString.of( layer0 ) );
         compound.put( "handle-id", NbtString.of( handleMaterial.getId().toString() ) );
         result.set( DataComponentTypes.CUSTOM_DATA, NbtComponent.of( compound ) );
+        result.set( DataComponentTypes.ITEM_NAME, getItemName( result , handleMaterial.getId().toString() ) );
+
     }
 
     public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
-
-
-        result.set( DataComponentTypes.ITEM_NAME, Text.translatable( result.getTranslationKey() , Text.translatable( modToolIngredient.getId() ) ) );
+        result.set( DataComponentTypes.ITEM_NAME, getItemName( result , modToolIngredient.getId() ) );
         result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, toolHandle, component ) );
         result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient) );
         result.set( DataComponentTypes.FIRE_RESISTANT, modToolIngredient.isFireResistent() ? Unit.INSTANCE : null );
@@ -133,6 +133,11 @@ public class DataComponentHelper {
         if ( base.get( DataComponentTypes.FIRE_RESISTANT ) != null ) result.set( DataComponentTypes.FIRE_RESISTANT, Unit.INSTANCE );
         result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, base.get( DataComponentTypes.ATTRIBUTE_MODIFIERS) );
         result.set( DataComponentTypes.TOOL, base.get( DataComponentTypes.TOOL) );
+    }
+
+    public static Text getItemName( ItemStack item, String id ) {
+        String formattedId = id.replace(':', '.').replace( '/','.');
+        return Text.translatable( item.getTranslationKey() , Text.translatable( formattedId ) );
     }
 
     public static boolean testToolsMatch( ItemStack one, ItemStack two ) {

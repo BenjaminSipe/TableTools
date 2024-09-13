@@ -1,5 +1,5 @@
 {
-  "id": "btools:bamboo_tool_handle",
+  "id": "btools:handle/bamboo",
   "prefix": "btools:item/bamboo_",
   "sprite": "btools:item/bamboo_tool_handle",
   "item": "minecraft:bamboo_planks",

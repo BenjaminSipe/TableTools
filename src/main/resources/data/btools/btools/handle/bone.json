@@ -1,5 +1,5 @@
 {
-  "id": "btools:bone_tool_handle",
+  "id": "btools:handle/bone",
   "prefix": "btools:item/bone_",
   "item": "minecraft:bone",
   "transform": "IDENTITY"

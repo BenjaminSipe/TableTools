@@ -1,5 +1,5 @@
 {
-  "id": "btools:crimson_tool_handle",
+  "id": "btools:handle/crimson",
   "prefix": "btools:item/crimson_",
   "sprite": "btools:item/crimson_tool_handle",
   "item": "minecraft:crimson_planks",

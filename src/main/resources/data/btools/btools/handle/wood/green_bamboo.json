@@ -1,0 +1,7 @@
+{
+  "id": "btools:handle/green_bamboo",
+  "prefix": "btools:item/green_bamboo_",
+  "sprite": "btools:item/green_bamboo_tool_handle",
+  "item": "minecraft:bamboo",
+  "transform": "IDENTITY"
+}
