@@ -3,5 +3,22 @@
   "prefix": "btools:item/acacia_",
   "sprite": "btools:item/acacia_tool_handle",
   "item": "minecraft:acacia_planks",
-  "transform": "CRAFTED"
+  "transform": "CRAFTED",
+  "modifiers": [
+    {
+      "property": "DURABILITY",
+      "factor": 1.1,
+      "operation": "MULTIPLY"
+    },
+    {
+      "property": "DAMAGE",
+      "factor": 1,
+      "operation": "ADD"
+    },
+    {
+      "property": "MINING_SPEED",
+      "factor": 2,
+      "operation": "ADD"
+    }
+  ]
 }

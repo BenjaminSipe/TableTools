@@ -54,7 +54,7 @@ public class ModToolHandle {
     private String prefix;
     private String item;
     private String sprite;
-    private TransformType transform = TransformType.IDENTITY;
+    private TransformType transform;
     private Modifier[] modifiers;
 
     // COMPUTED PROPERTIES, DON'T TRY TO MAP TO THESE
@@ -72,22 +72,44 @@ public class ModToolHandle {
 
     public class Modifier {
         private float factor;
-        private Operation operation = Operation.ADD;
+        private ModifierProperty property;
+        private Operation operation;
 
         public boolean validate() {
+            boolean isValid = true;
             if ( factor == 0f ) {
                 LOGGER.error( "Handle json modifier missing \"factor\" entry." );
-                return false;
+                isValid = false;
             }
-
-            return true;
-
-
+            if ( property == null ) {
+                LOGGER.error( "Handle json modifier missing \"property\" entry.");
+                isValid = false;
+            }
+            if ( operation == null ) {
+                LOGGER.error( "Handle json modifier missing \"operation\" entry.");
+                isValid = false;
+            }
+            return isValid;
         }
 
         private enum Operation {
             MULTIPLY, ADD;
         }
+
+        public float addModifier(float previous) {
+            return switch( operation ) {
+                case ADD -> previous + factor;
+                case MULTIPLY -> previous * factor;
+            };
+        }
+
+        public ModifierProperty getProperty() {
+            return property;
+        }
+    }
+
+    private enum ModifierProperty {
+        DURABILITY, DAMAGE, MINING_SPEED;
     }
 
     private enum TransformType {
@@ -101,11 +123,15 @@ public class ModToolHandle {
             LOGGER.error( "Handle json missing \"id\" entry." );
             isValid = false;
         } else if ( ! Items.AIR.equals( Registries.ITEM.get( Identifier.of( id ) ) ) ) {
-            LOGGER.error( "Handle json \"id\" entry cannot be the same as an exising item ID." );
+            LOGGER.error( "Handle json \"id\" entry cannot be the same as an existing item ID." );
             isValid = false;
         }
         if ( prefix == null ) {
             LOGGER.error( "Handle json missing \"prefix\" entry." );
+            isValid = false;
+        }
+        if ( transform == null ) {
+            LOGGER.error( "Handle json missing \"transform\" entry.");
             isValid = false;
         }
         if ( item == null ) {
@@ -162,5 +188,29 @@ public class ModToolHandle {
             return ModToolHandle.TOOL_HANDLE_LIST.get( Identifier.of( ingredient.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString( "handle-id") ) );
         }
         return ModToolHandle.TOOL_HANDLE_LIST.get( Registries.ITEM.getId( ingredient.getItem() ) );
+    }
+
+    public int modifyDurability(int previous) {
+        return (int) applyModifier( previous, ModifierProperty.DURABILITY );
+    }
+
+    public float modifyMiningSpeed(float previous) {
+        return applyModifier(previous, ModifierProperty.MINING_SPEED);
+    }
+
+    public float modifyDamage(float previous) {
+        // damage does this weird thing where it has a base of 1. . .
+        // so to make the math work out I take that into account.
+        return applyModifier(previous + 1f, ModifierProperty.DAMAGE) - 1f;
+    }
+
+    public float applyModifier(float previous, ModifierProperty property ) {
+        if ( modifiers == null || modifiers.length == 0 ) return previous;
+        for ( Modifier modifier : modifiers ) {
+            if (modifier.getProperty() == property ) {
+                return modifier.addModifier( previous );
+            }
+        }
+        return previous;
     }
 }

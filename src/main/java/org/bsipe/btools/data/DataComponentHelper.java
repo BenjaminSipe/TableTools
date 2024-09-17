@@ -19,6 +19,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
+import org.bsipe.btools.ModItems;
 
 import java.util.List;
 import java.util.Map;
@@ -59,11 +60,11 @@ public class DataComponentHelper {
         return NbtComponent.of( compound );
     }
 
-    public static int getMaxDamage(ModToolIngredient modToolIngredient ) {
-        return modToolIngredient.getDurability();
+    public static int getMaxDamage(ModToolIngredient modToolIngredient, ModToolHandle modToolHandle) {
+        return modToolHandle.modifyDurability( modToolIngredient.getDurability() );
     }
 
-    public static AttributeModifiersComponent getAttributeModifiers( ModToolComponent component, ModToolIngredient ingredient ) {
+    public static AttributeModifiersComponent getAttributeModifiers(ModToolComponent component, ModToolIngredient ingredient, ModToolHandle toolHandle ) {
 
 
         float damage = 0;
@@ -72,12 +73,14 @@ public class DataComponentHelper {
         } else if ( ModToolComponent.isGradient( component ) ) {
             damage = ModToolComponent.getBaseDamage( component ) + GRADIENT_DAMAGE_MAP.get( ingredient.getInverseTag() );
         }
+        damage += ingredient.getDamage();
+        damage = toolHandle.modifyDamage( damage );
 
         return AttributeModifiersComponent.builder()
                 .add(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE,
                         new EntityAttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, damage + ingredient.getDamage(), EntityAttributeModifier.Operation.ADD_VALUE
+                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, damage, EntityAttributeModifier.Operation.ADD_VALUE
                         ),
                         AttributeModifierSlot.MAINHAND
                 )
@@ -89,41 +92,28 @@ public class DataComponentHelper {
                 .build();
     }
 
-    public static ToolComponent getTool(ModToolComponent component, ModToolIngredient ingredient ) {
+    public static ToolComponent getTool(ModToolComponent component, ModToolIngredient ingredient, ModToolHandle toolHandle ) {
         return SWORD_BLADE.equals( component ) ? SWORD_TOOL_COMPONENT : new ToolComponent(
-                List.of(ToolComponent.Rule.ofNeverDropping(ingredient.getInverseTag()), ToolComponent.Rule.ofAlwaysDropping(component.getEffectiveBlock(), ingredient.getMiningSpeedMultiplier())), 1.0F, 1
+                List.of(ToolComponent.Rule.ofNeverDropping(ingredient.getInverseTag()), ToolComponent.Rule.ofAlwaysDropping(component.getEffectiveBlock(), toolHandle.modifyMiningSpeed( ingredient.getMiningSpeedMultiplier()))), 1.0F, 1
         );
     }
 
     public static void addHandleComponents( ItemStack result, ModToolHandle handleMaterial ) {
-        /*
-        String layer1 = modToolIngredient.path + component.suffix;
-        String layer0 = handleSprite;
-
-        NbtCompound compound = new NbtCompound();
-
-        compound.put( "layer0", NbtString.of( layer0 ) );
-        compound.put( "layer1", NbtString   .of( layer1 ) );
-        compound.put( "material", NbtString.of( modToolIngredient.modToolMaterial.getId().toString() ) );
-        return NbtComponent.of( compound );
-         */
-//        String layer0 = handleMaterial.getPrefix();
         String layer0 = handleMaterial.getSprite();
         NbtCompound compound = new NbtCompound();
         compound.put( "layer0", NbtString.of( layer0 ) );
         compound.put( "handle-id", NbtString.of( handleMaterial.getId().toString() ) );
         result.set( DataComponentTypes.CUSTOM_DATA, NbtComponent.of( compound ) );
         result.set( DataComponentTypes.ITEM_NAME, getItemName( result , handleMaterial.getId().toString() ) );
-
     }
 
     public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
         result.set( DataComponentTypes.ITEM_NAME, getItemName( result , modToolIngredient.getId() ) );
         result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, toolHandle, component ) );
-        result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient) );
+        result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient, toolHandle ) );
         result.set( DataComponentTypes.FIRE_RESISTANT, modToolIngredient.isFireResistent() ? Unit.INSTANCE : null );
-        result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, getAttributeModifiers( component, modToolIngredient ));
-        result.set( DataComponentTypes.TOOL, getTool(component, modToolIngredient) );
+        result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, getAttributeModifiers( component, modToolIngredient, toolHandle ));
+        result.set( DataComponentTypes.TOOL, getTool(component, modToolIngredient, toolHandle) );
     }
 
     public static void copyToolComponents( ItemStack base, ItemStack result ) {
