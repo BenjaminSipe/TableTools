@@ -1,6 +1,5 @@
 {
   "id" : "btools:material/echo_shard",
-  "enchantability": 15,
   "durability": 1061,
   "mining_speed": 8.0,
   "mining_level": "DIAMOND"

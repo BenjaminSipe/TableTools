@@ -1,6 +1,5 @@
 {
   "id" : "btools:material/netherite",
-  "enchantability": 15,
   "durability": 2031,
   "mining_speed": 9.0,
   "mining_level": "NETHERITE",

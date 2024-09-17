@@ -1,6 +1,5 @@
 {
   "id" : "btools:material/nether_star",
-  "enchantability": 20,
   "durability": 3006,
   "mining_speed": 6.0,
   "mining_level": "DIAMOND"

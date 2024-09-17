@@ -11,9 +11,8 @@ import java.util.Map;
 
 public class ModToolMaterial {
 
-    public ModToolMaterial(String id, int enchantability, int durability, float mining_speed, String mining_level, boolean fireResistent ) {
+    public ModToolMaterial(String id, int durability, float mining_speed, String mining_level, boolean fireResistent ) {
         this.id = Identifier.of ( id );
-        this.enchantability = enchantability;
         this.durability = durability;
         this.miningSpeed = mining_speed;
         this.inverseTag = MiningLevel.valueOf( mining_level ).inverseTag;
@@ -21,11 +20,11 @@ public class ModToolMaterial {
     }
 
     public ModToolMaterial( ModToolMaterial.Material material ) {
-        this(material.id, material.enchantability, material.durability, material.mining_speed, material.mining_level, material.fire_resistant);
+        this(material.id, material.durability, material.mining_speed, material.mining_level, material.fire_resistant);
     }
 
     Identifier id;
-    int enchantability, durability;
+    int durability;
     float miningSpeed;
     TagKey<Block> inverseTag;
     boolean fireResistent;
@@ -64,5 +63,5 @@ public class ModToolMaterial {
         return id;
     }
 
-    public record Material(String id, int enchantability, int durability, float mining_speed, String mining_level, boolean fire_resistant ) {}
+    public record Material(String id, int durability, float mining_speed, String mining_level, boolean fire_resistant ) {}
 }

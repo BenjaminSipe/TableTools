@@ -1,6 +1,5 @@
 {
   "id" : "btools:material/diamond",
-  "enchantability": 10,
   "durability": 1561,
   "mining_speed": 8.0,
   "mining_level": "DIAMOND"

@@ -1,6 +1,5 @@
 {
   "id" : "btools:material/gemstone",
-  "enchantability": 15,
   "durability": 59,
   "mining_speed": 9.0,
   "mining_level": "STONE"
