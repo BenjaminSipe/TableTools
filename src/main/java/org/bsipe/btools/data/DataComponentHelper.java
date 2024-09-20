@@ -155,4 +155,10 @@ public class DataComponentHelper {
                 || itemStack.isOf( PICKAXE );
     }
 
+    public static boolean canRepair( ItemStack item, ItemStack ingredient ) {
+        ModToolMaterial material = getMaterial( item );
+        return ModToolIngredient.getIngredientsForBaseMaterial( material ).test( ingredient );
+    }
+
+
 }
