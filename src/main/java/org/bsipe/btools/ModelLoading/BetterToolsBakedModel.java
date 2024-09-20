@@ -4,10 +4,7 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.*;
-import net.minecraft.client.render.model.json.ItemModelGenerator;
-import net.minecraft.client.render.model.json.JsonUnbakedModel;
-import net.minecraft.client.render.model.json.ModelOverrideList;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.*;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -87,7 +84,6 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-
         NbtCompound data = stack.get( DataComponentTypes.CUSTOM_DATA ) != null ? stack.get( DataComponentTypes.CUSTOM_DATA ).copyNbt() : null;
 
         String layer0 = data == null ? "" : data.getString("layer0");
@@ -154,7 +150,7 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
         TEXTURE_GETTER = textureGetter;
         MODEL_BAKE_SETTINGS = rotationContainer;
         BAKER = baker;
-        this.bakedModel = this.original.bake(baker, textureGetter, rotationContainer);
+        this.bakedModel = ITEM_MODEL_GENERATOR.create( TEXTURE_GETTER, (JsonUnbakedModel) original).bake(baker,(JsonUnbakedModel) this.original, textureGetter, rotationContainer, false);
 
         return this;
     }

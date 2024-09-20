@@ -26,7 +26,9 @@ public class ModelLoadingPlugin implements net.fabricmc.fabric.api.client.model.
 
     @Override
     public void onInitializeModelLoader(Context pluginContext) {
+
         pluginContext.modifyModelOnLoad().register((original, context) -> {
+
             if ( context.topLevelId() == null ) return original;
             if ( MODELS.contains( context.topLevelId() ) )
                 return new BetterToolsBakedModel( original );

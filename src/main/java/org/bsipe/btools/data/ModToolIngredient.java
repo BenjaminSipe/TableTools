@@ -105,6 +105,11 @@ public class ModToolIngredient {
         return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.source.equals( source ) ).map( id -> Registries.ITEM.get( id.material ).getDefaultStack() ) );
     }
 
+    public static Ingredient getIngredientsForBaseMaterial( ModToolMaterial materialGroup ) {
+        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.modToolMaterial.equals( materialGroup) ).map( id -> Registries.ITEM.get( id.material ).getDefaultStack() ) );
+    }
+
+    // SMITHING RECIPES
     public Identifier getBaseMaterial() { return baseMaterial; }
 
     public record ToolIngredient(String id, String path, String material_group, String material, String source, String base_material ) {}

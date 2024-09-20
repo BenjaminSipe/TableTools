@@ -2,5 +2,22 @@
   "id": "btools:handle/bone",
   "prefix": "btools:item/bone_",
   "item": "minecraft:bone",
-  "transform": "IDENTITY"
+  "transform": "IDENTITY",
+  "modifiers": [
+    {
+      "property": "DURABILITY",
+      "factor": 0.9,
+      "operation": "MULTIPLY"
+    },
+    {
+      "property": "MINING_SPEED",
+      "factor": 0.9,
+      "operation": "MULTIPLY"
+    },
+    {
+      "property": "DAMAGE",
+      "factor": 1.4,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

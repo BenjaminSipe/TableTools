@@ -3,5 +3,12 @@
   "prefix": "btools:item/mangrove_",
   "sprite": "btools:item/mangrove_tool_handle",
   "item": "minecraft:mangrove_planks",
-  "transform": "CRAFTED"
+  "transform": "CRAFTED",
+  "mangrove": [
+    {
+      "property": "DURABILITY",
+      "factor": 1.2,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

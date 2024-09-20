@@ -3,5 +3,17 @@
   "prefix": "btools:item/warped_",
   "sprite": "btools:item/warped_tool_handle",
   "item": "minecraft:warped_planks",
-  "transform": "CRAFTED"
+  "transform": "CRAFTED",
+  "modifiers": [
+    {
+      "property": "DURABILITY",
+      "factor": 1.1,
+      "operation": "MULTIPLY"
+    },
+    {
+      "property": "MINING_SPEED",
+      "factor": 1.1,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

@@ -3,5 +3,12 @@
   "prefix": "btools:item/birch_",
   "sprite": "btools:item/birch_tool_handle",
   "item": "minecraft:birch_planks",
-  "transform": "CRAFTED"
+  "transform": "CRAFTED",
+  "modifiers": [
+    {
+      "property": "MINING_SPEED",
+      "factor": 1.1,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

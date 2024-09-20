@@ -3,5 +3,12 @@
   "prefix": "btools:item/bamboo_",
   "sprite": "btools:item/bamboo_tool_handle",
   "item": "minecraft:bamboo_planks",
-  "transform": "CRAFTED"
+  "transform": "CRAFTED",
+  "modifiers": [
+    {
+      "property": "DAMAGE",
+      "factor": 1.2,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

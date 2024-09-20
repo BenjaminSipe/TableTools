@@ -3,5 +3,12 @@
   "prefix": "btools:item/jungle_",
   "sprite": "btools:item/jungle_tool_handle",
   "item": "minecraft:jungle_planks",
-  "transform": "CRAFTED"
+  "transform": "CRAFTED",
+  "modifiers": [
+    {
+      "property": "MINING_SPEED",
+      "factor": 1.2,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

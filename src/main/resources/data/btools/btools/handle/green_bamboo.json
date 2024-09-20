@@ -3,5 +3,12 @@
   "prefix": "btools:item/green_bamboo_",
   "sprite": "btools:item/green_bamboo_tool_handle",
   "item": "minecraft:bamboo",
-  "transform": "IDENTITY"
+  "transform": "IDENTITY",
+  "modifiers": [
+    {
+      "property": "DAMAGE",
+      "factor": 1.2,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

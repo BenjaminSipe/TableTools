@@ -3,5 +3,17 @@
   "prefix": "btools:item/crimson_",
   "sprite": "btools:item/crimson_tool_handle",
   "item": "minecraft:crimson_planks",
-  "transform": "CRAFTED"
+  "transform": "CRAFTED",
+  "modifiers": [
+    {
+      "property": "DURABILITY",
+      "factor": 1.1,
+      "operation": "MULTIPLY"
+    },
+    {
+      "property": "MINING_SPEED",
+      "factor": 1.1,
+      "operation": "MULTIPLY"
+    }
+  ]
 }

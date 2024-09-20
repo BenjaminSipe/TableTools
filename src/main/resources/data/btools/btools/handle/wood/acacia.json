@@ -6,19 +6,9 @@
   "transform": "CRAFTED",
   "modifiers": [
     {
-      "property": "DURABILITY",
+      "property": "MINING_SPEED",
       "factor": 1.1,
       "operation": "MULTIPLY"
-    },
-    {
-      "property": "DAMAGE",
-      "factor": 1,
-      "operation": "ADD"
-    },
-    {
-      "property": "MINING_SPEED",
-      "factor": 2,
-      "operation": "ADD"
     }
   ]
 }

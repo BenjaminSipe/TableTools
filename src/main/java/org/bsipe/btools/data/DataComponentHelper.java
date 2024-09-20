@@ -24,6 +24,7 @@ import org.bsipe.btools.ModItems;
 import java.util.List;
 import java.util.Map;
 
+import static org.bsipe.btools.ModItems.*;
 import static org.bsipe.btools.data.ModToolComponent.AXE_HEAD;
 import static org.bsipe.btools.data.ModToolComponent.SWORD_BLADE;
 
@@ -131,10 +132,10 @@ public class DataComponentHelper {
     }
 
     public static boolean testToolsMatch( ItemStack one, ItemStack two ) {
-        if ( one.get( DataComponentTypes.CUSTOM_DATA).isEmpty() || two.get( DataComponentTypes.CUSTOM_DATA).isEmpty()) return false;
-        return one.get(DataComponentTypes.CUSTOM_DATA).getNbt().getString("material").equals(
-                two.get(DataComponentTypes.CUSTOM_DATA).getNbt().getString("material")
-        );
+        NbtComponent c1 = one.get( DataComponentTypes.CUSTOM_DATA), c2 = two.get( DataComponentTypes.CUSTOM_DATA);
+        return ! ( c1 == null || c2 == null || c1.isEmpty() || c2.isEmpty() )
+                && c1.copyNbt().getString( "material" ).equals( c2.copyNbt().getString("material" ) );
+
     }
 
     public static final ToolComponent SWORD_TOOL_COMPONENT = new ToolComponent(
@@ -144,6 +145,20 @@ public class DataComponentHelper {
     public static ModToolMaterial getMaterial( ItemStack item ) {
         if ( item.get( DataComponentTypes.CUSTOM_DATA).isEmpty()) return null;
         return ModToolMaterial.MATERIAL_LIST.get( Identifier.of(item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("material")));
+    }
+
+    public static boolean canRepair( ItemStack item, ItemStack ingredient ) {
+        ModToolMaterial material = getMaterial( item );
+
+        return ModToolIngredient.getIngredientsForBaseMaterial( material ).test( ingredient );
+    }
+
+    public static boolean isBetterTool( ItemStack itemStack ) {
+        return itemStack.isOf( AXE )
+                || itemStack.isOf( HOE )
+                || itemStack.isOf( SHOVEL )
+                || itemStack.isOf( SWORD )
+                || itemStack.isOf( PICKAXE );
     }
 
 }
