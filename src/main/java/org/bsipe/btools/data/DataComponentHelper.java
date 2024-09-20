@@ -147,12 +147,6 @@ public class DataComponentHelper {
         return ModToolMaterial.MATERIAL_LIST.get( Identifier.of(item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("material")));
     }
 
-    public static boolean canRepair( ItemStack item, ItemStack ingredient ) {
-        ModToolMaterial material = getMaterial( item );
-
-        return ModToolIngredient.getIngredientsForBaseMaterial( material ).test( ingredient );
-    }
-
     public static boolean isBetterTool( ItemStack itemStack ) {
         return itemStack.isOf( AXE )
                 || itemStack.isOf( HOE )

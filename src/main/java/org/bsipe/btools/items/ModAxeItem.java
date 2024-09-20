@@ -10,11 +10,9 @@ public class ModAxeItem extends AxeItem {
         super(ToolMaterials.NETHERITE, settings);
     }
 
-
     @Override
     public boolean canRepair(ItemStack item, ItemStack ingredient)
     {
         return DataComponentHelper.canRepair( item, ingredient );
     }
-
 }
