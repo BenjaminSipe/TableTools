@@ -195,3 +195,4 @@ Modifiers contain 3 arguments, "property", "factor" and "operation",
 * "operation" may be set to "ADD" or "MULTIPLY" depending on which you would like to do.
 If you would like to lower a stat, multiply by a number between 0 and 1 or add a negative number.
 So, in the above example, a multiplicative durability modifier of 1.1 increases the durability by 10%.
+
