@@ -128,7 +128,7 @@ public class DataComponentHelper {
     Hard to explain, but basically,
     base value of an axe is 7.
      */
-    private final static float[] AXE_DAMAGE_BRAKETS = { 5, 5, 8 };
+    private final static float[] AXE_DAMAGE_BRAKETS = { 5, 5, 8, 10 };
 
 
 
