@@ -6,12 +6,12 @@
   "modifiers": [
     {
       "property": "DURABILITY",
-      "factor": 0.9,
+      "factor": 0.8,
       "operation": "MULTIPLY"
     },
     {
       "property": "MINING_SPEED",
-      "factor": 0.9,
+      "factor": 0.8,
       "operation": "MULTIPLY"
     },
     {
