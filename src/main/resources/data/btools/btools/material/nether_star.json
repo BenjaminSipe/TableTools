@@ -2,5 +2,6 @@
   "id" : "btools:material/nether_star",
   "durability": 3006,
   "mining_speed": 6.0,
-  "mining_level": "DIAMOND"
+  "mining_level": "DIAMOND",
+  "damage": 7
 }

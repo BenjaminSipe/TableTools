@@ -2,5 +2,6 @@
   "id" : "btools:material/iron",
   "durability": 250,
   "mining_speed": 6.0,
-  "mining_level": "IRON"
+  "mining_level": "IRON",
+  "damage": 6
 }

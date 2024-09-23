@@ -2,5 +2,6 @@
   "id": "btools:material/wood",
   "durability": 59,
   "mining_speed": 2.0,
-  "mining_level": "WOOD"
+  "mining_level": "WOOD",
+  "damage": 4
 }

@@ -97,8 +97,8 @@ public class ModToolIngredient {
         return modToolMaterial.fireResistent;
     }
 
-    public int getDamage() {
-        return 0;
+    public float getDamage() {
+        return modToolMaterial.getDamage();
     }
 
     public static Ingredient getAllIngredients( ToolSource source ) {

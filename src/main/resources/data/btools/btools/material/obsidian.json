@@ -2,5 +2,6 @@
   "id" : "btools:material/obsidian",
   "durability": 2031,
   "mining_speed": 4.0,
-  "mining_level": "DIAMOND"
+  "mining_level": "DIAMOND",
+  "damage": 6
 }

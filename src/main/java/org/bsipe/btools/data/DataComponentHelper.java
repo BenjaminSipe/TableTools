@@ -25,28 +25,9 @@ import java.util.List;
 import java.util.Map;
 
 import static org.bsipe.btools.ModItems.*;
-import static org.bsipe.btools.data.ModToolComponent.AXE_HEAD;
-import static org.bsipe.btools.data.ModToolComponent.SWORD_BLADE;
+import static org.bsipe.btools.data.ModToolComponent.*;
 
 public class DataComponentHelper {
-
-    public static Map< TagKey<Block>, Integer > AXE_DAMAGE_MAP =
-            Map.of(
-                    BlockTags.INCORRECT_FOR_GOLD_TOOL, 6,
-                    BlockTags.INCORRECT_FOR_WOODEN_TOOL, 6,
-                    BlockTags.INCORRECT_FOR_STONE_TOOL, 8,
-                    BlockTags.INCORRECT_FOR_IRON_TOOL, 8,
-                    BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 8,
-                    BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 9 );
-    public static Map< TagKey<Block>, Integer > GRADIENT_DAMAGE_MAP =
-            Map.of(
-                    BlockTags.INCORRECT_FOR_GOLD_TOOL, 1,
-                    BlockTags.INCORRECT_FOR_WOODEN_TOOL, 1,
-                    BlockTags.INCORRECT_FOR_STONE_TOOL, 2,
-                    BlockTags.INCORRECT_FOR_IRON_TOOL, 3,
-                    BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 4,
-                    BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 5 );
-
     public static NbtComponent getCustomData(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
 
         String layer1 = modToolIngredient.path + component.suffix;
@@ -66,31 +47,11 @@ public class DataComponentHelper {
     }
 
     public static AttributeModifiersComponent getAttributeModifiers(ModToolComponent component, ModToolIngredient ingredient, ModToolHandle toolHandle ) {
-
-
-        float damage = 0;
-        if ( AXE_HEAD.equals( component ) ) {
-            damage = AXE_DAMAGE_MAP.get( ingredient.getInverseTag() );
-        } else if ( ModToolComponent.isGradient( component ) ) {
-            damage = ModToolComponent.getBaseDamage( component ) + GRADIENT_DAMAGE_MAP.get( ingredient.getInverseTag() );
-        }
-        damage += ingredient.getDamage();
-        damage = toolHandle.modifyDamage( damage );
-
-        return AttributeModifiersComponent.builder()
-                .add(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, damage, EntityAttributeModifier.Operation.ADD_VALUE
-                        ),
-                        AttributeModifierSlot.MAINHAND
-                )
-                .add(
-                        EntityAttributes.GENERIC_ATTACK_SPEED,
-                        new EntityAttributeModifier(Item.BASE_ATTACK_SPEED_MODIFIER_ID, component.getAttackSpeed(), EntityAttributeModifier.Operation.ADD_VALUE),
-                        AttributeModifierSlot.MAINHAND
-                )
-                .build();
+        return AttributeModifiersComponent.builder().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
+                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, getDamage( component, ingredient, toolHandle),
+                EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND ).add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
+                Item.BASE_ATTACK_SPEED_MODIFIER_ID, component.getAttackSpeed(),
+                EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND).build();
     }
 
     public static ToolComponent getTool(ModToolComponent component, ModToolIngredient ingredient, ModToolHandle toolHandle ) {
@@ -158,6 +119,40 @@ public class DataComponentHelper {
     public static boolean canRepair( ItemStack item, ItemStack ingredient ) {
         ModToolMaterial material = getMaterial( item );
         return ModToolIngredient.getIngredientsForBaseMaterial( material ).test( ingredient );
+    }
+
+    // 7 9 9 9 10
+    // 4 5 6 7 8
+    // W S I D N
+    /*
+    Hard to explain, but basically,
+    base value of an axe is 7.
+     */
+    private final static float[] AXE_DAMAGE_BRAKETS = { 5, 5, 8 };
+
+
+
+    public static float getDamage(ModToolComponent component, ModToolIngredient ingredient, ModToolHandle toolHandle)
+    {
+        float damage = ingredient.getDamage();
+
+        damage = switch( component ) {
+            case HOE_HEAD -> 1;
+            case AXE_HEAD -> {
+                float damageOverride = 7;
+                for ( float f : AXE_DAMAGE_BRAKETS ) {
+                    if ( f <= damage ) damageOverride++;
+                }
+                yield damageOverride;
+            }
+            case PICKAXE_HEAD -> damage - 2;
+            case SHOVEL_HEAD -> damage - 1.5f;
+            default -> damage;
+        };
+        damage = toolHandle.modifyDamage( damage );
+
+        // attack damage gets added to base punch damage of one.
+        return damage - 1;
     }
 
 

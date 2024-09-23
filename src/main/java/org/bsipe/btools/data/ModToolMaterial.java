@@ -11,16 +11,17 @@ import java.util.Map;
 
 public class ModToolMaterial {
 
-    public ModToolMaterial(String id, int durability, float mining_speed, String mining_level, boolean fireResistent ) {
+    public ModToolMaterial(String id, int durability, float mining_speed, String mining_level, boolean fireResistent, float damage ) {
         this.id = Identifier.of ( id );
         this.durability = durability;
         this.miningSpeed = mining_speed;
         this.inverseTag = MiningLevel.valueOf( mining_level ).inverseTag;
         this.fireResistent = fireResistent;
+        this.damage = damage;
     }
 
     public ModToolMaterial( ModToolMaterial.Material material ) {
-        this(material.id, material.durability, material.mining_speed, material.mining_level, material.fire_resistant);
+        this(material.id, material.durability, material.mining_speed, material.mining_level, material.fire_resistant, material.damage);
     }
 
     Identifier id;
@@ -28,6 +29,7 @@ public class ModToolMaterial {
     float miningSpeed;
     TagKey<Block> inverseTag;
     boolean fireResistent;
+    float damage;
 
     public static Map<Identifier, ModToolMaterial> MATERIAL_LIST = new HashMap<>();
 
@@ -63,5 +65,8 @@ public class ModToolMaterial {
         return id;
     }
 
-    public record Material(String id, int durability, float mining_speed, String mining_level, boolean fire_resistant ) {}
+    public float getDamage() { return damage; }
+    public float getMiningSpeed() { return miningSpeed; }
+
+    public record Material(String id, int durability, float mining_speed, String mining_level, boolean fire_resistant, float damage ) {}
 }
