@@ -25,3 +25,5 @@
 ### BACKLOG
 * Recipe Integration with a recipe provider mod.
 * Override enchantment system?
+* Add support for farmer's delight.
+* 
