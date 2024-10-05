@@ -88,7 +88,18 @@ public class CraftingTableRecipe implements CraftingRecipe {
 
     @Override
     public ItemStack craft(CraftingRecipeInput inventory, RegistryWrapper.WrapperLookup lookup) {
-        return getResult(lookup).copy();
+        int handleSlot = 2;
+
+        if ( ModToolHandle.getModToolHandle( inventory.getStackInSlot( handleSlot ) ) == null ) handleSlot ++;
+        if ( ModToolHandle.getModToolHandle( inventory.getStackInSlot( handleSlot ) ) == null ) handleSlot ++;
+
+        ModToolIngredient ingredient = ModToolIngredient.get( inventory.getStackInSlot(Z[0]), ModToolIngredient.ToolSource.CRAFTING );
+        ModToolHandle handle = ModToolHandle.getModToolHandle( inventory.getStackInSlot(handleSlot));
+        if ( ingredient == null || handle == null ) return ItemStack.EMPTY;
+        ItemStack stack = result.copy();
+        DataComponentHelper.addToolComponents( stack, ingredient, handle, modToolComponent );
+
+        return stack;
     }
 
     @Override
