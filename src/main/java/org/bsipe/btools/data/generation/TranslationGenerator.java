@@ -93,6 +93,8 @@ public class TranslationGenerator extends FabricLanguageProvider {
         // Will be used to display tool tips eventually.
         translationBuilder.add("btools.handle.bone", "Bone");
         translationBuilder.add( "btools.handle.green_bamboo", "Bamboo" );
+        translationBuilder.add( "block.btools.endstone_endirium_ore", "Endirium Ore");
+        translationBuilder.add( "block.btools.deepslate_forge", "Deepslate Forge");
 
     }
 }

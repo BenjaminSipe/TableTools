@@ -21,6 +21,7 @@ public class BetterToolsModInitializer implements ModInitializer {
 
 		ModRecipes.initialize();
 		ModItems.initialize();
+		ModBlocks.initialize();
 		ModResources.initialize();
 
 	}

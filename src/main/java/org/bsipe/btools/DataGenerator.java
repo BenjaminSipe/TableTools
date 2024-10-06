@@ -2,7 +2,8 @@ package org.bsipe.btools;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import org.bsipe.btools.data.generation.TagGenerator;
+import org.bsipe.btools.data.generation.BlockTagGenerator;
+import org.bsipe.btools.data.generation.ItemTagGenerator;
 import org.bsipe.btools.data.generation.TranslationGenerator;
 
 public class DataGenerator implements DataGeneratorEntrypoint {
@@ -12,7 +13,8 @@ public class DataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-		pack.addProvider(TagGenerator::new);
+		pack.addProvider(ItemTagGenerator::new);
 		pack.addProvider(TranslationGenerator::new);
+		pack.addProvider(BlockTagGenerator::new);
 	}
 }

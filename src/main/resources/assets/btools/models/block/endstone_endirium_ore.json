@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "btools:block/endstone_endirium_ore"
+  }
+}
