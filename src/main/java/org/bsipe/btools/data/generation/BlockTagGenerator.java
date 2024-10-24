@@ -12,8 +12,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
-import static org.bsipe.btools.DataGenerator.MOD_ID;
-import static org.bsipe.btools.ModBlocks.DEEPSLATE_FORGE;
+import static org.bsipe.btools.ModBlocks.DEEPSLATE_FORGE_BLOCK;
 import static org.bsipe.btools.ModBlocks.ENDSTONE_ENDIRIUM_ORE;
 
 public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
@@ -30,7 +29,7 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE )
                 .add( ENDSTONE_ENDIRIUM_ORE )
-                .add( DEEPSLATE_FORGE );
+                .add( DEEPSLATE_FORGE_BLOCK );
 
 
         getOrCreateTagBuilder( NEEDS_NETHERITE_TOOL )

@@ -1,9 +1,10 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
+    "bottom": "btools:block/deepslate_forge_bottom",
     "front": "btools:block/deepslate_forge_front_on",
     "side": "btools:block/deepslate_forge_side",
     "top": "btools:block/deepslate_forge_top",
-    "bottom": "btools:blocks/deepslate_forge_bottom"
+    "particle": "btools:block/deepslate_forge_front_on"
   }
 }

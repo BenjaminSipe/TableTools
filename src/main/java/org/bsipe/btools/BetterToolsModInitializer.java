@@ -19,10 +19,13 @@ public class BetterToolsModInitializer implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
+
+
 		ModRecipes.initialize();
 		ModItems.initialize();
 		ModBlocks.initialize();
 		ModResources.initialize();
-
+		ModBlockEntityTypes.initialize();
+		ModScreenHandlerTypes.initialize();
 	}
 }

@@ -2,13 +2,13 @@
 	"schemaVersion": 1,
 	"id": "btools",
 	"version": "0.2.3-1.21.1",
-	"name": "Better Tools",
+	"name": "Table Tools",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
 		"bsipe"
 	],
 	"license": "MIT",
-	"icon": "assets/btools/icon.png",
+	"icon": "assets/btools/logo.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [

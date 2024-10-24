@@ -8,7 +8,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
-import org.bsipe.btools.block.DeepslateForgeBlock;
+import org.bsipe.btools.block.ForgeBlock;
 
 import static org.bsipe.btools.BetterToolsModInitializer.MOD_ID;
 
@@ -18,8 +18,8 @@ public class ModBlocks {
 
     }
 
-//    public static final DeepslateForgeBlock DEEPSLATE_FORGE = registerWithItem( "deepslate_forge", new DeepslateForgeBlock( AbstractBlock.Settings.create().strength( 1.5f, 6.0f).requiresTool()), new Item.Settings());
-    public static final Block ENDSTONE_ENDIRIUM_ORE = registerWithItem("endstone_endirium_ore", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7), AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 9.0F).luminance(Blocks.createLightLevelFromLitBlockState(10))), new Item.Settings() );
+    public static final ForgeBlock DEEPSLATE_FORGE_BLOCK = registerWithItem( "deepslate_forge", new ForgeBlock( AbstractBlock.Settings.create().strength( 1.5f, 6.0f).requiresTool().luminance(Blocks.createLightLevelFromLitBlockState(10))), new Item.Settings());
+    public static final Block ENDSTONE_ENDIRIUM_ORE = registerWithItem("endstone_endirium_ore", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7), AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 9.0F)), new Item.Settings() );
 
 
     public static <T extends Block> T register(String name, T block) {
