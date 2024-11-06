@@ -1,0 +1,15 @@
+{
+  "type": "btools:forge_alloying",
+  "cookingTime": 50,
+  "experience": 0.7,
+  "count":64,
+  "primary": {
+    "item": "minecraft:diamond"
+  },
+  "secondary": {
+    "item": "minecraft:redstone"
+  },
+  "result": {
+    "id": "btools:blood_diamond"
+  }
+}

@@ -15,5 +15,11 @@ public class ModRecipes {
 
         Registry.register( Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, ModSmithingTransformRecipe.Serializer.ID ),
                 ModSmithingTransformRecipe.Serializer.INSTANCE );
+
+        Registry.register( Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, ForgeAlloyRecipe.Serializer.ID ),
+                ForgeAlloyRecipe.Serializer.INSTANCE );
+
+        Registry.register( Registries.RECIPE_TYPE, Identifier.of( BetterToolsModInitializer.MOD_ID, ForgeAlloyRecipe.Type.ID ), ForgeAlloyRecipe.Type.INSTANCE );
+
     }
 }

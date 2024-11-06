@@ -49,7 +49,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "minecraft:lapis_lazuli"
+              "name": "btools:crystalized_endirium"
             }
           ]
         }

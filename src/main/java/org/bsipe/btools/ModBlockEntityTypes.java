@@ -1,5 +1,6 @@
 package org.bsipe.btools;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -17,7 +18,11 @@ public class ModBlockEntityTypes {
     }
 
 
-    public static void initialize() {}
+
+
+    public static void initialize() {
+        ItemStorage.SIDED.registerForBlockEntity(ForgeBlockEntity::getInventoryProvider, FORGE_BLOCK_ENTITY );
+    }
 }
 
 
