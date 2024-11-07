@@ -1,6 +1,7 @@
 package org.bsipe.btools;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,17 +24,25 @@ public class ModItems {
     public static Item BLAZE_STEEL_INGOT = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON )), "blaze_steel_ingot");
     public static Item SLIME_STEEL_INGOT = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON ) ), "slime_steel_ingot" );
     public static Item CRYSTALIZED_ENDIRIUM = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON ) ), "crystalized_endirium" );
+    public static Item CRYING_STEEL_INGOT = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON ) ), "crying_steel_ingot" );
     public static Item BLOOD_DIAMOND = register( new Item( new Item.Settings().rarity( Rarity.RARE )), "blood_diamond" );
 
     public static void initialize() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
                 .register((itemGroup) -> {
-                    itemGroup.add( ModItems.BLOOD_DIAMOND );
-                    itemGroup.add( ModItems.ENDER_STEEL_INGOT );
-                    itemGroup.add( ModItems.SLIME_STEEL_INGOT );
-                    itemGroup.add( ModItems.BLAZE_STEEL_INGOT );
-                    itemGroup.add( ModItems.CRYSTALIZED_ENDIRIUM );
+                    itemGroup.addAfter(Items.DIAMOND, ModItems.BLOOD_DIAMOND );
+                    itemGroup.addAfter(Items.AMETHYST_SHARD, ModItems.CRYSTALIZED_ENDIRIUM );
+                    itemGroup.addAfter(Items.GOLD_INGOT, ModItems.CRYING_STEEL_INGOT );
+                    itemGroup.addAfter(Items.GOLD_INGOT, ModItems.ENDER_STEEL_INGOT );
+                    itemGroup.addAfter(Items.GOLD_INGOT, ModItems.BLAZE_STEEL_INGOT );
+                    itemGroup.addAfter(Items.GOLD_INGOT, ModItems.SLIME_STEEL_INGOT );
                 });
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL)
+                .register((itemGroup -> itemGroup.addAfter(Blocks.ANCIENT_DEBRIS.asItem(), ModBlocks.ENDSTONE_ENDIRIUM_ORE ) ) );
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL)
+                .register((itemGroup -> itemGroup.addAfter(Blocks.BLAST_FURNACE.asItem(), ModBlocks.DEEPSLATE_FORGE_BLOCK ) ) );
 
     }
 

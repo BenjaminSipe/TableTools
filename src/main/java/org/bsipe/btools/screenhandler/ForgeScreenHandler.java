@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeInputProvider;
 import net.minecraft.recipe.RecipeMatcher;
@@ -12,18 +13,24 @@ import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import org.bsipe.btools.ModBlocks;
 import org.bsipe.btools.ModScreenHandlerTypes;
 import org.bsipe.btools.block.ForgeBlock;
 import org.bsipe.btools.block.entity.ForgeBlockEntity;
+import org.bsipe.btools.block.entity.ForgeOutputSlot;
 import org.bsipe.btools.network.BlockPosPayload;
 import org.bsipe.btools.recipes.ForgeAlloyRecipe;
 import org.bsipe.btools.recipes.ForgeRecipeInput;
+import org.bsipe.btools.recipes.ModRecipes;
+
+import java.util.List;
 
 public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeInput, ForgeAlloyRecipe> {
     private final ForgeBlockEntity forgeBlockEntity;
     private final ScreenHandlerContext context;
     private final PropertyDelegate propertyDelegate;
+    protected final World world;
 
     private final int PRIMARY_INPUT_SLOT = 0;
     private final int SECONDARY_INPUT_SLOT = 1;
@@ -47,12 +54,14 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         SimpleInventory inventory = this.forgeBlockEntity.getInventory();
         checkSize( inventory, 4 );
         inventory.onOpen( playerInventory.player );
+        this.world = playerInventory.player.getWorld();
 
 
-        // player inventory slots.
+        // this is gonna want to be at the top.
+        addBlockInventory( inventory, playerInventory.player );
+
         addPlayerInventory( playerInventory );
         addPlayerHotbar( playerInventory );
-        addBlockInventory( inventory );
 
         this.addProperties(propertyDelegate);
     }
@@ -65,12 +74,53 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         );
     }
 
+    private enum QuickMoveDestination {
+        PRIMARY(0,1),
+        SECONDARY(1,2),
+        FUEL(2,3),
+        OTHER( 4,40),
+        NONE( -1, -1);
+
+        public int start, end;
+
+        QuickMoveDestination( int start, int end ) {
+            this.start = start; this.end = end;
+        }
+
+        static QuickMoveDestination getDestination( int slot, ItemStack stack, World world ) {
+            if ( slot < 4 && slot >= 0 ) return OTHER;
+            List<RecipeEntry<ForgeAlloyRecipe>> recipeEntries = world.getRecipeManager().listAllOfType(ModRecipes.FORGE );
+            if ( isPrimaryIngredient( stack, recipeEntries ) ) return PRIMARY;
+            if ( isSecondaryIngredient( stack, recipeEntries )) return SECONDARY;
+            if ( ForgeBlockEntity.canUseAsFuel( stack ) ) return FUEL;
+            return NONE;
+        }
+
+    }
     @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
-        // TODO: This will need to be done, but is kindof bottom of the barrel for this.
-        ItemStack newStack = ItemStack.EMPTY;
-        return ItemStack.EMPTY;
+        ItemStack resultStack = ItemStack.EMPTY;
+        Slot clickedSlot = this.slots.get( slot );
+        if ( clickedSlot == null || ! clickedSlot.hasStack() ) return resultStack;
+        ItemStack clickedStack = clickedSlot.getStack();
+        resultStack = clickedStack.copy();
+        QuickMoveDestination d = QuickMoveDestination.getDestination( slot, clickedStack, this.world);
+        if ( d == QuickMoveDestination.NONE || !this.insertItem( clickedStack, d.start , d.end, slot == 3) ) return ItemStack.EMPTY;
+        if ( slot == 3 ) clickedSlot.onQuickTransfer(clickedStack, resultStack);
+        if ( clickedStack.isEmpty() ) clickedSlot.setStack( ItemStack.EMPTY );
+        else clickedSlot.markDirty();
+        if ( clickedStack.getCount() == resultStack.getCount()) return ItemStack.EMPTY;
+        clickedSlot.onTakeItem( player, clickedStack );
+        return resultStack;
     }
+
+    private static boolean isPrimaryIngredient(ItemStack stack, List<RecipeEntry<ForgeAlloyRecipe>> recipeList) {
+        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).primary.test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
+    }
+    private static boolean isSecondaryIngredient(ItemStack stack, List<RecipeEntry<ForgeAlloyRecipe>> recipeList ) {
+        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).secondary.test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
+    }
+
 
     @Override
     public boolean canUse(PlayerEntity player) {
@@ -95,14 +145,19 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
     // 80 40
     // 123 40
 
-    private void addBlockInventory( SimpleInventory inventory ) {
+    private void addBlockInventory( SimpleInventory inventory, PlayerEntity player ) {
         // I can't use a for-loopp. I only have 4 items.
 
         addSlot( new Slot(inventory, PRIMARY_INPUT_SLOT, 76, 40 ) );
         addSlot( new Slot(inventory, SECONDARY_INPUT_SLOT, 42, 17 ) );
-        addSlot( new Slot(inventory, FUEL_INPUT_SLOT, 42, 52 ) );
+        addSlot( new Slot(inventory, FUEL_INPUT_SLOT, 42, 52 ) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return isFuel( stack );
+            }
+        } );
 
-        addSlot( new Slot(inventory, OUTPUT_SLOT, 127, 40 ) );
+        addSlot( new ForgeOutputSlot(player, inventory, OUTPUT_SLOT, 127, 40 ) );
 
     }
 
@@ -184,17 +239,12 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
 
     public float getFuelProgress() {
         int i = this.propertyDelegate.get( FUEL_TIME_PROPERTY_INDEX );
-        if (i == 0) {
-            i = 200;
-        }
+        i = i == 0 ? 200 : i;
 
         return MathHelper.clamp((float)this.propertyDelegate.get(BURN_TIME_PROPERTY_INDEX) / (float)i, 0.0F, 1.0F);
     }
 
-    // probably removed eventually:
-
-
-    public PropertyDelegate getPropertyDelegate() {
-        return propertyDelegate;
+    public boolean isFuel( ItemStack stack ) {
+        return ForgeBlockEntity.canUseAsFuel( stack );
     }
 }

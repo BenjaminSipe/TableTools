@@ -24,6 +24,7 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add( ModItems.TOOL_HANDLE, "%s Tool Handle" );
 
         translationBuilder.add( ModItems.SLIME_STEEL_INGOT, "Slime Steel Ingot" );
+        translationBuilder.add( ModItems.CRYING_STEEL_INGOT, "Crying Steel Ingot" );
         translationBuilder.add( ModItems.ENDER_STEEL_INGOT, "Ender Steel Ingot" );
         translationBuilder.add( ModItems.BLAZE_STEEL_INGOT, "Blaze Steel Ingot" );
         translationBuilder.add( ModItems.CRYSTALIZED_ENDIRIUM, "Crystalized Endirium" );
@@ -100,6 +101,8 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add( "btools.handle.green_bamboo", "Bamboo" );
         translationBuilder.add( "block.btools.endstone_endirium_ore", "Endirium Ore");
         translationBuilder.add( "block.btools.deepslate_forge", "Deepslate Forge");
+
+        translationBuilder.add( "container.btools.forge_block", "Deepslate Forge" );
 
     }
 }

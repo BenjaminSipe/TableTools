@@ -87,6 +87,10 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     @Nullable
     private static volatile Map<Item, Integer> fuelTimes;
 
+    public static boolean canUseAsFuel(ItemStack stack) {
+        return createFuelTimeMap().containsKey(stack.getItem());
+    }
+
     // this will definitely have to change to some kind of furnace inventory.
     private final SimpleInventory inventory = new SimpleInventory( 4 ) {
         @Override

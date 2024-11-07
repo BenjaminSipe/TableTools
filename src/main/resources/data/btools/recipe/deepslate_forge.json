@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "S": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "X": {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "pattern": [
+    "DSD",
+    "SXS",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "btools:deepslate_forge"
+  }
+}

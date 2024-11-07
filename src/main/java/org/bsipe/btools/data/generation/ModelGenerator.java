@@ -26,6 +26,7 @@ public class ModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.PICKAXE, Models.HANDHELD);
 
         itemModelGenerator.register(ModItems.SLIME_STEEL_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.CRYING_STEEL_INGOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDER_STEEL_INGOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLAZE_STEEL_INGOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.CRYSTALIZED_ENDIRIUM, Models.GENERATED);

@@ -54,17 +54,17 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         int l = MathHelper.ceil(this.handler.getAlloyProgress() * 24.0F);
         context.drawGuiTexture(BURN_PROGRESS_TEXTURE, 24, 16, 0, 0, i + 97, j + 39, l, 16);
 
-        context.drawText(this.textRenderer, Text.literal( String.valueOf( this.handler.getFuelProgress() )), 10, 25, 4210752, false);
-        context.drawText(this.textRenderer, Text.literal( String.valueOf( this.handler.getCookProgress() )), 10, 35, 4210752, false);
-        context.drawText(this.textRenderer, Text.literal( String.valueOf( this.handler.getAlloyProgress() )), 10, 45, 4210752, false);
-
-
-        context.drawText(this.textRenderer, Text.literal( "B " + this.handler.getPropertyDelegate().get( 0 )), 40, 35, 4210752, false);
-        context.drawText(this.textRenderer, Text.literal( "F " + this.handler.getPropertyDelegate().get( 1 )), 40, 45, 4210752, false);
-        context.drawText(this.textRenderer, Text.literal( "C " + this.handler.getPropertyDelegate().get( 2 )), 40, 55, 4210752, false);
-        context.drawText(this.textRenderer, Text.literal( "CT" + this.handler.getPropertyDelegate().get( 3 )), 40, 65, 4210752, false);
-        context.drawText(this.textRenderer, Text.literal( "A " + this.handler.getPropertyDelegate().get( 4 )), 40, 75, 4210752, false);
-        context.drawText(this.textRenderer, Text.literal( "AT" + this.handler.getPropertyDelegate().get( 5 )), 40, 85, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( String.valueOf( this.handler.getFuelProgress() )), 10, 25, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( String.valueOf( this.handler.getCookProgress() )), 10, 35, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( String.valueOf( this.handler.getAlloyProgress() )), 10, 45, 4210752, false);
+//
+//
+//        context.drawText(this.textRenderer, Text.literal( "B " + this.handler.getPropertyDelegate().get( 0 )), 40, 35, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( "F " + this.handler.getPropertyDelegate().get( 1 )), 40, 45, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( "C " + this.handler.getPropertyDelegate().get( 2 )), 40, 55, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( "CT" + this.handler.getPropertyDelegate().get( 3 )), 40, 65, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( "A " + this.handler.getPropertyDelegate().get( 4 )), 40, 75, 4210752, false);
+//        context.drawText(this.textRenderer, Text.literal( "AT" + this.handler.getPropertyDelegate().get( 5 )), 40, 85, 4210752, false);
 
 
     }
