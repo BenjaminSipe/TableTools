@@ -23,6 +23,12 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add( ModItems.SHOVEL, "%s Shovel" );
         translationBuilder.add( ModItems.TOOL_HANDLE, "%s Tool Handle" );
 
+        translationBuilder.add( ModItems.SLIME_STEEL_INGOT, "Slime Steel Ingot" );
+        translationBuilder.add( ModItems.CRYING_STEEL_INGOT, "Crying Steel Ingot" );
+        translationBuilder.add( ModItems.ENDER_STEEL_INGOT, "Ender Steel Ingot" );
+        translationBuilder.add( ModItems.BLAZE_STEEL_INGOT, "Blaze Steel Ingot" );
+        translationBuilder.add( ModItems.CRYSTALIZED_ENDIRIUM, "Crystalized Endirium" );
+        translationBuilder.add( ModItems.BLOOD_DIAMOND, "Blood Diamond" );
         translationBuilder.add("btools.ingredient.acacia", "Acacia");
         translationBuilder.add("btools.ingredient.bamboo", "Bamboo");
         translationBuilder.add("btools.ingredient.birch", "Birch");
@@ -93,6 +99,10 @@ public class TranslationGenerator extends FabricLanguageProvider {
         // Will be used to display tool tips eventually.
         translationBuilder.add("btools.handle.bone", "Bone");
         translationBuilder.add( "btools.handle.green_bamboo", "Bamboo" );
+        translationBuilder.add( "block.btools.endstone_endirium_ore", "Endirium Ore");
+        translationBuilder.add( "block.btools.deepslate_forge", "Deepslate Forge");
+
+        translationBuilder.add( "container.btools.forge_block", "Deepslate Forge" );
 
     }
 }

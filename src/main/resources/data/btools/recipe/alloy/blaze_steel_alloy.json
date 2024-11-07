@@ -1,0 +1,15 @@
+{
+  "type": "btools:forge_alloying",
+  "cookingTime": 100,
+  "experience": 0.7,
+  "count":8,
+  "primary": {
+    "item": "minecraft:iron_ingot"
+  },
+  "secondary": {
+    "item": "minecraft:blaze_powder"
+  },
+  "result": {
+    "id": "btools:blaze_steel_ingot"
+  }
+}

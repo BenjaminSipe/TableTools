@@ -1,0 +1,15 @@
+{
+  "type": "btools:forge_alloying",
+  "cookingTime": 100,
+  "experience": 0.7,
+  "count":16,
+  "primary": {
+    "item": "minecraft:iron_ingot"
+  },
+  "secondary": {
+    "item": "minecraft:ender_pearl"
+  },
+  "result": {
+    "id": "btools:ender_steel_ingot"
+  }
+}
