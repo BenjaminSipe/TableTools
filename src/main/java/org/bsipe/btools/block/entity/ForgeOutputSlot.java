@@ -45,8 +45,8 @@ public class ForgeOutputSlot extends Slot {
     @Override
     protected void onCrafted(ItemStack stack) {
         stack.onCraftByPlayer(this.player.getWorld(), this.player, this.amount);
-        if (this.player instanceof ServerPlayerEntity serverPlayerEntity && this.inventory instanceof AbstractFurnaceBlockEntity abstractFurnaceBlockEntity) {
-//                forge.dropExperienceForRecipesUsed(serverPlayerEntity);
+        if (this.player instanceof ServerPlayerEntity serverPlayerEntity && this.inventory instanceof ForgeBlockEntity forge) {
+                forge.dropExperienceForRecipesUsed(serverPlayerEntity);
         }
 
         this.amount = 0;

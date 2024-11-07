@@ -1,7 +1,8 @@
 package org.bsipe.btools.block.entity;
 
-import com.google.common.base.Predicates;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
@@ -9,12 +10,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -22,21 +22,20 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeInputProvider;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.recipe.RecipeMatcher;
+import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.bsipe.btools.ModBlockEntityTypes;
 import org.bsipe.btools.block.ForgeBlock;
@@ -46,6 +45,7 @@ import org.bsipe.btools.recipes.ForgeRecipeInput;
 import org.bsipe.btools.screenhandler.ForgeScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.bsipe.btools.BetterToolsModInitializer.MOD_ID;
@@ -53,8 +53,6 @@ import static org.bsipe.btools.BetterToolsModInitializer.MOD_ID;
 public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider, TickableBlockEntity, ExtendedScreenHandlerFactory<BlockPosPayload>, SidedInventory {
 
     private static final Text TITLE = Text.translatable( "container." + MOD_ID + ".forge_block" );
-
-    private static final String COUNTER_NBT = MOD_ID + ":counter";
 
     protected static final int INPUT_PRIMARY_SLOT_INDEX = 0;
     protected static final int INPUT_SECONDARY_SLOT_INDEX = 1;
@@ -69,8 +67,6 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     public static final int ALLOY_COUNT_TOTAL_PROPERTY_INDEX = 5;
 
     public static final int PROPERTY_COUNT = 6;
-
-    public static final int DEFAULT_COOK_TIME = 200;
 
     // just so it is written down somewhere:
     // BURN TIME is how long the furnace has left before the fire goes out
@@ -98,7 +94,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
 
-    // no idea what this does.
+    // used to keep the client in sync.
     protected final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
         public int get(int index) {
@@ -145,7 +141,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
 
         @Override
         public int size() {
-            return 6;
+            return PROPERTY_COUNT;
         }
     };
 
@@ -157,10 +153,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     private final Object2IntOpenHashMap<Identifier> recipesUsed = new Object2IntOpenHashMap<>();
     private Identifier recipeInProgress = null;
 
-    // Fixed, but may be difficult long term
     private final RecipeManager.MatchGetter<ForgeRecipeInput, ForgeAlloyRecipe> matchGetter;
-    // Seems to relate to droppers and hoppers.
-    // TODO: Make hopper and dropper inputs directional.
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypes.FORGE_BLOCK_ENTITY, pos, state);
@@ -271,6 +264,8 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
                 hasFuelItemStack = !inputFuelItemStack.isEmpty();
 
         // TODO: may need updating for other recipe types.
+
+        // TODO: Optimize this code
         if ( isBurning() || ( hasPrimaryInput && hasSecondaryInput && hasFuelItemStack ) ) {
             RecipeEntry<?> recipeEntry = hasPrimaryInput && hasSecondaryInput ? getRecipe( world ) : null;
 
@@ -412,7 +407,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     // -- START SCREEN HANDLER METHODS --
     @Override
     public BlockPosPayload getScreenOpeningData(ServerPlayerEntity player) {
-        return new BlockPosPayload(this.pos); // May want other data?
+        return new BlockPosPayload(this.pos);
     }
 
     @Override
@@ -437,15 +432,10 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         return InventoryStorage.of( this, direction );
     }
 
-
-    // I need a special inventory, because I need to track when we setStack
-//    public Inventory getSimpleInventory() { return this.simpleInventory; }
-
     @Override
     public void provideRecipeInputs(RecipeMatcher finder) {
-        for (ItemStack itemStack : inventory) {
-            finder.addInput(itemStack);
-        }
+        finder.addInput( inventory.get( INPUT_PRIMARY_SLOT_INDEX ));
+        finder.addInput( inventory.get( INPUT_SECONDARY_SLOT_INDEX));
     }
 
     @Override
@@ -456,6 +446,8 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         return new int[] {0};
     }
 
+
+    // these will be used for redstone?
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
         return true;
@@ -506,13 +498,11 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-
         ItemStack input = getStack(slot);
 
         this.inventory.set(slot, stack);
         stack.capCount(this.getMaxCount(stack));
 
-//            boolean hasRecipeInput = !(getStack(INPUT_SECONDARY_SLOT_INDEX).isEmpty() || getStack(INPUT_PRIMARY_SLOT_INDEX).isEmpty());
         boolean canCombineStacks = !stack.isEmpty() && ItemStack.areItemsAndComponentsEqual(input, stack);
 
         RecipeEntry<?> recipeEntry = getRecipe(world);
@@ -538,5 +528,41 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     public void clear() {
         this.inventory.clear();
         this.markDirty();
+    }
+
+    public void dropExperienceForRecipesUsed(ServerPlayerEntity player) {
+        List<RecipeEntry<?>> list = this.getRecipesUsedAndDropExperience(player.getServerWorld(), player.getPos());
+        player.unlockRecipes(list);
+
+        for (RecipeEntry<?> recipeEntry : list) {
+            if (recipeEntry != null) {
+                player.onRecipeCrafted(recipeEntry, this.inventory);
+            }
+        }
+
+        this.recipesUsed.clear();
+    }
+
+    public List<RecipeEntry<?>> getRecipesUsedAndDropExperience(ServerWorld world, Vec3d pos) {
+        List<RecipeEntry<?>> list = Lists.<RecipeEntry<?>>newArrayList();
+
+        for (Object2IntMap.Entry<Identifier> entry : this.recipesUsed.object2IntEntrySet()) {
+            world.getRecipeManager().get((Identifier)entry.getKey()).ifPresent(recipe -> {
+                list.add(recipe);
+                dropExperience(world, pos, entry.getIntValue(), ((ForgeAlloyRecipe)recipe.value()).experience);
+            });
+        }
+
+        return list;
+    }
+
+    private static void dropExperience(ServerWorld world, Vec3d pos, int multiplier, float experience) {
+        int i = MathHelper.floor((float)multiplier * experience);
+        float f = MathHelper.fractionalPart((float)multiplier * experience);
+        if (f != 0.0F && Math.random() < (double)f) {
+            i++;
+        }
+
+        ExperienceOrbEntity.spawn(world, pos, i);
     }
 }
