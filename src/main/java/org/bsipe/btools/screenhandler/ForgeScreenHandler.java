@@ -5,7 +5,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeInputProvider;
 import net.minecraft.recipe.RecipeMatcher;
@@ -16,7 +15,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.bsipe.btools.ModBlocks;
 import org.bsipe.btools.ModScreenHandlerTypes;
-import org.bsipe.btools.block.ForgeBlock;
 import org.bsipe.btools.block.entity.ForgeBlockEntity;
 import org.bsipe.btools.block.entity.ForgeOutputSlot;
 import org.bsipe.btools.network.BlockPosPayload;
@@ -51,14 +49,13 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         this.forgeBlockEntity = forgeBlockEntity;
         this.propertyDelegate = forgeBlockEntity.getPropertyDelegate();
         this.context = ScreenHandlerContext.create( this.forgeBlockEntity.getWorld(), this.forgeBlockEntity.getPos());
-        SimpleInventory inventory = this.forgeBlockEntity.getInventory();
-        checkSize( inventory, 4 );
-        inventory.onOpen( playerInventory.player );
+        checkSize( forgeBlockEntity, 4 );
+        forgeBlockEntity.onOpen( playerInventory.player );
         this.world = playerInventory.player.getWorld();
 
 
         // this is gonna want to be at the top.
-        addBlockInventory( inventory, playerInventory.player );
+        addBlockInventory( forgeBlockEntity, playerInventory.player );
 
         addPlayerInventory( playerInventory );
         addPlayerHotbar( playerInventory );
@@ -150,7 +147,7 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         }
     }
 
-    private void addBlockInventory( SimpleInventory inventory, PlayerEntity player ) {
+    private void addBlockInventory( Inventory inventory, PlayerEntity player ) {
         // I can't use a for-loopp. I only have 4 items.
 
         addSlot( new Slot(inventory, PRIMARY_INPUT_SLOT, 76, 40 ) );
@@ -173,7 +170,7 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
     @Override
     public void onClosed( PlayerEntity player ) {
         super.onClosed( player );
-        this.forgeBlockEntity.getInventory().onClose( player );
+        this.forgeBlockEntity.onClose( player );
     }
 
     @Override
@@ -192,8 +189,8 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
     @Override
     public boolean matches(RecipeEntry<ForgeAlloyRecipe> recipe) {
         return recipe.value().matches( new ForgeRecipeInput(
-                this.forgeBlockEntity.getInventory().getStack( PRIMARY_INPUT_SLOT ),
-                this.forgeBlockEntity.getInventory().getStack( SECONDARY_INPUT_SLOT ) ), this.forgeBlockEntity.getWorld());
+                this.forgeBlockEntity.getStack( PRIMARY_INPUT_SLOT ),
+                this.forgeBlockEntity.getStack( SECONDARY_INPUT_SLOT ) ), this.forgeBlockEntity.getWorld());
     }
 
     @Override

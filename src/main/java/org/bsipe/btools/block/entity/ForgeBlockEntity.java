@@ -1,16 +1,19 @@
 package org.bsipe.btools.block.entity;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
-import com.mojang.serialization.Decoder;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,11 +33,11 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.bsipe.btools.BetterToolsModInitializer;
 import org.bsipe.btools.ModBlockEntityTypes;
 import org.bsipe.btools.block.ForgeBlock;
 import org.bsipe.btools.network.BlockPosPayload;
@@ -47,7 +50,7 @@ import java.util.Map;
 
 import static org.bsipe.btools.BetterToolsModInitializer.MOD_ID;
 
-public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider, TickableBlockEntity, ExtendedScreenHandlerFactory<BlockPosPayload> {
+public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider, TickableBlockEntity, ExtendedScreenHandlerFactory<BlockPosPayload>, SidedInventory {
 
     private static final Text TITLE = Text.translatable( "container." + MOD_ID + ".forge_block" );
 
@@ -92,39 +95,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         return createFuelTimeMap().containsKey(stack.getItem());
     }
 
-    // this will definitely have to change to some kind of furnace inventory.
-    private final SimpleInventory inventory = new SimpleInventory( 4 ) {
-        @Override
-        public void markDirty() {
-            super.markDirty();
-            update( getCachedState() );
-        }
-
-        @Override
-        public void setStack(int slot, ItemStack stack) {
-
-            ItemStack input = getStack(slot);
-
-            super.setStack(slot, stack);
-            stack.capCount(this.getMaxCount(stack));
-
-//            boolean hasRecipeInput = !(getStack(INPUT_SECONDARY_SLOT_INDEX).isEmpty() || getStack(INPUT_PRIMARY_SLOT_INDEX).isEmpty());
-            boolean canCombineStacks = !stack.isEmpty() && ItemStack.areItemsAndComponentsEqual(input, stack);
-
-            RecipeEntry<?> recipeEntry = getRecipe(world);
-
-            recipeInProgress = (slot == INPUT_PRIMARY_SLOT_INDEX && stack.isEmpty() ) ? null : maybeResetRecipeInProgress( recipeEntry );
-
-            if ((slot == 0 || slot == 1) && !canCombineStacks ) {
-                cookTimeTotal = getCookTimeTotal(recipeEntry);
-                cookTime = 0;
-                alloyCountTotal = getAlloyCountTotal(recipeEntry);
-                alloyCount = getAlloyCount( recipeEntry );
-
-                this.markDirty();
-            }
-        }
-    };
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
 
     // no idea what this does.
@@ -190,7 +161,6 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     private final RecipeManager.MatchGetter<ForgeRecipeInput, ForgeAlloyRecipe> matchGetter;
     // Seems to relate to droppers and hoppers.
     // TODO: Make hopper and dropper inputs directional.
-    private final InventoryStorage inventoryStorage = InventoryStorage.of( inventory, null);
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypes.FORGE_BLOCK_ENTITY, pos, state);
@@ -223,11 +193,11 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     @Override
     protected void readNbt( NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup ) {
         super.readNbt( nbt, registryLookup);
-        Inventories.readNbt( nbt, this.inventory.getHeldStacks(), registryLookup);
+        Inventories.readNbt( nbt, inventory, registryLookup);
         this.burnTime = nbt.getShort( "BurnTime" );
         this.cookTime = nbt.getShort( "CookTime" );
         this.cookTimeTotal = nbt.getShort( "CookTimeTotal" );
-        this.fuelTime = this.getFuelTime( this.inventory.getStack( 1 ) );
+        this.fuelTime = this.getFuelTime( getStack( FUEL_SLOT_INDEX ) );
         this.alloyCount = nbt.getShort( "InfuseCount" );
         this.alloyCountTotal = nbt.getShort( "InfuseCountTotal" );
         NbtCompound nbtCompound = nbt.getCompound( "RecipesUsed" );
@@ -250,7 +220,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         nbt.putShort("InfuseCount", (short)this.alloyCount);
         nbt.putShort("InfuseCountTotal", (short)this.alloyCountTotal);
 
-        Inventories.writeNbt( nbt, this.inventory.getHeldStacks(), registryLookup);
+        Inventories.writeNbt( nbt, inventory, registryLookup);
         NbtCompound nbtCompound = new NbtCompound();
         this.recipesUsed.forEach((identifier, count) -> nbtCompound.putInt(identifier.toString(), count));
         nbt.put("RecipesUsed", nbtCompound);
@@ -264,7 +234,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
             return 0;
         } else {
             Item item = fuel.getItem();
-            return (Integer)createFuelTimeMap().getOrDefault(item, 0);
+            return createFuelTimeMap().getOrDefault(item, 0);
         }
     }
 
@@ -292,9 +262,9 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
             this.burnTime --;
         }
 
-        ItemStack inputPrimaryItemStack = this.inventory.getStack(INPUT_PRIMARY_SLOT_INDEX),
-                  inputSecondaryItemStack = this.inventory.getStack(INPUT_SECONDARY_SLOT_INDEX),
-                  inputFuelItemStack = this.inventory.getStack( FUEL_SLOT_INDEX );
+        ItemStack inputPrimaryItemStack = getStack(INPUT_PRIMARY_SLOT_INDEX),
+                  inputSecondaryItemStack = getStack(INPUT_SECONDARY_SLOT_INDEX),
+                  inputFuelItemStack = getStack( FUEL_SLOT_INDEX );
 
         boolean hasPrimaryInput = !inputPrimaryItemStack.isEmpty(),
                 hasSecondaryInput = !inputSecondaryItemStack.isEmpty(),
@@ -304,8 +274,8 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         if ( isBurning() || ( hasPrimaryInput && hasSecondaryInput && hasFuelItemStack ) ) {
             RecipeEntry<?> recipeEntry = hasPrimaryInput && hasSecondaryInput ? getRecipe( world ) : null;
 
-            int blockEntityStackSizeLimit = inventory.getMaxCountPerStack();
-            if (!isBurning() && canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, inventory, blockEntityStackSizeLimit)) {
+            int blockEntityStackSizeLimit = getMaxCountPerStack();
+            if (!isBurning() && canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, blockEntityStackSizeLimit)) {
                 this.burnTime = getFuelTime(inputFuelItemStack);
                 this.fuelTime = this.burnTime;
                 if (isBurning()) {
@@ -315,13 +285,13 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
                         inputFuelItemStack.decrement(1);
                         if (inputFuelItemStack.isEmpty()) {
                             Item fuelConsumeRemainder = item.getRecipeRemainder();
-                            this.inventory.setStack(FUEL_SLOT_INDEX, fuelConsumeRemainder == null ? ItemStack.EMPTY : new ItemStack(fuelConsumeRemainder));
+                            setStack(FUEL_SLOT_INDEX, fuelConsumeRemainder == null ? ItemStack.EMPTY : new ItemStack(fuelConsumeRemainder));
                         }
                     }
                 }
             }
 
-            if (isBurning() && canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, inventory, blockEntityStackSizeLimit)) {
+            if (isBurning() && canAcceptRecipeOutput(world.getRegistryManager(), recipeEntry, blockEntityStackSizeLimit)) {
                 cookTime++;
                 if ( cookTime == cookTimeTotal ) {
                     cookTime=0;
@@ -331,11 +301,11 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
                         alloyCount = 0;
                         alloyCountTotal = getAlloyCountTotal( recipeEntry );
                         // THIS IS WHERE I DO THE THING.
-                        if (craftRecipe(world.getRegistryManager(), recipeEntry, inventory, blockEntityStackSizeLimit)) {
+                        if (craftRecipe(world.getRegistryManager(), recipeEntry, blockEntityStackSizeLimit)) {
                             setLastRecipe(recipeEntry);
                         }
                     } else {
-                        inventory.getStack( INPUT_SECONDARY_SLOT_INDEX ).decrement( 1 );
+                        getStack( INPUT_SECONDARY_SLOT_INDEX ).decrement( 1 );
                         recipeInProgress = recipeEntry.id();
                     }
 
@@ -368,16 +338,16 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         }
     }
 
-    private boolean craftRecipe(DynamicRegistryManager registryManager, RecipeEntry<?> recipeEntry, SimpleInventory inventory, int blockEntityStackSizeLimit) {
+    private boolean craftRecipe(DynamicRegistryManager registryManager, RecipeEntry<?> recipeEntry, int blockEntityStackSizeLimit) {
 
-        if ( recipeEntry != null && canAcceptRecipeOutput(registryManager, recipeEntry,inventory, blockEntityStackSizeLimit )) {
-            ItemStack primaryInput = inventory.getStack( INPUT_PRIMARY_SLOT_INDEX ),
-                      secondaryInput = inventory.getStack( INPUT_SECONDARY_SLOT_INDEX ),
+        if ( recipeEntry != null && canAcceptRecipeOutput(registryManager, recipeEntry, blockEntityStackSizeLimit )) {
+            ItemStack primaryInput = getStack( INPUT_PRIMARY_SLOT_INDEX ),
+                      secondaryInput = getStack( INPUT_SECONDARY_SLOT_INDEX ),
                       result = recipeEntry.value().getResult(registryManager),
-                      resultSlot = inventory.getStack( OUTPUT_SLOT_INDEX );
+                      resultSlot = getStack( OUTPUT_SLOT_INDEX );
             if ( resultSlot.isEmpty() )
             {
-                inventory.setStack( OUTPUT_SLOT_INDEX, result.copy() );
+                setStack( OUTPUT_SLOT_INDEX, result.copy() );
             } else if ( ItemStack.areItemsAndComponentsEqual( resultSlot, result )) {
                 resultSlot.increment( result.getCount() );
             }
@@ -391,8 +361,8 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     }
 
     private RecipeEntry<?> getRecipe(World world ) {
-        ItemStack primary = inventory.getStack( INPUT_PRIMARY_SLOT_INDEX );
-        ItemStack secondary = inventory.getStack( INPUT_SECONDARY_SLOT_INDEX );
+        ItemStack primary = getStack( INPUT_PRIMARY_SLOT_INDEX );
+        ItemStack secondary = getStack( INPUT_SECONDARY_SLOT_INDEX );
         if ( primary.isEmpty() || (secondary.isEmpty() && recipeInProgress == null) ) return null;
 
         return matchGetter.getFirstMatch( new ForgeRecipeInput( primary, secondary ), world ).orElse( null );
@@ -413,7 +383,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         if ( recipeInProgress == null )
             return 0;
 
-        if ( inventory.getStack( INPUT_SECONDARY_SLOT_INDEX ).isEmpty() || recipeEntry == null )
+        if ( getStack( INPUT_SECONDARY_SLOT_INDEX ).isEmpty() || recipeEntry == null )
             return alloyCount;
 
         return recipeEntry.id().equals( recipeInProgress ) ? alloyCount : 0;
@@ -423,13 +393,13 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         return recipeEntry != null && recipeInProgress != null && ! recipeEntry.id().equals( recipeInProgress ) ? null : recipeInProgress;
     }
 
-    private boolean canAcceptRecipeOutput(DynamicRegistryManager recipeManager, RecipeEntry<?> recipe, SimpleInventory inventory, int blockEntityStackSizeLimit) {
+    private boolean canAcceptRecipeOutput(DynamicRegistryManager recipeManager, RecipeEntry<?> recipe, int blockEntityStackSizeLimit) {
 
-        boolean isMissingRecipe =  recipe == null || inventory.getStack( INPUT_PRIMARY_SLOT_INDEX ).isEmpty();
+        boolean isMissingRecipe =  recipe == null || getStack( INPUT_PRIMARY_SLOT_INDEX ).isEmpty();
         if ( isMissingRecipe ) return false;
 
         ItemStack result = recipe.value().getResult( recipeManager );
-        ItemStack resultSlot = inventory.getStack( OUTPUT_SLOT_INDEX );
+        ItemStack resultSlot = getStack( OUTPUT_SLOT_INDEX );
         int totalCount = resultSlot.getCount() + result.getCount();
 
         return ! result.isEmpty() &&
@@ -464,17 +434,109 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     }
 
     public InventoryStorage getInventoryProvider( Direction direction ) {
-        return inventoryStorage;
+        return InventoryStorage.of( this, direction );
     }
 
 
     // I need a special inventory, because I need to track when we setStack
-    public SimpleInventory getInventory() { return this.inventory; }
+//    public Inventory getSimpleInventory() { return this.simpleInventory; }
 
     @Override
     public void provideRecipeInputs(RecipeMatcher finder) {
-        for (ItemStack itemStack : this.inventory.getHeldStacks()) {
+        for (ItemStack itemStack : inventory) {
             finder.addInput(itemStack);
         }
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        if ( side == Direction.UP ) return new int[] {1};
+        if ( side == Direction.DOWN ) return new int[] {3};
+        if ( side == getCachedState().get( HorizontalFacingBlock.FACING ).getOpposite() ) return new int[] {2};
+        return new int[] {0};
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return true;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return true;
+    }
+
+    @Override
+    public int size() {
+        return 4;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return  inventory.get( INPUT_PRIMARY_SLOT_INDEX ).isEmpty() &&
+                inventory.get( INPUT_SECONDARY_SLOT_INDEX ).isEmpty() &&
+                inventory.get( FUEL_SLOT_INDEX ).isEmpty() &&
+                inventory.get( OUTPUT_SLOT_INDEX ).isEmpty();
+    }
+
+    @Override
+    public ItemStack getStack(int slot) {
+        return slot >= 0 && slot < this.inventory.size() ? this.inventory.get(slot) : ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack removeStack(int slot, int amount) {
+        ItemStack itemStack = Inventories.splitStack(this.inventory, slot, amount);
+        if (!itemStack.isEmpty()) {
+            this.markDirty();
+        }
+
+        return itemStack;
+    }
+
+    @Override
+    public ItemStack removeStack(int slot) {
+        ItemStack itemStack = this.inventory.get( slot );
+        if (!itemStack.isEmpty()) {
+            this.markDirty();
+        }
+
+        return itemStack;
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+
+        ItemStack input = getStack(slot);
+
+        this.inventory.set(slot, stack);
+        stack.capCount(this.getMaxCount(stack));
+
+//            boolean hasRecipeInput = !(getStack(INPUT_SECONDARY_SLOT_INDEX).isEmpty() || getStack(INPUT_PRIMARY_SLOT_INDEX).isEmpty());
+        boolean canCombineStacks = !stack.isEmpty() && ItemStack.areItemsAndComponentsEqual(input, stack);
+
+        RecipeEntry<?> recipeEntry = getRecipe(world);
+
+        recipeInProgress = (slot == INPUT_PRIMARY_SLOT_INDEX && stack.isEmpty() ) ? null : maybeResetRecipeInProgress( recipeEntry );
+
+        if ((slot == 0 || slot == 1) && !canCombineStacks ) {
+            cookTimeTotal = getCookTimeTotal(recipeEntry);
+            cookTime = 0;
+            alloyCountTotal = getAlloyCountTotal(recipeEntry);
+            alloyCount = getAlloyCount( recipeEntry );
+
+            this.markDirty();
+        }
+    }
+
+    @Override
+    public boolean canPlayerUse(PlayerEntity player) {
+        return true;
+    }
+
+    @Override
+    public void clear() {
+        this.inventory.clear();
+        this.markDirty();
     }
 }
