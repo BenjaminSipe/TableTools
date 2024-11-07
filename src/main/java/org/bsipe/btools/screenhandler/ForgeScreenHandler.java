@@ -74,6 +74,8 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         );
     }
 
+    // this is kindof overkill, but it makes sense to me.
+    // feels like a good balance between static integers, and a custom handling system.
     private enum QuickMoveDestination {
         PRIMARY(0,1),
         SECONDARY(1,2),
@@ -100,12 +102,19 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
     @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
         ItemStack resultStack = ItemStack.EMPTY;
+
         Slot clickedSlot = this.slots.get( slot );
+        // if the slot is empty, don't do anything.
         if ( clickedSlot == null || ! clickedSlot.hasStack() ) return resultStack;
         ItemStack clickedStack = clickedSlot.getStack();
         resultStack = clickedStack.copy();
+        // figure out which region the click stack should go to.
         QuickMoveDestination d = QuickMoveDestination.getDestination( slot, clickedStack, this.world);
-        if ( d == QuickMoveDestination.NONE || !this.insertItem( clickedStack, d.start , d.end, slot == 3) ) return ItemStack.EMPTY;
+        // if there is a place for the stack go to, try and insert it. If it returns false, the whole stack went there and we're done.
+        if ( d == QuickMoveDestination.NONE || !this.insertItem( clickedStack, d.start , d.end, slot == 3) )
+            return ItemStack.EMPTY;
+
+        // otherwise, there is a partial stack left.
         if ( slot == 3 ) clickedSlot.onQuickTransfer(clickedStack, resultStack);
         if ( clickedStack.isEmpty() ) clickedSlot.setStack( ItemStack.EMPTY );
         else clickedSlot.markDirty();
@@ -140,10 +149,6 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
             }
         }
     }
-    // 44 16
-    // 51 62
-    // 80 40
-    // 123 40
 
     private void addBlockInventory( SimpleInventory inventory, PlayerEntity player ) {
         // I can't use a for-loopp. I only have 4 items.

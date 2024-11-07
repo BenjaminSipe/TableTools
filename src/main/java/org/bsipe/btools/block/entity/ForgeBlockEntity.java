@@ -1,6 +1,7 @@
 package org.bsipe.btools.block.entity;
 
 import com.google.common.collect.Maps;
+import com.mojang.serialization.Decoder;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
@@ -120,8 +121,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
                 alloyCountTotal = getAlloyCountTotal(recipeEntry);
                 alloyCount = getAlloyCount( recipeEntry );
 
-                if (!world.isClient)
-                    this.markDirty();
+                this.markDirty();
             }
         }
     };
@@ -282,18 +282,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
 
     @Override
     public void tick() {
-
-        // rather than running the full tick, or constantly receiving updates from the server just for progress bars, we just do our own math.
-        if ( this.world == null ) return;
-        if ( this.world.isClient ) {
-//            if ( burnTime > 0 ) {
-//                burnTime--;
-//                if ( cookTime < cookTimeTotal ) cookTime++;
-//            } else {
-//                if ( cookTime < cookTimeTotal ) cookTime = MathHelper.clamp( cookTime - 2, 0, cookTimeTotal );
-//            }
-            return;
-        }
+        if ( this.world == null || this.world.isClient ) return;
 
         // I've laid some groundwork. Lets avoid doing any ticking right now while we get other stuff working.
         boolean wasBurningAtStartOfTick = isBurning();
@@ -436,36 +425,18 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
 
     private boolean canAcceptRecipeOutput(DynamicRegistryManager recipeManager, RecipeEntry<?> recipe, SimpleInventory inventory, int blockEntityStackSizeLimit) {
 
-//        boolean isMissingRecipe =  recipe == null || inventory.getStack( INPUT_PRIMARY_SLOT_INDEX ).isEmpty();
-//        if ( isMissingRecipe ) return false;
-//
-//        ItemStack result = recipe.value().getResult( recipeManager );
-//        ItemStack resultSlot = inventory.getStack( OUTPUT_SLOT_INDEX );
-//        int totalCount = resultSlot.getCount() + result.getCount();
-//
-//        return ! result.isEmpty() &&
-//                ( resultSlot.isEmpty() ||
-//                        ( ItemStack.areItemsAndComponentsEqual( resultSlot, result ) &&
-//                                ( totalCount <= blockEntityStackSizeLimit
-//                               && totalCount <= resultSlot.getMaxCount() ) ) );
+        boolean isMissingRecipe =  recipe == null || inventory.getStack( INPUT_PRIMARY_SLOT_INDEX ).isEmpty();
+        if ( isMissingRecipe ) return false;
 
-        if (!inventory.getStack(INPUT_PRIMARY_SLOT_INDEX).isEmpty() && recipe != null) {
-            ItemStack itemStack = recipe.value().getResult(recipeManager);
-            if (itemStack.isEmpty()) {
-                return false;
-            } else {
-                ItemStack itemStack2 = inventory.getStack(OUTPUT_SLOT_INDEX);
-                if (itemStack2.isEmpty()) {
-                    return true;
-                } else if (!ItemStack.areItemsAndComponentsEqual(itemStack2, itemStack)) {
-                    return false;
-                } else {
-                    return itemStack2.getCount() < blockEntityStackSizeLimit && itemStack2.getCount() < itemStack2.getMaxCount() ? true : itemStack2.getCount() < itemStack.getMaxCount();
-                }
-            }
-        } else {
-            return false;
-        }
+        ItemStack result = recipe.value().getResult( recipeManager );
+        ItemStack resultSlot = inventory.getStack( OUTPUT_SLOT_INDEX );
+        int totalCount = resultSlot.getCount() + result.getCount();
+
+        return ! result.isEmpty() &&
+                ( resultSlot.isEmpty() ||
+                        ( ItemStack.areItemsAndComponentsEqual( resultSlot, result ) &&
+                                ( totalCount <= blockEntityStackSizeLimit
+                               && totalCount <= resultSlot.getMaxCount() ) ) );
     }
 
     // -- START SCREEN HANDLER METHODS --
