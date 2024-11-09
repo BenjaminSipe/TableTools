@@ -3,6 +3,7 @@ package org.bsipe.btools.data;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
@@ -18,25 +19,29 @@ public class ModToolIngredient {
 
     public static Map<Identifier, ModToolIngredient> INGREDIENT_LIST = new HashMap<>();
 
-    public ModToolIngredient(String id, String path, String material_group, String material, String source, String baseMaterial ) {
-        this.id = Identifier.of(id);
-        this.material = Identifier.of( material );
-        this.modToolMaterial = MATERIAL_LIST.get( Identifier.of( material_group ) );
-        this.path = path;
-        this.source = ToolSource.valueOf( source );
-        if ( baseMaterial != null )
-            this.baseMaterial = Identifier.of( baseMaterial );
+//    public ModToolIngredient(String id, String path, String material_group, String material, String source, String baseMaterial ) {
+//        this.id = id;
+//        this.material = material;
+//        this.modToolMaterial = MATERIAL_LIST.get( Identifier.of( material_group ) );
+//        this.path = path;
+//        this.source = ToolSource.valueOf( source );
+//        if ( baseMaterial != null )
+//            this.baseMaterial = Identifier.of( baseMaterial );
+//
+//    }
 
-    }
-
-    public ModToolIngredient( ToolIngredient toolIngredient ) {
-        this( toolIngredient.id, toolIngredient.path, toolIngredient.material_group, toolIngredient.material, toolIngredient.source, toolIngredient.base_material );
-    }
-
-    Identifier id, material, baseMaterial;
-    public ModToolMaterial modToolMaterial;
+    String id;
     String path;
+    String material_group;
+    String material;
     ToolSource source;
+    Crafting craftingDetails;
+    Smithing smithingDetails;
+    Alloying alloyingDetails;
+
+    public String getMaterialGroup() {
+        return material_group;
+    }
 
     public String getId() {
         return id.toString();
@@ -47,11 +52,7 @@ public class ModToolIngredient {
     }
 
     public static void addEntry( ModToolIngredient modToolIngredient) {
-        if ( modToolIngredient.modToolMaterial != null ) {
-            INGREDIENT_LIST.put( modToolIngredient.material, modToolIngredient);
-        } else {
-            LOGGER.error( "Tool Ingredient has no corresponding material, aborting adding entry to registry.");
-        }
+        INGREDIENT_LIST.put( Identifier.of(modToolIngredient.material), modToolIngredient);
     }
 
     public static int getCount() {
@@ -74,45 +75,43 @@ public class ModToolIngredient {
     }
 
     public Ingredient getIngredient() {
-        return Ingredient.ofItems( Registries.ITEM.get( material ) );
+        return Ingredient.ofItems( Registries.ITEM.get(Identifier.of(material)) );
     }
 
     public Item getMaterialItem() {
-        return Registries.ITEM.get( material );
+        return Registries.ITEM.get(Identifier.of(material));
     }
 
     public int getDurability() {
-        return modToolMaterial.durability;
+        return MATERIAL_LIST.get( Identifier.of( material_group ) ).durability;
     }
 
     public TagKey<Block> getInverseTag() {
-        return modToolMaterial.inverseTag;
+        return MATERIAL_LIST.get( Identifier.of( material_group ) ).inverseTag;
     }
 
     public float getMiningSpeedMultiplier() {
-        return modToolMaterial.miningSpeed;
+        return MATERIAL_LIST.get( Identifier.of( material_group ) ).miningSpeed;
     }
 
     public boolean isFireResistent() {
-        return modToolMaterial.fireResistent;
+        return MATERIAL_LIST.get( Identifier.of( material_group ) ).fireResistent;
     }
 
     public float getDamage() {
-        return modToolMaterial.getDamage();
+        return MATERIAL_LIST.get( Identifier.of( material_group ) ).getDamage();
     }
 
     public static Ingredient getAllIngredients( ToolSource source ) {
-        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.source.equals( source ) ).map( id -> Registries.ITEM.get( id.material ).getDefaultStack() ) );
+        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.source.equals( source ) ).map( id -> Registries.ITEM.get(Identifier.of(id.material)).getDefaultStack() ) );
     }
 
     public static Ingredient getIngredientsForBaseMaterial( ModToolMaterial materialGroup ) {
-        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.modToolMaterial.equals( materialGroup) ).map( id -> Registries.ITEM.get( id.material ).getDefaultStack() ) );
+        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> MATERIAL_LIST.get( Identifier.of( ingredient.getMaterialGroup())).equals( materialGroup) ).map( id -> Registries.ITEM.get(Identifier.of(id.material)).getDefaultStack() ) );
     }
 
     // SMITHING RECIPES
-    public Identifier getBaseMaterial() { return baseMaterial; }
-
-    public record ToolIngredient(String id, String path, String material_group, String material, String source, String base_material ) {}
+    public Identifier getBaseMaterial() { return Identifier.of(smithingDetails.baseMaterial); }
 
     public enum ToolSource {
         CRAFTING,
@@ -120,7 +119,77 @@ public class ModToolIngredient {
         ALLOYING;
     }
 
+    public boolean validate() {
+        boolean isValid = true;
+
+        if ( id == null ) {
+            LOGGER.error( "Ingredient json is missing \"id\" entry.");
+            isValid = false;
+        }
+        if ( path == null ) {
+            LOGGER.error( "Handle json missing \"path\" entry." );
+            isValid = false;
+        }
+        if ( material_group == null ) {
+            LOGGER.error( "Handle json missing \"material_group\" entry." );
+            isValid = false;
+        }
+        if ( material == null ) {
+            LOGGER.error( "Handle json missing \"material\" entry." );
+            isValid = false;
+        } else if ( Items.AIR.equals( Registries.ITEM.get(Identifier.of(material)))) {
+            LOGGER.error( "Handle json \"material\" entry is invalid ( doesn't reference an existing item )." );
+            isValid = false;
+        }
+        if ( source == null ) {
+            LOGGER.error( "Handle json missing \"source\" entry." );
+            isValid = false;
+        } else if ( source == ToolSource.SMITHING ) {
+            if ( smithingDetails == null ) {
+                LOGGER.error( "Handle json missing \"smithingDetails\" entry." );
+                isValid = false;
+            } else if (! smithingDetails.validate() ) {
+                isValid = false;
+            }
+        } else if ( source == ToolSource.ALLOYING ) {
+            if ( alloyingDetails == null ) {
+                LOGGER.error( "Handle json missing \"alloyingDetails\" entry." );
+                isValid = false;
+            } else if (! alloyingDetails.validate() ) {
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+
     record Crafting() {};
-    record Smithing() {};
-    record Alloying() {};
+    record Smithing(String baseMaterial) {
+        public boolean validate() {
+            return baseMaterial != null;
+        }
+    };
+    record Alloying(float experience, int cookingTime, int count, String baseMaterial) {
+        public boolean validate() {
+            boolean isValid = true;
+            if ( baseMaterial == null ) {
+                LOGGER.error( "Handle json missing \"baseMaterial\" entry." );
+                isValid = false;
+            }
+            if ( experience <= 0 ) {
+                LOGGER.error( "Handle json missing \"experience\" entry." );
+                isValid = false;
+            }
+            if ( cookingTime < 1) {
+                LOGGER.error( "Handle json missing \"cookingTime\" entry." );
+                isValid = false;
+            }
+            if ( count < 1 ) {
+                LOGGER.error( "Handle json missing \"count\" entry." );
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    };
 }

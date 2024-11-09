@@ -11,7 +11,7 @@ public class ModRecipeTypes {
     public static RecipeType<AbstractForgeRecipe> FORGE = Registry.register( Registries.RECIPE_TYPE, Identifier.of( BetterToolsModInitializer.MOD_ID, Type.ID ), Type.INSTANCE );
 
 
-    public void initialize() {}
+    public static void initialize() {}
 
     public static class Type implements RecipeType<AbstractForgeRecipe> {
         public static final Type INSTANCE = new Type();

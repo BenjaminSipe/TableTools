@@ -26,6 +26,7 @@ import java.util.Map;
 
 import static org.bsipe.btools.ModItems.*;
 import static org.bsipe.btools.data.ModToolComponent.*;
+import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
 
 public class DataComponentHelper {
     public static NbtComponent getCustomData(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
@@ -37,7 +38,7 @@ public class DataComponentHelper {
 
         compound.put( "layer0", NbtString.of( layer0 ) );
         compound.put( "layer1", NbtString.of( layer1 ) );
-        compound.put( "material", NbtString.of( modToolIngredient.modToolMaterial.getId().toString() ) );
+        compound.put( "material", NbtString.of( MATERIAL_LIST.get( Identifier.of( modToolIngredient.getMaterialGroup() ) ).getId().toString() ) );
         compound.put( "handle-id", NbtString.of( toolHandle.getId().toString() ) );
         return NbtComponent.of( compound );
     }

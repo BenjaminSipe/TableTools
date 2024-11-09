@@ -4,5 +4,7 @@
   "material_group": "btools:material/echo_shard",
   "material": "minecraft:echo_shard",
   "source": "SMITHING",
-  "base_material" : "btools:material/gemstone"
+  "smithingDetails": {
+    "baseMaterial" : "btools:material/gemstone"
+  }
 }

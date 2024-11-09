@@ -4,5 +4,7 @@
   "material_group": "btools:material/nether_star",
   "material": "minecraft:nether_star",
   "source": "SMITHING",
-  "base_material" : "btools:material/obsidian"
+  "smithingDetails": {
+    "baseMaterial" : "btools:material/obsidian"
+  }
 }

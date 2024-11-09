@@ -35,9 +35,14 @@ public class ModResources {
         ModToolIngredient.clearList();
         for(Identifier id : manager.findResources("btools/ingredient", path -> path.getPath().endsWith("json")).keySet()) {
             try(InputStream stream = manager.getResource(id).get().getInputStream()) {
-                ModToolIngredient.addEntry( new ModToolIngredient( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolIngredient.ToolIngredient.class ) ) );
+                ModToolIngredient modToolIngredient = new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolIngredient.class );
+                if ( modToolIngredient.validate() ) {
+                    ModToolIngredient.addEntry( modToolIngredient );
+                } else {
+                    LOGGER.error( "Validation error following parsing tool ingredient {}.", id.toString());
+                }
             } catch(Exception e) {
-                LOGGER.error( "Error has occurred,", e );
+                LOGGER.error( "An error has occurred,", e );
             }
         }
         LOGGER.info( "Loaded {} ingredients", ModToolIngredient.getCount() );

@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import org.bsipe.btools.block.entity.ForgeBlockEntity;
+import org.bsipe.btools.recipes.ModRecipeTypes;
 import org.bsipe.btools.recipes.ModRecipes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class BetterToolsModInitializer implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModRecipeTypes.initialize();
 		ModRecipes.initialize();
 		ModItems.initialize();
 		ModBlocks.initialize();

@@ -4,5 +4,7 @@
   "material_group": "btools:material/netherite",
   "material": "minecraft:netherite_ingot",
   "source": "SMITHING",
-  "base_material" : "btools:material/diamond"
+  "smithingDetails": {
+    "baseMaterial" : "btools:material/diamond"
+  }
 }
