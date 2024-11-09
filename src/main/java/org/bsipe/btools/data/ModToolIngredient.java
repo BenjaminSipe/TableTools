@@ -116,7 +116,11 @@ public class ModToolIngredient {
 
     public enum ToolSource {
         CRAFTING,
-        SMITHING;
+        SMITHING,
+        ALLOYING;
     }
 
+    record Crafting() {};
+    record Smithing() {};
+    record Alloying() {};
 }

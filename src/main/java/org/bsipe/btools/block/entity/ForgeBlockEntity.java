@@ -40,8 +40,9 @@ import net.minecraft.world.World;
 import org.bsipe.btools.ModBlockEntityTypes;
 import org.bsipe.btools.block.ForgeBlock;
 import org.bsipe.btools.network.BlockPosPayload;
-import org.bsipe.btools.recipes.ForgeAlloyRecipe;
+import org.bsipe.btools.recipes.AbstractForgeRecipe;
 import org.bsipe.btools.recipes.ForgeRecipeInput;
+import org.bsipe.btools.recipes.ModRecipeTypes;
 import org.bsipe.btools.screenhandler.ForgeScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -153,12 +154,12 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     private final Object2IntOpenHashMap<Identifier> recipesUsed = new Object2IntOpenHashMap<>();
     private Identifier recipeInProgress = null;
 
-    private final RecipeManager.MatchGetter<ForgeRecipeInput, ForgeAlloyRecipe> matchGetter;
+    private final RecipeManager.MatchGetter<ForgeRecipeInput, AbstractForgeRecipe> matchGetter;
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypes.FORGE_BLOCK_ENTITY, pos, state);
 
-        this.matchGetter = RecipeManager.createCachedMatchGetter(ForgeAlloyRecipe.Type.INSTANCE);
+        this.matchGetter = RecipeManager.createCachedMatchGetter(ModRecipeTypes.FORGE);
     }
 
     public static void clearFuelTimes() {
@@ -356,20 +357,24 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     }
 
     private RecipeEntry<?> getRecipe(World world ) {
+        ForgeRecipeInput input = getRecipeInput();
+
+        return matchGetter.getFirstMatch( input, world ).orElse( null );
+    }
+
+    private ForgeRecipeInput getRecipeInput() {
         ItemStack primary = getStack( INPUT_PRIMARY_SLOT_INDEX );
         ItemStack secondary = getStack( INPUT_SECONDARY_SLOT_INDEX );
         if ( primary.isEmpty() || (secondary.isEmpty() && recipeInProgress == null) ) return null;
-
-        return matchGetter.getFirstMatch( new ForgeRecipeInput( primary, secondary ), world ).orElse( null );
+        return new ForgeRecipeInput( primary, secondary );
     }
-
     private int getCookTimeTotal(RecipeEntry<?> recipeEntry ) {
-        return recipeEntry == null ? 0 : ((ForgeAlloyRecipe)recipeEntry.value()).cookingTime;
+        return recipeEntry == null ? 0 : ((AbstractForgeRecipe)recipeEntry.value()).getCookingTime( getRecipeInput() );
     }
 
     private int getAlloyCountTotal(RecipeEntry<?> recipeEntry ) {
         if ( recipeEntry != null )
-            return ((ForgeAlloyRecipe)recipeEntry.value()).count;
+            return ((AbstractForgeRecipe)recipeEntry.value()).getCount( getRecipeInput() );
 
         return recipeInProgress == null ? 0 : alloyCountTotal;
     }
@@ -549,7 +554,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         for (Object2IntMap.Entry<Identifier> entry : this.recipesUsed.object2IntEntrySet()) {
             world.getRecipeManager().get((Identifier)entry.getKey()).ifPresent(recipe -> {
                 list.add(recipe);
-                dropExperience(world, pos, entry.getIntValue(), ((ForgeAlloyRecipe)recipe.value()).experience);
+                dropExperience(world, pos, entry.getIntValue(), ((AbstractForgeRecipe)recipe.value()).getExperience( getRecipeInput() ));
             });
         }
 

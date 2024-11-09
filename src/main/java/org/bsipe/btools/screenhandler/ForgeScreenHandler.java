@@ -18,13 +18,11 @@ import org.bsipe.btools.ModScreenHandlerTypes;
 import org.bsipe.btools.block.entity.ForgeBlockEntity;
 import org.bsipe.btools.block.entity.ForgeOutputSlot;
 import org.bsipe.btools.network.BlockPosPayload;
-import org.bsipe.btools.recipes.ForgeAlloyRecipe;
-import org.bsipe.btools.recipes.ForgeRecipeInput;
-import org.bsipe.btools.recipes.ModRecipes;
+import org.bsipe.btools.recipes.*;
 
 import java.util.List;
 
-public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeInput, ForgeAlloyRecipe> {
+public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeInput, AbstractForgeRecipe> {
     private final ForgeBlockEntity forgeBlockEntity;
     private final ScreenHandlerContext context;
     private final PropertyDelegate propertyDelegate;
@@ -88,7 +86,7 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
 
         static QuickMoveDestination getDestination( int slot, ItemStack stack, World world ) {
             if ( slot < 4 && slot >= 0 ) return OTHER;
-            List<RecipeEntry<ForgeAlloyRecipe>> recipeEntries = world.getRecipeManager().listAllOfType(ModRecipes.FORGE );
+            List<RecipeEntry<AbstractForgeRecipe>> recipeEntries = world.getRecipeManager().listAllOfType(ModRecipeTypes.FORGE );
             if ( isPrimaryIngredient( stack, recipeEntries ) ) return PRIMARY;
             if ( isSecondaryIngredient( stack, recipeEntries )) return SECONDARY;
             if ( ForgeBlockEntity.canUseAsFuel( stack ) ) return FUEL;
@@ -120,11 +118,11 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         return resultStack;
     }
 
-    private static boolean isPrimaryIngredient(ItemStack stack, List<RecipeEntry<ForgeAlloyRecipe>> recipeList) {
-        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).primary.test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
+    private static boolean isPrimaryIngredient(ItemStack stack, List<RecipeEntry<AbstractForgeRecipe>> recipeList) {
+        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).getPrimary().test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
     }
-    private static boolean isSecondaryIngredient(ItemStack stack, List<RecipeEntry<ForgeAlloyRecipe>> recipeList ) {
-        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).secondary.test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
+    private static boolean isSecondaryIngredient(ItemStack stack, List<RecipeEntry<AbstractForgeRecipe>> recipeList ) {
+        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).getSecondary().test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
     }
 
 
@@ -187,7 +185,7 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
     }
 
     @Override
-    public boolean matches(RecipeEntry<ForgeAlloyRecipe> recipe) {
+    public boolean matches(RecipeEntry<AbstractForgeRecipe> recipe) {
         return recipe.value().matches( new ForgeRecipeInput(
                 this.forgeBlockEntity.getStack( PRIMARY_INPUT_SLOT ),
                 this.forgeBlockEntity.getStack( SECONDARY_INPUT_SLOT ) ), this.forgeBlockEntity.getWorld());

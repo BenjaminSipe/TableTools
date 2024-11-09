@@ -9,8 +9,6 @@ import org.bsipe.btools.BetterToolsModInitializer;
 
 public class ModRecipes {
 
-    public static RecipeType<ForgeAlloyRecipe> FORGE = Registry.register( Registries.RECIPE_TYPE, Identifier.of( BetterToolsModInitializer.MOD_ID, ForgeAlloyRecipe.Type.ID ), ForgeAlloyRecipe.Type.INSTANCE );
-
     public static void initialize() {
         Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, CraftingTableRecipe.Serializer.ID ),
                  CraftingTableRecipe.Serializer.INSTANCE );
@@ -24,6 +22,7 @@ public class ModRecipes {
         Registry.register( Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, ForgeAlloyRecipe.Serializer.ID ),
                 ForgeAlloyRecipe.Serializer.INSTANCE );
 
-
+        Registry.register( Registries.RECIPE_SERIALIZER, Identifier.of( BetterToolsModInitializer.MOD_ID, ForgeInfusionRecipe.Serializer.ID ),
+                ForgeInfusionRecipe.Serializer.INSTANCE );
     }
 }

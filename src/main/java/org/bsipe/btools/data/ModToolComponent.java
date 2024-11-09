@@ -2,9 +2,12 @@ package org.bsipe.btools.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.StringIdentifiable;
+import org.bsipe.btools.recipes.ForgeInfusionRecipe;
 
 public enum ModToolComponent implements StringIdentifiable {
 
@@ -58,4 +61,16 @@ public enum ModToolComponent implements StringIdentifiable {
     }
 
     public String getSuffix() { return suffix; }
+
+    public static final PacketCodec<RegistryByteBuf, ModToolComponent> PACKET_CODEC = PacketCodec.ofStatic(
+            ModToolComponent::write, ModToolComponent::read);
+
+    private static void write( RegistryByteBuf buf, ModToolComponent component) {
+        buf.writeString( component.name() );
+    }
+
+    private static ModToolComponent read( RegistryByteBuf buf) {
+        String componentName = buf.readString();
+        return ModToolComponent.valueOf( componentName );
+    }
 }

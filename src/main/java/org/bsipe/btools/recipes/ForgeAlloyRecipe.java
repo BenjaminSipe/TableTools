@@ -15,12 +15,12 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class ForgeAlloyRecipe implements Recipe<ForgeRecipeInput> {
+public class ForgeAlloyRecipe extends AbstractForgeRecipe {
 
-    public final Ingredient primary, secondary;
-    public final ItemStack result;
-    public final int count, cookingTime;
-    public final float experience;
+    private final Ingredient primary, secondary;
+    private final ItemStack result;
+    private final int count, cookingTime;
+    private final float experience;
 
     public ForgeAlloyRecipe(
              Ingredient primary,
@@ -76,12 +76,32 @@ public class ForgeAlloyRecipe implements Recipe<ForgeRecipeInput> {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return ModRecipeTypes.FORGE;
     }
 
-    public static class Type implements RecipeType<ForgeAlloyRecipe> {
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "forge_alloying";
+    @Override
+    public float getExperience(ForgeRecipeInput input) {
+        return this.experience;
+    }
+
+    @Override
+    public Ingredient getPrimary() {
+        return this.primary;
+    }
+
+    @Override
+    public Ingredient getSecondary() {
+        return this.secondary;
+    }
+
+    @Override
+    public int getCookingTime(ForgeRecipeInput input) {
+        return this.cookingTime;
+    }
+
+    @Override
+    public int getCount(ForgeRecipeInput input) {
+        return this.count;
     }
 
     public static class Serializer implements RecipeSerializer<ForgeAlloyRecipe> {
