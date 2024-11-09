@@ -1,6 +1,16 @@
-Last Modified: 9/23/2024
+Last Modified: 11/7/2024
 
-Current version : 0.2.3
+Current version : 0.3.0
+
+Update: I jumped the gun and made the block entity, the minecraft forge. 
+
+Rather than work on on anything, it seems right to try to ground the work going on
+and make it make sense. Make it all work together. 
+
+I have the tool classes and tiers written down on paper. Not gonna add diagrams at the moment.
+
+
+From: 9/23/2024
 
 Two important questions:
 
