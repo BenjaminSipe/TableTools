@@ -1,0 +1,7 @@
+{
+  "type": "btools:forge_infusion",
+  "component": "SWORD_BLADE",
+  "result": {
+    "id": "btools:sword"
+  }
+}

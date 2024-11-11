@@ -119,10 +119,10 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
     }
 
     private static boolean isPrimaryIngredient(ItemStack stack, List<RecipeEntry<AbstractForgeRecipe>> recipeList) {
-        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).getPrimary().test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
+        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).getPrimary( new ForgeRecipeInput(stack, stack)).test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
     }
     private static boolean isSecondaryIngredient(ItemStack stack, List<RecipeEntry<AbstractForgeRecipe>> recipeList ) {
-        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).getSecondary().test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
+        return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).getSecondary( new ForgeRecipeInput(stack, stack)).test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
     }
 
 

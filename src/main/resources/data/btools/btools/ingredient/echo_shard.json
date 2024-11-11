@@ -3,8 +3,11 @@
   "path": "btools:item/tool_heads/echo_shard/echo_shard_",
   "material_group": "btools:material/echo_shard",
   "material": "minecraft:echo_shard",
-  "source": "SMITHING",
-  "smithingDetails": {
-    "baseMaterial" : "btools:material/gemstone"
+  "source": "ALLOYING",
+  "alloyingDetails": {
+    "baseMaterial" : "btools:material/gemstone",
+    "count": 2,
+    "cookingTime": 50,
+    "experience": 20
   }
 }

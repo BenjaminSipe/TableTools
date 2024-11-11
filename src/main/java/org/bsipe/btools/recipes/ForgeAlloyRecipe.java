@@ -85,12 +85,12 @@ public class ForgeAlloyRecipe extends AbstractForgeRecipe {
     }
 
     @Override
-    public Ingredient getPrimary() {
+    public Ingredient getPrimary(ForgeRecipeInput input) {
         return this.primary;
     }
 
     @Override
-    public Ingredient getSecondary() {
+    public Ingredient getSecondary(ForgeRecipeInput input) {
         return this.secondary;
     }
 

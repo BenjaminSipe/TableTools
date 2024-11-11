@@ -338,8 +338,8 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
 
         if ( recipeEntry != null && canAcceptRecipeOutput(registryManager, recipeEntry, blockEntityStackSizeLimit )) {
             ItemStack primaryInput = getStack( INPUT_PRIMARY_SLOT_INDEX ),
-                      secondaryInput = getStack( INPUT_SECONDARY_SLOT_INDEX ),
-                      result = recipeEntry.value().getResult(registryManager),
+                      secondaryInput = getStack( INPUT_SECONDARY_SLOT_INDEX );
+            ItemStack result = ((AbstractForgeRecipe)recipeEntry.value()).craft(new ForgeRecipeInput(primaryInput, secondaryInput), registryManager),
                       resultSlot = getStack( OUTPUT_SLOT_INDEX );
             if ( resultSlot.isEmpty() )
             {
@@ -359,7 +359,7 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
     private RecipeEntry<?> getRecipe(World world ) {
         ForgeRecipeInput input = getRecipeInput();
 
-        return matchGetter.getFirstMatch( input, world ).orElse( null );
+        return input == null ? null : matchGetter.getFirstMatch( input, world ).orElse( null );
     }
 
     private ForgeRecipeInput getRecipeInput() {

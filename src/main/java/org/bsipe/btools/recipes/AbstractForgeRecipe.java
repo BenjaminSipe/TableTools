@@ -7,8 +7,8 @@ public abstract class AbstractForgeRecipe implements Recipe<ForgeRecipeInput> {
 
 
     public abstract float getExperience( ForgeRecipeInput input );
-    public abstract Ingredient getPrimary();
-    public abstract Ingredient getSecondary();
+    public abstract Ingredient getPrimary(ForgeRecipeInput input);
+    public abstract Ingredient getSecondary(ForgeRecipeInput input);
     public abstract int getCookingTime(ForgeRecipeInput input);
     public abstract int getCount(ForgeRecipeInput input);
 

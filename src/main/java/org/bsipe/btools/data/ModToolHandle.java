@@ -70,6 +70,10 @@ public class ModToolHandle {
         }
     }
 
+    public static int count() {
+        return TOOL_HANDLE_LIST_BY_ID.size();
+    }
+
     public class Modifier {
         private float factor;
         private ModifierProperty property;

@@ -49,7 +49,6 @@ public class ModResources {
     }
 
     public static void reloadHandles( ResourceManager manager ) {
-        ArrayList<ModToolHandle> handles = new ArrayList<>();
         for(Identifier id : manager.findResources("btools/handle", path -> path.getPath().endsWith("json")).keySet()) {
             try(InputStream stream = manager.getResource(id).get().getInputStream()) {
                 ModToolHandle handle =  new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolHandle.class );
@@ -62,7 +61,7 @@ public class ModResources {
                 LOGGER.error( "An exception has occurred,", e );
             }
         }
-        LOGGER.info( "Loaded {} handles", handles.size() );
+        LOGGER.info( "Loaded {} handles", ModToolHandle.count() );
     }
 
     public static void initialize() {

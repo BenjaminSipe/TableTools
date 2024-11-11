@@ -111,7 +111,27 @@ public class ModToolIngredient {
     }
 
     // SMITHING RECIPES
-    public Identifier getBaseMaterial() { return Identifier.of(smithingDetails.baseMaterial); }
+    public Identifier getBaseMaterial() {
+        if ( source == ToolSource.SMITHING ) {
+            return Identifier.of(smithingDetails.baseMaterial);
+        }
+        return Identifier.of( alloyingDetails.baseMaterial );
+    }
+
+    public int getCookingTime() {
+        if ( alloyingDetails == null ) return -1;
+        return alloyingDetails.cookingTime();
+    }
+
+    public int getAlloyingCount() {
+        if ( alloyingDetails == null ) return -1;
+        return alloyingDetails.count();
+    }
+
+    public float getExperience() {
+        if ( alloyingDetails == null ) return -1;
+        return alloyingDetails.experience();
+    }
 
     public enum ToolSource {
         CRAFTING,
