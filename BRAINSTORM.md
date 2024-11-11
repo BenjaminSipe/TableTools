@@ -9,7 +9,89 @@ and make it make sense. Make it all work together.
 
 I have the tool classes and tiers written down on paper. Not gonna add diagrams at the moment.
 
+Materials for Version 1.0.0 are planning to consist of 4 classes of tools with 4 tiers each.
+This ignores any tool tiers below diamond, and also doesn't consider duplicates.
 
+### Class 1: Minecrafter
+#### Tier 1: Diamond ( vanilla )
+#### Tier 2: Netherite ( vanilla )
+#### Tier 3: Endirium 
+- Found in the end
+- Requires a netherite pickaxe or better,
+- Drops multiples much like lapis or redstone. 
+- Infused with a netherite pickaxe to get the next tier.
+#### Tier 4: Ancient Beast Marrow
+- Found in ancient fossils deep underground,
+- Requires an Endirium pickaxe or better,
+- Drops block that must be smelted,
+- May require more steps before tool creation.
+### Class 2: Warrior
+#### Tier 1: Emerald 
+- Low durability but good damage and mining speed.
+- Will be below grade because resource is easy to get. 
+- Shares material with Amethyst and nether quartz.
+#### Tier 2: Echoing
+- Gotten by infusing Teir 1 Warrior tool with echo shards
+- Much higher damage, but mining speed and durability are lower.
+- Unsure of quantity, but likely to be 2-4.
+#### Tier 3: Nether Star
+- Gotten by smithing a nether star onto an echoing tool.
+- More damage, slight increases to durability and mining speed. 
+#### Tier 4: Heart of Undying
+- Smelting a totem of undying gives a nugget of undying.
+- 9 nuggets makes a heart of undying
+- Smithing a heart of undying 
+- More damage, mining speed and durability still "low".
+### Class 3: Unbreakable
+#### Tier 1: Obsidian
+- Crafted from obsidian or crying obsidian
+- Netherite level durability, damage and mining speed between stone and iron
+#### Tier 2: Jeweled Obsidian
+- Blood diamond gotten from infusing 64 redstone dust into a diamond
+- Smithing that blood diamond to an obsidian to get Jeweled obsidian tools.
+- Higher durability ( 3k ish ), mining speed and damage scale properly. 
+#### Teir 3: Reinforced netherite
+- Digging a Reinforced deepslate with an endirium pickages gives reinforced debris.
+- Combining 4 reinforced deepslate with 4 ancient debris makes a reinforced netherite ingot. 
+- Smithing a reinforced netherite onto a diamond tool gives a reinforced netherite tool.
+- Much higher durability ( 5k-6k ? )
+#### Tier 4: Red Endirium
+- New Nether Structure similar to well with red flame.
+- Block minable with diamond or netherite? pickaxe,
+- infused with 32? endirium to form red endirium.
+- Pickaxe crafted from red endirium ingot.
+- Ridiculous durability ( 9k ? )
+### Class 4: Consumable
+#### Tier 1: Slime steel
+- 4 slime and 1 iron makes a slime steel ingot.
+- Tools are crafted. 
+- Double iron durability, faster mining speed, same damage.
+#### Tier 2: Blaze steel
+- 8 blaze powder and 1 iron makes 1 blaze steel.
+- 1k durability, mining speed above diamond, damage equivalent with diamond.
+#### Tier 3: Ender steel
+- 16 Enderpearls and 1 iron ingot make 1 endersteel.
+- 1600 durability, fast mining speed, ok damage.
+- Tools are crafted
+#### Tier 4: Crying steel
+- 32 Ghast tiers and 1 iron ingot makes 1 crying steel ingot
+- 1900 durablilty, really fast mining speed.
+- Tools are crafted
+
+### Notes for later:
+I hope to eventually overhaul the enchanting system. 
+
+When that happens, I hope to make some tools unable to receive specific enchantments.
+I consider this a key to balancing different materials from different classes. 
+Once that is done, the following limitations will be placed on tool tiers:
+1. Minecraft class tools can receive any enchantment. 
+2. Warrior class tools cannot receive the unbreaking enchantment.
+3. Unbreakable class tools cannot receive the effeciency enchantment.
+4. Consumable tools cannot receive the mending enchantment.
+
+I also hope to make all enchantments be gotten through alloy infusions rather than through an enchantment table.
+And to have no requirements for level. This should hopefully be a great starting point for this mod.
+## ARCHIVE
 From: 9/23/2024
 
 Two important questions:
