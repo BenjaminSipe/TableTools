@@ -11,7 +11,15 @@ I have the tool classes and tiers written down on paper. Not gonna add diagrams 
 
 Materials for Version 1.0.0 are planning to consist of 4 classes of tools with 4 tiers each.
 This ignores any tool tiers below diamond, and also doesn't consider duplicates.
-
+## Summary
+### Class 1: minecraft
+| _Class_       | Tier 1      | Tier 2           | Tier 3               | Tier 4        |
+|---------------|-------------|------------------|----------------------|---------------|
+| _Minecrafter_ | Diamond     | Netherite        | Endirium             | Ancient Ore   |
+| _Warrior_     | Emerald     | Echoing          | Nether Star          | Undying Heart |
+| _Unbreakable_ | Obsidian    | Jeweled Obsidian | Reinforced Netherite | Red Endirium  |
+| _Consumable_  | Slime Steel | Blaze Steel      | Ender Steel          | Crying Steel  |
+## Detail
 ### Class 1: Minecrafter
 #### Tier 1: Diamond ( vanilla )
 #### Tier 2: Netherite ( vanilla )
