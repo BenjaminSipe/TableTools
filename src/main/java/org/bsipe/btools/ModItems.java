@@ -45,7 +45,7 @@ public static Item UNDYING_INGOT = register( new Item( new Item.Settings()), "un
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.ENDER_STEEL_INGOT );
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.BLAZE_STEEL_INGOT );
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.SLIME_STEEL_INGOT );
-                    itemGroup.addAfter(Items.ANCIENT_DEBRIS, ModItems.CRACKED_REINFORCEMENT);
+                    itemGroup.addAfter(Items.NETHERITE_SCRAP, ModItems.CRACKED_REINFORCEMENT);
                     itemGroup.addAfter(Items.NETHERITE_INGOT, ModItems.REINFORCED_NETHERITE_INGOT );
                 });
 
