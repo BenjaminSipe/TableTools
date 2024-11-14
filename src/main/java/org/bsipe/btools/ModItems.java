@@ -20,22 +20,33 @@ public class ModItems {
 
     public static Item TOOL_HANDLE = register( new Item( new Item.Settings() ), "tool_handle" );
 
-    public static Item ENDER_STEEL_INGOT = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON )), "ender_steel_ingot");
-    public static Item BLAZE_STEEL_INGOT = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON )), "blaze_steel_ingot");
-    public static Item SLIME_STEEL_INGOT = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON ) ), "slime_steel_ingot" );
-    public static Item CRYSTALIZED_ENDIRIUM = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON ) ), "crystalized_endirium" );
-    public static Item CRYING_STEEL_INGOT = register( new Item( new Item.Settings().rarity( Rarity.UNCOMMON ) ), "crying_steel_ingot" );
-    public static Item BLOOD_DIAMOND = register( new Item( new Item.Settings().rarity( Rarity.RARE )), "blood_diamond" );
-
+    public static Item ENDER_STEEL_INGOT = register( new Item( new Item.Settings()), "ender_steel_ingot");
+    public static Item BLAZE_STEEL_INGOT = register( new Item( new Item.Settings()), "blaze_steel_ingot");
+    public static Item SLIME_STEEL_INGOT = register( new Item( new Item.Settings()), "slime_steel_ingot" );
+    public static Item CRYSTALIZED_ENDIRIUM = register( new Item( new Item.Settings() ), "crystalized_endirium" );
+    public static Item CRYING_STEEL_INGOT = register( new Item( new Item.Settings() ), "crying_steel_ingot" );
+    public static Item BLOOD_DIAMOND = register( new Item( new Item.Settings()), "blood_diamond" );
+    public static Item PALADUS_INGOT = register( new Item( new Item.Settings()), "paladus_ingot" );
+    public static Item HEART_OF_UNDYING = register( new Item( new Item.Settings()), "heart_of_undying" );
+public static Item UNDYING_INGOT = register( new Item( new Item.Settings()), "undying_ingot" );
+    public static Item CRACKED_REINFORCEMENT = register( new Item( new Item.Settings()), "cracked_reinforcement" );
+    public static Item REINFORCED_NETHERITE_INGOT = register( new Item( new Item.Settings()), "reinforced_netherite_ingot" );
+    public static Item RED_SOUL_SHARD = register( new Item( new Item.Settings()), "red_soul_shard" );
     public static void initialize() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
                 .register((itemGroup) -> {
+                    itemGroup.addAfter(Items.GOLD_NUGGET, ModItems.HEART_OF_UNDYING );
                     itemGroup.addAfter(Items.DIAMOND, ModItems.BLOOD_DIAMOND );
                     itemGroup.addAfter(Items.AMETHYST_SHARD, ModItems.CRYSTALIZED_ENDIRIUM );
+                    itemGroup.addAfter(Items.AMETHYST_SHARD, ModItems.RED_SOUL_SHARD );
+                    itemGroup.addAfter(Items.GOLD_INGOT, ModItems.UNDYING_INGOT );
+                    itemGroup.addAfter(Items.GOLD_INGOT, ModItems.PALADUS_INGOT );
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.CRYING_STEEL_INGOT );
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.ENDER_STEEL_INGOT );
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.BLAZE_STEEL_INGOT );
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.SLIME_STEEL_INGOT );
+                    itemGroup.addAfter(Items.ANCIENT_DEBRIS, ModItems.CRACKED_REINFORCEMENT);
+                    itemGroup.addAfter(Items.NETHERITE_INGOT, ModItems.REINFORCED_NETHERITE_INGOT );
                 });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL)

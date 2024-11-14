@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.Models;
-import org.bsipe.btools.ModBlocks;
 import org.bsipe.btools.ModItems;
 
 public class ModelGenerator extends FabricModelProvider {
@@ -31,5 +30,12 @@ public class ModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.BLAZE_STEEL_INGOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.CRYSTALIZED_ENDIRIUM, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLOOD_DIAMOND, Models.GENERATED);
+        itemModelGenerator.register(ModItems.HEART_OF_UNDYING, Models.GENERATED);
+        itemModelGenerator.register(ModItems.UNDYING_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.RED_SOUL_SHARD, Models.GENERATED);
+        itemModelGenerator.register(ModItems.PALADUS_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.CRACKED_REINFORCEMENT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.REINFORCED_NETHERITE_INGOT, Models.GENERATED);
+
     }
 }

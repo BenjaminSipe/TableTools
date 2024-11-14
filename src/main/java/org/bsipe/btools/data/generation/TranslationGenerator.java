@@ -29,6 +29,12 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add( ModItems.BLAZE_STEEL_INGOT, "Blaze Steel Ingot" );
         translationBuilder.add( ModItems.CRYSTALIZED_ENDIRIUM, "Crystalized Endirium" );
         translationBuilder.add( ModItems.BLOOD_DIAMOND, "Blood Diamond" );
+        translationBuilder.add( ModItems.CRACKED_REINFORCEMENT, "Reinforced Chunk" );
+        translationBuilder.add( ModItems.REINFORCED_NETHERITE_INGOT, "Reinforced Netherite Ingot" );
+        translationBuilder.add( ModItems.RED_SOUL_SHARD, "Red Soul Shard" );
+        translationBuilder.add( ModItems.PALADUS_INGOT, "Paladus Ingot" );
+        translationBuilder.add( ModItems.HEART_OF_UNDYING, "Heart of Undying" );
+        translationBuilder.add( ModItems.UNDYING_INGOT, "Undying Ingot" );
         translationBuilder.add("btools.ingredient.acacia", "Acacia");
         translationBuilder.add("btools.ingredient.bamboo", "Bamboo");
         translationBuilder.add("btools.ingredient.birch", "Birch");

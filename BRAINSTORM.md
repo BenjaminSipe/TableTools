@@ -13,12 +13,12 @@ Materials for Version 1.0.0 are planning to consist of 4 classes of tools with 4
 This ignores any tool tiers below diamond, and also doesn't consider duplicates.
 ## Summary
 ### Class 1: minecraft
-| _Class_       | Tier 1      | Tier 2           | Tier 3               | Tier 4        |
-|---------------|-------------|------------------|----------------------|---------------|
-| _Minecrafter_ | Diamond     | Netherite        | Endirium             | Ancient Ore   |
-| _Warrior_     | Emerald     | Echoing          | Nether Star          | Undying Heart |
-| _Unbreakable_ | Obsidian    | Jeweled Obsidian | Reinforced Netherite | Red Endirium  |
-| _Consumable_  | Slime Steel | Blaze Steel      | Ender Steel          | Crying Steel  |
+| _Class_       | Tier 1      | Tier 2           | Tier 3               | Tier 4         |
+|---------------|-------------|------------------|----------------------|----------------|
+| _Minecrafter_ | Diamond     | Netherite        | Endirium             | Paladus        |
+| _Warrior_     | Emerald     | Echoing          | Nether Star          | Undying Heart  |
+| _Unbreakable_ | Obsidian    | Jeweled Obsidian | Reinforced Netherite | Red Soul Shard |
+| _Consumable_  | Slime Steel | Blaze Steel      | Ender Steel          | Crying Steel   |
 ## Detail
 ### Class 1: Minecrafter
 #### Tier 1: Diamond ( vanilla )
@@ -28,7 +28,7 @@ This ignores any tool tiers below diamond, and also doesn't consider duplicates.
 - Requires a netherite pickaxe or better,
 - Drops multiples much like lapis or redstone. 
 - Infused with a netherite pickaxe to get the next tier.
-#### Tier 4: Ancient Beast Marrow
+#### Tier 4: Paladus
 - Found in ancient fossils deep underground,
 - Requires an Endirium pickaxe or better,
 - Drops block that must be smelted,
@@ -63,10 +63,10 @@ This ignores any tool tiers below diamond, and also doesn't consider duplicates.
 - Combining 4 reinforced deepslate with 4 ancient debris makes a reinforced netherite ingot. 
 - Smithing a reinforced netherite onto a diamond tool gives a reinforced netherite tool.
 - Much higher durability ( 5k-6k ? )
-#### Tier 4: Red Endirium
+#### Tier 4: Red Soul Shard
 - New Nether Structure similar to well with red flame.
 - Block minable with diamond or netherite? pickaxe,
-- infused with 32? endirium to form red endirium.
+- infused with 32? endirium to form a Red Soul Shard.
 - Pickaxe crafted from red endirium ingot.
 - Ridiculous durability ( 9k ? )
 ### Class 4: Consumable
@@ -85,6 +85,26 @@ This ignores any tool tiers below diamond, and also doesn't consider duplicates.
 - 32 Ghast tiers and 1 iron ingot makes 1 crying steel ingot
 - 1900 durablilty, really fast mining speed.
 - Tools are crafted
+
+## Checklist:
+| MATERIAL             | ITEM     | TEXTURES | SOURCE   | RECIPE   |
+|----------------------|----------|----------|----------|----------|
+| Diamond              | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
+| Netherite            | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
+| Endirium             | &#x2611; |          |          |          |
+| Paladus              | &#x2611; |          |          |          |
+| Emerald              | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
+| Echoing              | &#x2611; | &#x2611; | &#x2611; |          |
+| Nether star          | &#x2611; | &#x2611; | &#x2611; |          |
+| Undying heart        | &#x2611; |          |          |          |
+| Obsidian             | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
+| Jeweled Obsidian     | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
+| Reinforced Netherite | &#x2611; |          |          |          |
+| Red Soul Shard       | &#x2611; |          |          |          |
+| Slime Steel          | &#x2611; |          | &#x2611; |          |
+| Blaze Steel          | &#x2611; |          | &#x2611; |          |
+| Ender Steel          | &#x2611; |          | &#x2611; |          |
+| Crying Steel         | &#x2611; |          | &#x2611; |          |
 
 ### Notes for later:
 I hope to eventually overhaul the enchanting system. 
