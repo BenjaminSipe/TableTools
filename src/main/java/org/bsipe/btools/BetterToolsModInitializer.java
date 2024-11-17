@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import org.bsipe.btools.block.entity.ForgeBlockEntity;
+import org.bsipe.btools.data.worldgen.BiomeModificationInit;
 import org.bsipe.btools.recipes.ModRecipeTypes;
 import org.bsipe.btools.recipes.ModRecipes;
 import org.slf4j.Logger;
@@ -28,5 +29,6 @@ public class BetterToolsModInitializer implements ModInitializer {
 		ModResources.initialize();
 		ModBlockEntityTypes.initialize();
 		ModScreenHandlerTypes.initialize();
+		BiomeModificationInit.load();
 	}
 }

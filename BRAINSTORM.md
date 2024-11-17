@@ -92,19 +92,19 @@ This ignores any tool tiers below diamond, and also doesn't consider duplicates.
 | Diamond              | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
 | Netherite            | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
 | Endirium             | &#x2611; |          |          |          |
-| Paladus              | &#x2611; |          |          |          |
+| Paladus              | &#x2611; | &#x2611; |          |          |
 | Emerald              | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
 | Echoing              | &#x2611; | &#x2611; | &#x2611; |          |
 | Nether star          | &#x2611; | &#x2611; | &#x2611; |          |
-| Undying heart        | &#x2611; |          |          |          |
+| Undying heart        | &#x2611; | &#x2611; |          |          |
 | Obsidian             | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
 | Jeweled Obsidian     | &#x2611; | &#x2611; | &#x2611; | &#x2611; |
-| Reinforced Netherite | &#x2611; |          |          |          |
-| Red Soul Shard       | &#x2611; |          |          |          |
-| Slime Steel          | &#x2611; |          | &#x2611; |          |
-| Blaze Steel          | &#x2611; |          | &#x2611; |          |
-| Ender Steel          | &#x2611; |          | &#x2611; |          |
-| Crying Steel         | &#x2611; |          | &#x2611; |          |
+| Reinforced Netherite | &#x2611; | &#x2611; |          |          |
+| Red Soul Shard       | &#x2611; | &#x2611; |          |          |
+| Slime Steel          | &#x2611; | &#x2611; | &#x2611; |          |
+| Blaze Steel          | &#x2611; | &#x2611; | &#x2611; |          |
+| Ender Steel          | &#x2611; | &#x2611; | &#x2611; |          |
+| Crying Steel         | &#x2611; | &#x2611; | &#x2611; |          |
 
 ### Notes for later:
 I hope to eventually overhaul the enchanting system. 
