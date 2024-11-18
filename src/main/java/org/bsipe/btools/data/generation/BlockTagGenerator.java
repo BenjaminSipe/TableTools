@@ -11,8 +11,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
-import static org.bsipe.btools.ModBlocks.DEEPSLATE_FORGE_BLOCK;
-import static org.bsipe.btools.ModBlocks.ENDSTONE_ENDIRIUM_ORE;
+import static org.bsipe.btools.ModBlocks.*;
 
 public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
@@ -30,6 +29,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add( ENDSTONE_ENDIRIUM_ORE )
                 .add( DEEPSLATE_FORGE_BLOCK );
 
+        getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE )
+                .add( RED_SOUL_SAND );
 
         getOrCreateTagBuilder( NEEDS_NETHERITE_TOOL )
                 .add( ENDSTONE_ENDIRIUM_ORE );
