@@ -1,4 +1,18 @@
-Last Modified: 11/7/2024
+Last Modified: 11/17/2024
+
+
+
+Minor update:
+Not written anywhere. Everything in this system makes sense to me except, 
+I think I will be switching Blaze Steel with Crying Steel, making Blaze Steel the top tier. 
+I have 2 main reasons for this. 
+1. Blaze Steel looks cooler.
+2. The farmability of ghast tears is hard to measure. They can spawn anywhere,
+and aren't that hard to kill, but the idea of automating that can be tedious. 
+Whereas blazes are already a known commodity, so farming them makes a lot of sense.
+
+If I make the number of ghast tears used in a recipe low, and make the actual tool produced low 
+teir, it won't really matter if it is balanced, as it will be a stepping stone to better things.
 
 Current version : 0.3.0
 
