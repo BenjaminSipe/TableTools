@@ -4,7 +4,8 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
       "RepairItemRecipeMixin",
-	  "AnvilScreenHandlerMixin"
+	  "AnvilScreenHandlerMixin",
+	  "AbstractFireBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

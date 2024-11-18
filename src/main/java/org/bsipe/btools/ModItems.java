@@ -28,7 +28,7 @@ public class ModItems {
     public static Item BLOOD_DIAMOND = register( new Item( new Item.Settings()), "blood_diamond" );
     public static Item PALADUS_INGOT = register( new Item( new Item.Settings()), "paladus_ingot" );
     public static Item HEART_OF_UNDYING = register( new Item( new Item.Settings()), "heart_of_undying" );
-public static Item UNDYING_INGOT = register( new Item( new Item.Settings()), "undying_ingot" );
+    public static Item UNDYING_INGOT = register( new Item( new Item.Settings()), "undying_ingot" );
     public static Item CRACKED_REINFORCEMENT = register( new Item( new Item.Settings()), "cracked_reinforcement" );
     public static Item REINFORCED_NETHERITE_INGOT = register( new Item( new Item.Settings()), "reinforced_netherite_ingot" );
     public static Item RED_SOUL_SHARD = register( new Item( new Item.Settings()), "red_soul_shard" );
