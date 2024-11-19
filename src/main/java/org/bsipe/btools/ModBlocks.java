@@ -23,6 +23,7 @@ public class ModBlocks {
 
     public static final ForgeBlock DEEPSLATE_FORGE_BLOCK = registerWithItem( "deepslate_forge", new ForgeBlock( AbstractBlock.Settings.create().strength( 1.5f, 6.0f).requiresTool().luminance(Blocks.createLightLevelFromLitBlockState(10))), new Item.Settings());
     public static final Block ENDSTONE_ENDIRIUM_ORE = registerWithItem("endstone_endirium_ore", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7), AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 9.0F)), new Item.Settings() );
+    public static final Block PALADUS_ORE = registerWithItem("paladus_ore", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7), AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 9.0F)), new Item.Settings() );
 
     public static final Block RED_SOUL_SAND = registerWithItem(
             "red_soul_sand",

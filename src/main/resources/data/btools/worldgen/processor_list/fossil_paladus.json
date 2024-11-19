@@ -1,7 +1,7 @@
 {
   "processors": [
     {
-      "integrity": 0.1,
+      "integrity": 0.075,
       "processor_type": "minecraft:block_rot"
     },
     {
@@ -16,7 +16,7 @@
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
-            "Name": "minecraft:gold_block"
+            "Name": "btools:paladus_ore"
           }
         }
       ]

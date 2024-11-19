@@ -22,7 +22,7 @@
       "minecraft:fossil/skull_4_coal"
     ],
     "fossil_processors": "minecraft:fossil_rot",
-    "max_empty_corners_allowed": 4,
+    "max_empty_corners_allowed": 6,
     "overlay_processors": "btools:fossil_paladus"
   }
 }

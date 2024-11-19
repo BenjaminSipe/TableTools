@@ -2,7 +2,13 @@ package org.bsipe.btools;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.gen.GenerationStep;
 import org.bsipe.btools.block.entity.ForgeBlockEntity;
 import org.bsipe.btools.data.worldgen.BiomeModificationInit;
 import org.bsipe.btools.recipes.ModRecipeTypes;
@@ -30,5 +36,10 @@ public class BetterToolsModInitializer implements ModInitializer {
 		ModBlockEntityTypes.initialize();
 		ModScreenHandlerTypes.initialize();
 		BiomeModificationInit.load();
+
+		BiomeModifications.addFeature(
+				BiomeSelectors.foundInOverworld(),
+				GenerationStep.Feature.UNDERGROUND_STRUCTURES,
+				RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of( "btools", "fossil_paladus" )));
 	}
 }
