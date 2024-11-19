@@ -27,6 +27,7 @@ public class ModItems {
     public static Item CRYING_STEEL_INGOT = register( new Item( new Item.Settings() ), "crying_steel_ingot" );
     public static Item BLOOD_DIAMOND = register( new Item( new Item.Settings()), "blood_diamond" );
     public static Item PALADUS_INGOT = register( new Item( new Item.Settings()), "paladus_ingot" );
+    public static Item RAW_PALADUS = register( new Item( new Item.Settings()), "raw_paladus" );
     public static Item HEART_OF_UNDYING = register( new Item( new Item.Settings()), "heart_of_undying" );
     public static Item UNDYING_INGOT = register( new Item( new Item.Settings()), "undying_ingot" );
     public static Item CRACKED_REINFORCEMENT = register( new Item( new Item.Settings()), "cracked_reinforcement" );
@@ -47,6 +48,7 @@ public class ModItems {
                     itemGroup.addAfter(Items.GOLD_INGOT, ModItems.SLIME_STEEL_INGOT );
                     itemGroup.addAfter(Items.NETHERITE_SCRAP, ModItems.CRACKED_REINFORCEMENT);
                     itemGroup.addAfter(Items.NETHERITE_INGOT, ModItems.REINFORCED_NETHERITE_INGOT );
+                    itemGroup.addAfter(Items.RAW_GOLD, ModItems.RAW_PALADUS );
                 });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL)

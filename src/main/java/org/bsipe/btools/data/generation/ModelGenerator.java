@@ -34,6 +34,7 @@ public class ModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.UNDYING_INGOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.RED_SOUL_SHARD, Models.GENERATED);
         itemModelGenerator.register(ModItems.PALADUS_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.RAW_PALADUS, Models.GENERATED);
         itemModelGenerator.register(ModItems.CRACKED_REINFORCEMENT, Models.GENERATED);
         itemModelGenerator.register(ModItems.REINFORCED_NETHERITE_INGOT, Models.GENERATED);
 

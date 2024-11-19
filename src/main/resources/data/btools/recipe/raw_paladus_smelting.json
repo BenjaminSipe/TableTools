@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 25,
+  "ingredient": {
+    "item": "btools:raw_paladus"
+  },
+  "result": {
+    "id": "btools:paladus_ingot"
+  }
+}
