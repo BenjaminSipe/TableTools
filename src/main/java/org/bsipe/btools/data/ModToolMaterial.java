@@ -5,6 +5,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import org.bsipe.btools.ModBlockTags;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +48,8 @@ public class ModToolMaterial {
         IRON(BlockTags.INCORRECT_FOR_IRON_TOOL),
         DIAMOND(BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
         NETHERITE(BlockTags.INCORRECT_FOR_NETHERITE_TOOL),
+        ENDIRIUM(ModBlockTags.INCORRECT_FOR_ENDIRIUM_TOOL),
+        PALADUS(ModBlockTags.INCORRECT_FOR_PALADUS_TOOL)
 
         ;
 

@@ -3,7 +3,9 @@ package org.bsipe.btools.data.generation;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
+import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
+import org.bsipe.btools.ModBlocks;
 import org.bsipe.btools.ModItems;
 
 public class ModelGenerator extends FabricModelProvider {
@@ -13,10 +15,12 @@ public class ModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.RED_SOUL_SAND);
     }
 
     @Override
-    public void generateItemModels(net.minecraft.data.client.ItemModelGenerator itemModelGenerator) {
+    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+
         itemModelGenerator.register(ModItems.TOOL_HANDLE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.AXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.HOE, Models.HANDHELD);

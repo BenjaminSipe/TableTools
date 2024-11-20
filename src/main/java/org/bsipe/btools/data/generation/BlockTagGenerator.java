@@ -10,15 +10,14 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.bsipe.btools.BetterToolsModInitializer;
+import org.bsipe.btools.ModBlocks;
 
 import java.util.concurrent.CompletableFuture;
 
+import static org.bsipe.btools.ModBlockTags.*;
 import static org.bsipe.btools.ModBlocks.*;
 
 public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
-
-    // letting this one be a minecraft one because this is really just a vanilla thing. . . .
-    public static final TagKey<Block> NEEDS_NETHERITE_TOOL = TagKey.of( RegistryKeys.BLOCK, Identifier.of( "needs_netherite_tool" ) );
 
     public BlockTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
@@ -36,10 +35,22 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add( RED_SOUL_SAND );
 
         getOrCreateTagBuilder( NEEDS_NETHERITE_TOOL )
-                .add( ENDSTONE_ENDIRIUM_ORE )
-                .add( Blocks.REINFORCED_DEEPSLATE );
+                .add( ENDSTONE_ENDIRIUM_ORE );
+
+        getOrCreateTagBuilder( NEEDS_ENDIRIUM_TOOL )
+                .add( Blocks.REINFORCED_DEEPSLATE )
+                .add( PALADUS_ORE );
+
+
+
 
         getOrCreateTagBuilder( BlockTags.INCORRECT_FOR_DIAMOND_TOOL )
                 .addTag( NEEDS_NETHERITE_TOOL );
+        getOrCreateTagBuilder( INCORRECT_FOR_NETHERITE_TOOL )
+                .addTag( NEEDS_PALADUS_TOOL );
+        getOrCreateTagBuilder( INCORRECT_FOR_ENDIRIUM_TOOL )
+                .addTag( NEEDS_PALADUS_TOOL );
+
+
     }
 }
