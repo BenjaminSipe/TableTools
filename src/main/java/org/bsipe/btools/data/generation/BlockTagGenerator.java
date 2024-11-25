@@ -41,6 +41,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add( Blocks.REINFORCED_DEEPSLATE )
                 .add( PALADUS_ORE );
 
+        getOrCreateTagBuilder( NEEDS_PALADUS_TOOL );
+
 
 
 

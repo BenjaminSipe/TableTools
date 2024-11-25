@@ -1,0 +1,10 @@
+{
+  "id": "btools:ingredient/jeweled_obsidian",
+  "path": "btools:item/tool_heads/jeweled_obsidian/jeweled_obsidian_",
+  "material_group": "btools:material/jeweled_obsidian",
+  "material": "btools:blood_diamond",
+  "source": "SMITHING",
+  "smithingDetails": {
+    "baseMaterial" : "btools:material/obsidian"
+  }
+}

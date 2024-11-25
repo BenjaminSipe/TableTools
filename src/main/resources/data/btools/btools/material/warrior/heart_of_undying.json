@@ -1,0 +1,7 @@
+{
+  "id" : "btools:material/heart_of_undying",
+  "durability": 1096,
+  "mining_speed": 9.0,
+  "mining_level": "DIAMOND",
+  "damage": 11
+}

@@ -1,0 +1,7 @@
+{
+  "id" : "btools:material/ender_steel",
+  "durability": 1042,
+  "mining_speed": 16.0,
+  "mining_level": "IRON",
+  "damage": 7
+}

@@ -1,0 +1,15 @@
+{
+  "type": "btools:forge_alloying",
+  "cookingTime": 200,
+  "experience": 15.0,
+  "count": 45,
+  "primary": {
+    "item": "btools:red_soul_sand"
+  },
+  "secondary": {
+    "item": "btools:crystalized_endirium"
+  },
+  "result": {
+    "id": "btools:red_soul_shard"
+  }
+}

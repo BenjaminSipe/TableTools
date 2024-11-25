@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/crying_steel",
+  "path": "btools:item/tool_heads/crying_steel/",
+  "material_group": "btools:material/crying_steel",
+  "material": "btools:crying_steel_ingot",
+  "source": "CRAFTING"
+}

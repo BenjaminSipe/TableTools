@@ -8,9 +8,9 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import org.bsipe.btools.ModItems;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
@@ -107,7 +107,10 @@ public class ModToolIngredient {
     }
 
     public static Ingredient getIngredientsForBaseMaterial( ModToolMaterial materialGroup ) {
-        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> MATERIAL_LIST.get( Identifier.of( ingredient.getMaterialGroup())).equals( materialGroup) ).map( id -> Registries.ITEM.get(Identifier.of(id.material)).getDefaultStack() ) );
+        if ( materialGroup == null ) return Ingredient.EMPTY;
+        List<ModToolIngredient> ingredients = INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.getMaterialGroup().equals( materialGroup.getId().toString() ) ).toList();
+        if ( ingredients.size() == 0 ) return Ingredient.EMPTY;
+        return Ingredient.ofStacks( ingredients.stream().map( ingredient -> Registries.ITEM.get(Identifier.of(ingredient.material)).getDefaultStack() ));
     }
 
     // SMITHING RECIPES
@@ -212,4 +215,24 @@ public class ModToolIngredient {
             return isValid;
         }
     };
+
+    public static Collection<ItemStack> getAllTools() {
+        List<ItemStack> list = new ArrayList<>();
+        list.addAll( getAllToolsForComponent( ModItems.AXE, ModToolComponent.AXE_HEAD ));
+        list.addAll( getAllToolsForComponent( ModItems.HOE, ModToolComponent.HOE_HEAD ));
+        list.addAll( getAllToolsForComponent( ModItems.SHOVEL, ModToolComponent.SHOVEL_HEAD ));
+        list.addAll( getAllToolsForComponent( ModItems.SWORD, ModToolComponent.SWORD_BLADE ));
+        list.addAll( getAllToolsForComponent( ModItems.PICKAXE, ModToolComponent.PICKAXE_HEAD ));
+        return list;
+    }
+
+    public static Collection<ItemStack> getAllToolsForComponent( Item item, ModToolComponent component ) {
+        List<ItemStack> list = new ArrayList<>();
+        for ( ModToolIngredient i : INGREDIENT_LIST.values() ) {
+            for ( ModToolHandle handle : ModToolHandle.TOOL_HANDLE_LIST.values()) {
+                list.add( DataComponentHelper.addToolComponents( item.getDefaultStack(), i, handle, component ));
+            }
+        }
+        return list;
+    }
 }

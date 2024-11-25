@@ -1,0 +1,7 @@
+{
+  "id": "btools:ingredient/ender_steel",
+  "path": "btools:item/tool_heads/ender_steel/",
+  "material_group": "btools:material/ender_steel",
+  "material": "btools:ender_steel_ingot",
+  "source": "CRAFTING"
+}

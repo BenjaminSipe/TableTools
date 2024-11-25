@@ -1,0 +1,10 @@
+{
+  "id": "btools:ingredient/reinforced_netherite",
+  "path": "btools:item/tool_heads/reinforced_netherite/",
+  "material_group": "btools:material/reinforced_netherite",
+  "material": "btools:reinforced_netherite_ingot",
+  "source": "SMITHING",
+  "smithingDetails": {
+    "baseMaterial" : "btools:material/diamond"
+  }
+}

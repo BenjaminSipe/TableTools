@@ -1,7 +1,7 @@
 {
   "id" : "btools:material/gemstone",
   "durability": 201,
-  "mining_speed": 9.0,
+  "mining_speed": 7.0,
   "mining_level": "STONE",
   "damage": 6
 }

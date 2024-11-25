@@ -1,7 +1,7 @@
 {
   "type": "btools:forge_alloying",
   "cookingTime": 100,
-  "experience": 0.7,
+  "experience": 10.0,
   "count":16,
   "primary": {
     "item": "minecraft:iron_ingot"

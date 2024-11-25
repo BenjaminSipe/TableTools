@@ -3,8 +3,11 @@
   "path": "btools:item/tool_heads/nether_star/nether_star_",
   "material_group": "btools:material/nether_star",
   "material": "minecraft:nether_star",
-  "source": "SMITHING",
-  "smithingDetails": {
-    "baseMaterial" : "btools:material/obsidian"
+  "source": "ALLOYING",
+  "alloyingDetails": {
+    "baseMaterial" : "btools:material/heart_of_undying",
+    "count": 2,
+    "cookingTime": 600,
+    "experience": 300
   }
 }

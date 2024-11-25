@@ -1,0 +1,10 @@
+{
+  "id": "btools:ingredient/heart_of_undying",
+  "path": "btools:item/tool_heads/undying/",
+  "material_group": "btools:material/heart_of_undying",
+  "material": "btools:undying_ingot",
+  "source": "SMITHING",
+  "smithingDetails": {
+    "baseMaterial" : "btools:material/echo_shard"
+  }
+}

@@ -36,6 +36,7 @@ public class BetterToolsModInitializer implements ModInitializer {
 		ModBlockEntityTypes.initialize();
 		ModScreenHandlerTypes.initialize();
 		BiomeModificationInit.load();
+		ModItemGroups.initialize();
 
 		BiomeModifications.addFeature(
 				BiomeSelectors.foundInOverworld(),

@@ -1,0 +1,8 @@
+{
+  "id" : "btools:material/reinforced_netherite",
+  "durability": 4596,
+  "mining_speed": 9.0,
+  "mining_level": "NETHERITE",
+  "fire_resistant": true,
+  "damage": 8
+}

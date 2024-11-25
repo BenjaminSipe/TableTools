@@ -1,0 +1,7 @@
+{
+  "id" : "btools:material/blaze_steel",
+  "durability": 1561,
+  "mining_speed": 20.0,
+  "mining_level": "DIAMOND",
+  "damage": 8
+}

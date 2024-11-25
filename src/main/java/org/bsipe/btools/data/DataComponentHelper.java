@@ -27,6 +27,7 @@ import java.util.Map;
 import static org.bsipe.btools.ModItems.*;
 import static org.bsipe.btools.data.ModToolComponent.*;
 import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
+import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 
 public class DataComponentHelper {
     public static NbtComponent getCustomData(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
@@ -61,22 +62,24 @@ public class DataComponentHelper {
         );
     }
 
-    public static void addHandleComponents( ItemStack result, ModToolHandle handleMaterial ) {
+    public static ItemStack addHandleComponents( ItemStack result, ModToolHandle handleMaterial ) {
         String layer0 = handleMaterial.getSprite();
         NbtCompound compound = new NbtCompound();
         compound.put( "layer0", NbtString.of( layer0 ) );
         compound.put( "handle-id", NbtString.of( handleMaterial.getId().toString() ) );
         result.set( DataComponentTypes.CUSTOM_DATA, NbtComponent.of( compound ) );
         result.set( DataComponentTypes.ITEM_NAME, getItemName( result , handleMaterial.getId().toString() ) );
+        return result;
     }
 
-    public static void addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
+    public static ItemStack addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
         result.set( DataComponentTypes.ITEM_NAME, getItemName( result , modToolIngredient.getId() ) );
         result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, toolHandle, component ) );
         result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient, toolHandle ) );
         result.set( DataComponentTypes.FIRE_RESISTANT, modToolIngredient.isFireResistent() ? Unit.INSTANCE : null );
         result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, getAttributeModifiers( component, modToolIngredient, toolHandle ));
         result.set( DataComponentTypes.TOOL, getTool(component, modToolIngredient, toolHandle) );
+        return result;
     }
 
     public static void copyToolComponents( ItemStack base, ItemStack result ) {

@@ -1,6 +1,10 @@
 Last Modified: 11/17/2024
 
 
+SECONDARY MINOR UPDATE:
+I think I want the nether star tools to be tier 4 for the warrior set. 
+The way to do this, is have heart of undying tools be tier and require an anvil, 
+then have nether star require 2 and be a forge recipe
 
 Minor update:
 Not written anywhere. Everything in this system makes sense to me except, 

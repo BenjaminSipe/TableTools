@@ -1,0 +1,8 @@
+{
+  "id" : "btools:material/endirium",
+  "durability": 2556,
+  "mining_speed": 10.0,
+  "mining_level": "ENDIRIUM",
+  "fire_resistant": true,
+  "damage": 9
+}

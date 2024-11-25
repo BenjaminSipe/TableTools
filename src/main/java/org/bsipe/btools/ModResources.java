@@ -1,8 +1,14 @@
 package org.bsipe.btools;
 
 import com.google.gson.Gson;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
@@ -15,9 +21,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
+import static org.bsipe.btools.BetterToolsModInitializer.MOD_ID;
 
 public class ModResources {
 
+    public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Identifier.of( MOD_ID, "table_tools_creative_tab"));
 
     public static void reloadMaterials( ResourceManager manager ) {
         ModToolMaterial.clearList();
@@ -64,6 +72,15 @@ public class ModResources {
         LOGGER.info( "Loaded {} handles", ModToolHandle.count() );
     }
 
+    public static void addToolsToCreativeTab() {
+
+
+        ItemGroupEvents.modifyEntriesEvent( ITEM_GROUP_KEY).register(content -> {
+            content.addAll( ModToolHandle.getToolHandles() );
+            content.addAll( ModToolIngredient.getAllTools(), ItemGroup.StackVisibility.PARENT_TAB_ONLY );
+        } );
+    }
+
     public static void initialize() {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(
                 new SimpleSynchronousResourceReloadListener() {
@@ -78,6 +95,8 @@ public class ModResources {
                         reloadMaterials( manager );
                         reloadIngredients( manager );
                         reloadHandles( manager );
+
+                        addToolsToCreativeTab();
                     }
                 }
         );

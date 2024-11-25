@@ -7,7 +7,7 @@
   "alloyingDetails": {
     "baseMaterial" : "btools:material/gemstone",
     "count": 2,
-    "cookingTime": 50,
+    "cookingTime": 400,
     "experience": 20
   }
 }

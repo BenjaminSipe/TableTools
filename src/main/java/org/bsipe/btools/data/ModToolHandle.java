@@ -8,8 +8,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.bsipe.btools.ModItems;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 
@@ -216,5 +219,13 @@ public class ModToolHandle {
             }
         }
         return previous;
+    }
+
+    public static Collection<ItemStack> getToolHandles() {
+        return TOOL_HANDLE_LIST.values().stream().map(handle ->
+                handle.transform == TransformType.IDENTITY ?
+                        Registries.ITEM.get( handle.getItem() ).getDefaultStack() :
+                        DataComponentHelper.addHandleComponents(
+                                ModItems.TOOL_HANDLE.getDefaultStack(), handle )).toList();
     }
 }
