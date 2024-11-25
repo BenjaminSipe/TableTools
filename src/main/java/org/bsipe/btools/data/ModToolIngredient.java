@@ -226,6 +226,16 @@ public class ModToolIngredient {
         return list;
     }
 
+    public static Collection<ItemStack> getOakTools() {
+        List<ItemStack> list = new ArrayList<>();
+        list.addAll( getOakToolsForComponent( ModItems.AXE, ModToolComponent.AXE_HEAD ));
+        list.addAll( getOakToolsForComponent( ModItems.HOE, ModToolComponent.HOE_HEAD ));
+        list.addAll( getOakToolsForComponent( ModItems.SHOVEL, ModToolComponent.SHOVEL_HEAD ));
+        list.addAll( getOakToolsForComponent( ModItems.SWORD, ModToolComponent.SWORD_BLADE ));
+        list.addAll( getOakToolsForComponent( ModItems.PICKAXE, ModToolComponent.PICKAXE_HEAD ));
+        return list;
+    }
+
     public static Collection<ItemStack> getAllToolsForComponent( Item item, ModToolComponent component ) {
         List<ItemStack> list = new ArrayList<>();
         for ( ModToolIngredient i : INGREDIENT_LIST.values() ) {
@@ -235,4 +245,14 @@ public class ModToolIngredient {
         }
         return list;
     }
+
+    public static Collection<ItemStack> getOakToolsForComponent( Item item, ModToolComponent component ) {
+        List<ItemStack> list = new ArrayList<>();
+        for ( ModToolIngredient i : INGREDIENT_LIST.values() ) {
+                list.add( DataComponentHelper.addToolComponents( item.getDefaultStack(), i, ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( "btools:handle/oak" )), component ));
+        }
+        return list;
+    }
+
+
 }

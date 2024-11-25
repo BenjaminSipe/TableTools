@@ -78,6 +78,7 @@ public class ModResources {
         ItemGroupEvents.modifyEntriesEvent( ITEM_GROUP_KEY).register(content -> {
             content.addAll( ModToolHandle.getToolHandles() );
             content.addAll( ModToolIngredient.getAllTools(), ItemGroup.StackVisibility.PARENT_TAB_ONLY );
+            content.addAll( ModToolIngredient.getOakTools(), ItemGroup.StackVisibility.SEARCH_TAB_ONLY );
         } );
     }
 
