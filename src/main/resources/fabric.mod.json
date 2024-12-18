@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "btools",
-	"version": "0.3.0-1.21.1",
+	"version": "0.3.1-1.21.1",
 	"name": "Table Tools",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
@@ -26,7 +26,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",
-		"minecraft": "~1.21.1",
+		"minecraft": "1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
 	},

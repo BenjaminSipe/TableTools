@@ -3,6 +3,7 @@ package org.bsipe.btools.data.generation;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
+import org.bsipe.btools.ModBlocks;
 import org.bsipe.btools.ModItems;
 
 import java.util.concurrent.CompletableFuture;
@@ -33,8 +34,46 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add( ModItems.REINFORCED_NETHERITE_INGOT, "Reinforced Netherite Ingot" );
         translationBuilder.add( ModItems.RED_SOUL_SHARD, "Red Soul Shard" );
         translationBuilder.add( ModItems.PALADUS_INGOT, "Paladus Ingot" );
+        translationBuilder.add( ModItems.RAW_PALADUS, "Raw Paladus" );
         translationBuilder.add( ModItems.HEART_OF_UNDYING, "Heart of Undying" );
         translationBuilder.add( ModItems.UNDYING_INGOT, "Undying Ingot" );
+
+        translationBuilder.add( ModBlocks.PALADUS_ORE, "Deepslate Paladus Ore" );
+        translationBuilder.add( ModBlocks.ENDSTONE_ENDIRIUM_ORE, "Endstone Endirium Ore");
+        translationBuilder.add( ModBlocks.DEEPSLATE_FORGE_BLOCK, "Deepslate Forge" );
+        translationBuilder.add( ModBlocks.RED_SOUL_SAND, "Red Soul Sand" );
+        translationBuilder.add( ModBlocks.RED_SOUL_FIRE, "Red Soul Fire" );
+
+
+        translationBuilder.add("btools.ingredient.blaze_steel", "Blaze Steel");
+        translationBuilder.add("btools.ingredient.crying_steel", "Crying Steel");
+        translationBuilder.add("btools.ingredient.ender_steel", "Ender Steel");
+        translationBuilder.add("btools.ingredient.slime_steel", "Slime Steel");
+        translationBuilder.add("btools.ingredient.diamond", "Diamond");
+        translationBuilder.add("btools.ingredient.endirium", "Endirium");
+        translationBuilder.add("btools.ingredient.netherite", "Netherite");
+        translationBuilder.add("btools.ingredient.paladus", "Paladus");
+        translationBuilder.add("btools.ingredient.crying_obsidian", "Crying Obsidian");
+        translationBuilder.add("btools.ingredient.obsidian", "Obsidian");
+        translationBuilder.add("btools.ingredient.jeweled_obsidian", "Jeweled Obsidian");
+        translationBuilder.add("btools.ingredient.red_soul_shard", "Red Soul Shard");
+        translationBuilder.add("btools.ingredient.reinforced_netherite", "Reinforced Netherite");
+        translationBuilder.add("btools.ingredient.copper", "Copper");
+        translationBuilder.add("btools.ingredient.gold", "Gold");
+        translationBuilder.add("btools.ingredient.calcite", "Calcite");
+        translationBuilder.add("btools.ingredient.flint", "Flint");
+        translationBuilder.add("btools.ingredient.netherrack", "Netherrack");
+        translationBuilder.add("btools.ingredient.red_sandstone", "Red Sandstone");
+        translationBuilder.add("btools.ingredient.sandstone", "Sandstone");
+        translationBuilder.add("btools.ingredient.andesite", "Andesite");
+        translationBuilder.add("btools.ingredient.basalt", "Basalt");
+        translationBuilder.add("btools.ingredient.blackstone", "Blackstone");
+        translationBuilder.add("btools.ingredient.cobblestone", "Cobblestone");
+        translationBuilder.add("btools.ingredient.cobbled_deepslate", "Deepslate");
+        translationBuilder.add("btools.ingredient.diorite", "Diorite");
+        translationBuilder.add("btools.ingredient.endstone", "Endstone");
+        translationBuilder.add("btools.ingredient.granite", "Granite");
+        translationBuilder.add("btools.ingredient.tuff", "Tuff");
         translationBuilder.add("btools.ingredient.acacia", "Acacia");
         translationBuilder.add("btools.ingredient.bamboo", "Bamboo");
         translationBuilder.add("btools.ingredient.birch", "Birch");
@@ -46,49 +85,35 @@ public class TranslationGenerator extends FabricLanguageProvider {
         translationBuilder.add("btools.ingredient.oak", "Oak");
         translationBuilder.add("btools.ingredient.spruce", "Spruce");
         translationBuilder.add("btools.ingredient.warped", "Warped");
-
-        translationBuilder.add("btools.ingredient.cobblestone", "Cobblestone");
-        translationBuilder.add("btools.ingredient.cobbled_deepslate", "Deepslate");
-        translationBuilder.add("btools.ingredient.blackstone", "Blackstone");
-        translationBuilder.add("btools.ingredient.andesite", "Andesite");
-        translationBuilder.add("btools.ingredient.diorite", "Diorite");
-        translationBuilder.add("btools.ingredient.granite", "Granite");
-        translationBuilder.add("btools.ingredient.endstone", "Endstone");
-        translationBuilder.add("btools.ingredient.tuff", "Tuff");
-        translationBuilder.add("btools.ingredient.basalt", "Basalt");
-
-        translationBuilder.add("btools.ingredient.gold", "Gold");
-        translationBuilder.add("btools.ingredient.copper", "Copper");
-
-        translationBuilder.add("btools.ingredient.netherrack", "Netherrack");
-        translationBuilder.add("btools.ingredient.calcite", "Calcite");
-        translationBuilder.add("btools.ingredient.sandstone", "Sandstone");
-        translationBuilder.add("btools.ingredient.red_sandstone", "Red Sandstone");
-        translationBuilder.add("btools.ingredient.flint", "Flint");
-
-        translationBuilder.add("btools.ingredient.quartz", "Quartz");
+        translationBuilder.add("btools.ingredient.iron", "Iron");
         translationBuilder.add("btools.ingredient.amethyst", "Amethyst");
         translationBuilder.add("btools.ingredient.emerald", "Emerald");
-
-        translationBuilder.add("btools.ingredient.obsidian", "Obsidian");
-        translationBuilder.add("btools.ingredient.crying_obsidian", "Crying Obsidian");
-
-        translationBuilder.add("btools.ingredient.echo_shard", "Echoing");
+        translationBuilder.add("btools.ingredient.quartz", "Quartz");
+        translationBuilder.add("btools.ingredient.echo_shard", "Echo Shard");
+        translationBuilder.add("btools.ingredient.heart_of_undying", "Heart of Undying");
         translationBuilder.add("btools.ingredient.nether_star", "Nether Forged");
 
-        translationBuilder.add("btools.ingredient.iron", "Iron");
-        translationBuilder.add("btools.ingredient.diamond", "Diamond");
-        translationBuilder.add("btools.ingredient.netherite", "Netherite");
-
+        translationBuilder.add("btools.material.blaze_steel", "Blaze Steel");
+        translationBuilder.add("btools.material.crying_steel", "Crying Steel");
+        translationBuilder.add("btools.material.ender_steel", "Ender Steel");
+        translationBuilder.add("btools.material.slime_steel", "Slime Steel");
         translationBuilder.add("btools.material.diamond", "Diamond");
-        translationBuilder.add("btools.material.soft_metal", "Soft Metal");
-        translationBuilder.add("btools.material.gemstone", "Gemstone");
-        translationBuilder.add("btools.material.soft_stone", "Soft Stone");
-        translationBuilder.add("btools.material.obsidian", "Obsidian");
-        translationBuilder.add("btools.material.stone", "Stone");
+        translationBuilder.add("btools.material.endirium", "Endirium");
         translationBuilder.add("btools.material.netherite", "Netherite");
+        translationBuilder.add("btools.material.paladus", "Paladus");
+        translationBuilder.add("btools.material.jeweled_obsidian", "Jeweled Obsidian");
+        translationBuilder.add("btools.material.obsidian", "Obsidian");
+        translationBuilder.add("btools.material.red_soul_shard", "Red Soul Shard");
+        translationBuilder.add("btools.material.reinforced_netherite", "Reinforced Netherite");
         translationBuilder.add("btools.material.iron", "Iron");
+        translationBuilder.add("btools.material.soft_metal", "Soft Metal");
+        translationBuilder.add("btools.material.soft_stone", "Soft Stone");
+        translationBuilder.add("btools.material.stone", "Stone");
         translationBuilder.add("btools.material.wood", "Wood");
+        translationBuilder.add("btools.material.echo_shard", "Echo Shard");
+        translationBuilder.add("btools.material.gemstone", "Gemstone");
+        translationBuilder.add("btools.material.heart_of_undying", "Heart of Undying");
+        translationBuilder.add("btools.material.nether_star", "Nether Star");
 
         translationBuilder.add("btools.handle.acacia", "Acacia");
         translationBuilder.add("btools.handle.bamboo", "Bamboo");
@@ -105,8 +130,6 @@ public class TranslationGenerator extends FabricLanguageProvider {
         // Will be used to display tool tips eventually.
         translationBuilder.add("btools.handle.bone", "Bone");
         translationBuilder.add( "btools.handle.green_bamboo", "Bamboo" );
-        translationBuilder.add( "block.btools.endstone_endirium_ore", "Endirium Ore");
-        translationBuilder.add( "block.btools.deepslate_forge", "Deepslate Forge");
 
         translationBuilder.add( "container.btools.forge_block", "Deepslate Forge" );
 

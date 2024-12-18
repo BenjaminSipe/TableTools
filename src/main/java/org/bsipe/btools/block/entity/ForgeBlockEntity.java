@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -16,6 +17,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -24,7 +26,11 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -166,15 +172,81 @@ public class ForgeBlockEntity extends BlockEntity implements RecipeInputProvider
         fuelTimes = null;
     }
 
+    public static void addFuel(Map<Item, Integer> map, ItemConvertible item, int time ) {
+        map.put( item.asItem(), time );
+    }
+
+    private static void addFuel(Map<Item, Integer> fuelTimes, TagKey<Item> tag, int fuelTime) {
+        for (RegistryEntry<Item> registryEntry : Registries.ITEM.iterateEntries(tag)) {
+                fuelTimes.put(registryEntry.value(), fuelTime);
+        }
+    }
+
     public static Map<Item, Integer> createFuelTimeMap() {
         Map<Item, Integer> map = fuelTimes;
         if (map != null) {
             return map;
         } else {
             Map<Item, Integer> map2 = Maps.<Item, Integer>newLinkedHashMap();
-            map2.put(Items.BLAZE_ROD.asItem(), 2400);
-            map2.put(Items.COAL.asItem(), 1600);
-            map2.put(Items.STICK.asItem(), 200);
+            addFuel(map2, Items.LAVA_BUCKET, 20000);
+            addFuel(map2, Blocks.COAL_BLOCK, 16000);
+            addFuel(map2, Items.BLAZE_ROD, 2400);
+            addFuel(map2, Items.COAL, 1600);
+            addFuel(map2, Items.CHARCOAL, 1600);
+            addFuel(map2, ItemTags.LOGS, 300);
+            addFuel(map2, ItemTags.BAMBOO_BLOCKS, 300);
+            addFuel(map2, ItemTags.PLANKS, 300);
+            addFuel(map2, Blocks.BAMBOO_MOSAIC, 300);
+            addFuel(map2, ItemTags.WOODEN_STAIRS, 300);
+            addFuel(map2, Blocks.BAMBOO_MOSAIC_STAIRS, 300);
+            addFuel(map2, ItemTags.WOODEN_SLABS, 150);
+            addFuel(map2, Blocks.BAMBOO_MOSAIC_SLAB, 150);
+            addFuel(map2, ItemTags.WOODEN_TRAPDOORS, 300);
+            addFuel(map2, ItemTags.WOODEN_PRESSURE_PLATES, 300);
+            addFuel(map2, ItemTags.WOODEN_FENCES, 300);
+            addFuel(map2, ItemTags.FENCE_GATES, 300);
+            addFuel(map2, Blocks.NOTE_BLOCK, 300);
+            addFuel(map2, Blocks.BOOKSHELF, 300);
+            addFuel(map2, Blocks.CHISELED_BOOKSHELF, 300);
+            addFuel(map2, Blocks.LECTERN, 300);
+            addFuel(map2, Blocks.JUKEBOX, 300);
+            addFuel(map2, Blocks.CHEST, 300);
+            addFuel(map2, Blocks.TRAPPED_CHEST, 300);
+            addFuel(map2, Blocks.CRAFTING_TABLE, 300);
+            addFuel(map2, Blocks.DAYLIGHT_DETECTOR, 300);
+            addFuel(map2, ItemTags.BANNERS, 300);
+            addFuel(map2, Items.BOW, 300);
+            addFuel(map2, Items.FISHING_ROD, 300);
+            addFuel(map2, Blocks.LADDER, 300);
+            addFuel(map2, ItemTags.SIGNS, 200);
+            addFuel(map2, ItemTags.HANGING_SIGNS, 800);
+            addFuel(map2, Items.WOODEN_SHOVEL, 200);
+            addFuel(map2, Items.WOODEN_SWORD, 200);
+            addFuel(map2, Items.WOODEN_HOE, 200);
+            addFuel(map2, Items.WOODEN_AXE, 200);
+            addFuel(map2, Items.WOODEN_PICKAXE, 200);
+            addFuel(map2, ItemTags.WOODEN_DOORS, 200);
+            addFuel(map2, ItemTags.BOATS, 1200);
+            addFuel(map2, ItemTags.WOOL, 100);
+            addFuel(map2, ItemTags.WOODEN_BUTTONS, 100);
+            addFuel(map2, Items.STICK, 100);
+            addFuel(map2, ItemTags.SAPLINGS, 100);
+            addFuel(map2, Items.BOWL, 100);
+            addFuel(map2, ItemTags.WOOL_CARPETS, 67);
+            addFuel(map2, Blocks.DRIED_KELP_BLOCK, 4001);
+            addFuel(map2, Items.CROSSBOW, 300);
+            addFuel(map2, Blocks.BAMBOO, 50);
+            addFuel(map2, Blocks.DEAD_BUSH, 100);
+            addFuel(map2, Blocks.SCAFFOLDING, 50);
+            addFuel(map2, Blocks.LOOM, 300);
+            addFuel(map2, Blocks.BARREL, 300);
+            addFuel(map2, Blocks.CARTOGRAPHY_TABLE, 300);
+            addFuel(map2, Blocks.FLETCHING_TABLE, 300);
+            addFuel(map2, Blocks.SMITHING_TABLE, 300);
+            addFuel(map2, Blocks.COMPOSTER, 300);
+            addFuel(map2, Blocks.AZALEA, 100);
+            addFuel(map2, Blocks.FLOWERING_AZALEA, 100);
+            addFuel(map2, Blocks.MANGROVE_ROOTS, 300);
             fuelTimes = map2;
             return map2;
         }

@@ -52,7 +52,13 @@ public class ModItems {
                 });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL)
-                .register((itemGroup -> itemGroup.addAfter(Blocks.ANCIENT_DEBRIS.asItem(), ModBlocks.ENDSTONE_ENDIRIUM_ORE ) ) );
+                .register((itemGroup ->
+                {
+                    itemGroup.addAfter(Blocks.ANCIENT_DEBRIS.asItem(), ModBlocks.PALADUS_ORE );
+                    itemGroup.addAfter(Blocks.ANCIENT_DEBRIS.asItem(), ModBlocks.ENDSTONE_ENDIRIUM_ORE );
+                    itemGroup.addAfter( Blocks.SOUL_SAND.asItem(), ModBlocks.RED_SOUL_SAND );
+
+                } ) );
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL)
                 .register((itemGroup -> itemGroup.addAfter(Blocks.BLAST_FURNACE.asItem(), ModBlocks.DEEPSLATE_FORGE_BLOCK ) ) );

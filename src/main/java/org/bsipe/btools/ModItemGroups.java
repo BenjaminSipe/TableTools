@@ -15,7 +15,6 @@ public class ModItemGroups {
 
     }
 
-
     public static final ItemGroup TABLE_TOOLS =
             Registry.register(Registries.ITEM_GROUP, Identifier.of( MOD_ID, "table_tools_creative_tab" ),  FabricItemGroup.builder()
             .icon(() -> ModItems.RAW_PALADUS.getDefaultStack())
