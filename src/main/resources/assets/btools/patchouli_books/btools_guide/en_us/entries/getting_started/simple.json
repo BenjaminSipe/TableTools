@@ -1,0 +1,11 @@
+{
+  "name": "Simple Recipes",
+  "icon": "minecraft:writable_book",
+  "category": "btools:getting_started",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "When you get into the world, you are ready to craft your first better tool."
+    }
+  ]
+}
