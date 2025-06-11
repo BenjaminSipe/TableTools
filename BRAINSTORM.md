@@ -1,5 +1,24 @@
-Last Modified: 11/17/2024
+Last Modified: 6/11/2025
 
+Well, that's kindof a sad update. 
+
+The simplest answer to progress is not getting bogged down by the confusion and working on things you can get done.
+
+I'm getting a better idea of the patchouli integration, but rather than fight that battle, I think I should just push ahead.
+
+To that end, I'm descoping patchouli integration and saving it for version 0.5. That should give me time to get a handle on stuff. 
+
+I've also added the "don't use custom-data" item to the list of v3 changes.
+
+------------------------------------------------
+
+Getting back into this:
+
+I've written stuff on several major points. I don't really know what is next for me to do.
+
+
+
+------------------------------------------------
 
 SECONDARY MINOR UPDATE:
 I think I want the nether star tools to be tier 4 for the warrior set. 
