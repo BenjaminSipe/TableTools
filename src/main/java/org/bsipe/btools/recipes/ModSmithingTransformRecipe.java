@@ -17,9 +17,8 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+import org.bsipe.btools.ModComponents;
 import org.bsipe.btools.data.*;
-
-import static net.minecraft.component.DataComponentTypes.CUSTOM_DATA;
 
 public class ModSmithingTransformRecipe implements SmithingRecipe {
     final Ingredient template = Ingredient.ofItems( Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE );
@@ -65,7 +64,7 @@ public class ModSmithingTransformRecipe implements SmithingRecipe {
     public ItemStack craft(SmithingRecipeInput smithingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = getResult( wrapperLookup );
         ModToolIngredient ingredient = ModToolIngredient.get( smithingRecipeInput.addition(), ModToolIngredient.ToolSource.SMITHING );
-        ModToolHandle toolHandle = ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( smithingRecipeInput.base().get( CUSTOM_DATA ).copyNbt().getString( "handle-id" ) ) );
+        ModToolHandle toolHandle = ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( smithingRecipeInput.base().get(ModComponents.TOOL_RENDER_COMPONENT ).handleId() ) );
 
         DataComponentHelper.addToolComponents( itemStack, ingredient, toolHandle, component);
 

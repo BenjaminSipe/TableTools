@@ -5,18 +5,14 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
+import org.bsipe.btools.ModComponents;
 import org.bsipe.btools.data.*;
-
-import static net.minecraft.component.DataComponentTypes.CUSTOM_DATA;
 
 public class ForgeInfusionRecipe extends AbstractForgeRecipe {
     public final ItemStack result;
@@ -51,7 +47,7 @@ public class ForgeInfusionRecipe extends AbstractForgeRecipe {
     public ItemStack craft(ForgeRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = getResult( lookup );
         ModToolIngredient ingredient = ModToolIngredient.get( input.secondary(), ModToolIngredient.ToolSource.ALLOYING );
-        ModToolHandle toolHandle = ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( input.primary().get( CUSTOM_DATA ).copyNbt().getString( "handle-id" ) ) );
+        ModToolHandle toolHandle = ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( input.primary().get(ModComponents.TOOL_RENDER_COMPONENT ).handleId() ) );
 
         DataComponentHelper.addToolComponents( itemStack, ingredient, toolHandle, component);
 

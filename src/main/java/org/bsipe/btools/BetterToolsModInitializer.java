@@ -37,10 +37,6 @@ public class BetterToolsModInitializer implements ModInitializer {
 		ModScreenHandlerTypes.initialize();
 		BiomeModificationInit.load();
 		ModItemGroups.initialize();
-
-		BiomeModifications.addFeature(
-				BiomeSelectors.foundInOverworld(),
-				GenerationStep.Feature.UNDERGROUND_STRUCTURES,
-				RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of( "btools", "fossil_paladus" )));
+		ModComponents.initialize();
 	}
 }

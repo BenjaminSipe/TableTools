@@ -7,6 +7,7 @@ import net.minecraft.recipe.RepairItemRecipe;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
+import org.bsipe.btools.ModComponents;
 import org.bsipe.btools.data.DataComponentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,7 +27,7 @@ public abstract class RepairItemRecipeMixin {
 
 		ItemStack base = craftingRecipeInput.getStacks().stream().filter( Predicate.not(ItemStack::isEmpty) ).findFirst().orElse(null);
 		ItemStack returnValue = cir.getReturnValue();
-		if (returnValue == null || base==null || base.get( DataComponentTypes.CUSTOM_DATA).isEmpty()) return;
+		if (returnValue == null || base==null || base.get( ModComponents.TOOL_RENDER_COMPONENT) == null ) return;
 		DataComponentHelper.copyToolComponents( base, returnValue );
 		cir.setReturnValue( returnValue );
 	}
@@ -40,7 +41,7 @@ public abstract class RepairItemRecipeMixin {
 			if ( ! stack.isEmpty() && stack1 != null && stack2 == null ) stack2 = stack;
 			if ( ! stack.isEmpty() && stack1 == null ) stack1 = stack;
 		}
-		if ( stack1.get( DataComponentTypes.CUSTOM_DATA ).isEmpty() || stack2.get(DataComponentTypes.CUSTOM_DATA).isEmpty()) return;
+		if ( stack1.get( ModComponents.TOOL_RENDER_COMPONENT ) == null || stack2.get(ModComponents.TOOL_RENDER_COMPONENT) == null) return;
 
 		cir.setReturnValue( DataComponentHelper.testToolsMatch( stack1, stack2 ));
 	}

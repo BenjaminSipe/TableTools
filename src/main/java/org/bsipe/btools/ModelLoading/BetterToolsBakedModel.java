@@ -14,6 +14,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import org.bsipe.btools.ModComponents;
+import org.bsipe.btools.ModItems;
+import org.bsipe.btools.codecs.HandleRenderComponent;
+import org.bsipe.btools.codecs.ToolRenderComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.StringReader;
@@ -84,17 +88,21 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-        NbtCompound data = stack.get( DataComponentTypes.CUSTOM_DATA ) != null ? stack.get( DataComponentTypes.CUSTOM_DATA ).copyNbt() : null;
+        ToolRenderComponent data = stack.get(ModComponents.TOOL_RENDER_COMPONENT );
+        HandleRenderComponent fallback = null;
+        if ( data == null ) {
+            fallback = stack.get( ModComponents.HANDLE_RENDER_COMPONENT );
+        }
 
-        String layer0 = data == null ? "" : data.getString("layer0");
-        String layer1 = data == null ? "" : data.getString("layer1");
+        String layer0 = data == null ? fallback == null ? "" :fallback.layer0() : data.layer0();
+        String layer1 = data == null ? "" : data.layer1();
         if ( layer0.equals( "" ) ) {
             bakedModel.emitItemQuads( stack, randomSupplier, context);
             return;
         }
         if ( ! BAKED_MODEL_CACHE.containsKey( layer0 + layer1 ) )
         {
-            JsonUnbakedModel model = deserialize( new ToolModelClass( data ).toString() );
+            JsonUnbakedModel model = deserialize( ( data == null ? new ToolModelClass( fallback ) : new ToolModelClass( data )).toString() );
             BAKED_MODEL_CACHE.put( layer0 + layer1, ITEM_MODEL_GENERATOR.create( TEXTURE_GETTER, model).bake(BAKER, model, TEXTURE_GETTER, this.MODEL_BAKE_SETTINGS, false) );
         }
         BAKED_MODEL_CACHE.get( layer0+layer1 ).emitItemQuads( stack, randomSupplier, context );
@@ -108,14 +116,19 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
 
         public ToolModelClass(List<String> identifiers) { this.identifiers = identifiers; }
 
-        public ToolModelClass( NbtCompound data ) {
-            String layer0 = data.getString("layer0");
-            String layer1 = data.getString("layer1");
+        public ToolModelClass( ToolRenderComponent data ) {
+            String layer0 = data.layer0();
+            String layer1 = data.layer1();
             if ( "".equals( layer1 ) ) {
                 identifiers = List.of(layer0);
             } else {
                 identifiers = List.of(layer0, layer1);
             }
+        }
+
+        public ToolModelClass( HandleRenderComponent data ) {
+            String layer0 = data.layer0();
+            identifiers = List.of(layer0);
         }
 
         @Override

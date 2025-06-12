@@ -6,6 +6,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import org.bsipe.btools.ModComponents;
 import org.bsipe.btools.ModItems;
 
 import java.util.Collection;
@@ -192,7 +193,7 @@ public class ModToolHandle {
 
     public static ModToolHandle getModToolHandle( ItemStack ingredient ) {
         if ( ingredient.isOf( ModItems.TOOL_HANDLE ) ) {
-            return ModToolHandle.TOOL_HANDLE_LIST.get( Identifier.of( ingredient.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString( "handle-id") ) );
+            return ModToolHandle.TOOL_HANDLE_LIST.get( Identifier.of( ingredient.get(ModComponents.HANDLE_RENDER_COMPONENT).handleId() ) );
         }
         return ModToolHandle.TOOL_HANDLE_LIST.get( Registries.ITEM.getId( ingredient.getItem() ) );
     }

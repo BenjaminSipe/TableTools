@@ -19,8 +19,13 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
+import org.bsipe.btools.ModComponents;
 import org.bsipe.btools.ModItems;
+import org.bsipe.btools.codecs.HandleRenderComponent;
+import org.bsipe.btools.codecs.ToolRenderComponent;
+import org.objectweb.asm.Handle;
 
+import javax.tools.Tool;
 import java.util.List;
 import java.util.Map;
 
@@ -30,18 +35,13 @@ import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 
 public class DataComponentHelper {
-    public static NbtComponent getCustomData(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
+    public static ToolRenderComponent getToolRenderComponent(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
 
         String layer1 = modToolIngredient.path + component.suffix;
         String layer0 = toolHandle.getHandleSprite( component.handleReference );
+        String material = MATERIAL_LIST.get( Identifier.of( modToolIngredient.getMaterialGroup() ) ).getId().toString();
 
-        NbtCompound compound = new NbtCompound();
-
-        compound.put( "layer0", NbtString.of( layer0 ) );
-        compound.put( "layer1", NbtString.of( layer1 ) );
-        compound.put( "material", NbtString.of( MATERIAL_LIST.get( Identifier.of( modToolIngredient.getMaterialGroup() ) ).getId().toString() ) );
-        compound.put( "handle-id", NbtString.of( toolHandle.getId().toString() ) );
-        return NbtComponent.of( compound );
+        return new ToolRenderComponent(layer0, layer1, material, toolHandle.getId().toString());
     }
 
     public static int getMaxDamage(ModToolIngredient modToolIngredient, ModToolHandle modToolHandle) {
@@ -64,17 +64,14 @@ public class DataComponentHelper {
 
     public static ItemStack addHandleComponents( ItemStack result, ModToolHandle handleMaterial ) {
         String layer0 = handleMaterial.getSprite();
-        NbtCompound compound = new NbtCompound();
-        compound.put( "layer0", NbtString.of( layer0 ) );
-        compound.put( "handle-id", NbtString.of( handleMaterial.getId().toString() ) );
-        result.set( DataComponentTypes.CUSTOM_DATA, NbtComponent.of( compound ) );
+        result.set(ModComponents.HANDLE_RENDER_COMPONENT, new HandleRenderComponent(layer0, handleMaterial.getId().toString()));
         result.set( DataComponentTypes.ITEM_NAME, getItemName( result , handleMaterial.getId().toString() ) );
         return result;
     }
 
     public static ItemStack addToolComponents(ItemStack result, ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
         result.set( DataComponentTypes.ITEM_NAME, getItemName( result , modToolIngredient.getId() ) );
-        result.set( DataComponentTypes.CUSTOM_DATA, getCustomData( modToolIngredient, toolHandle, component ) );
+        result.set(ModComponents.TOOL_RENDER_COMPONENT, getToolRenderComponent( modToolIngredient, toolHandle, component ) );
         result.set( DataComponentTypes.MAX_DAMAGE, getMaxDamage(modToolIngredient, toolHandle ) );
         result.set( DataComponentTypes.FIRE_RESISTANT, modToolIngredient.isFireResistent() ? Unit.INSTANCE : null );
         result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, getAttributeModifiers( component, modToolIngredient, toolHandle ));
@@ -84,7 +81,7 @@ public class DataComponentHelper {
 
     public static void copyToolComponents( ItemStack base, ItemStack result ) {
         result.set( DataComponentTypes.ITEM_NAME, base.get( DataComponentTypes.ITEM_NAME) );
-        result.set( DataComponentTypes.CUSTOM_DATA, base.get( DataComponentTypes.CUSTOM_DATA) );
+        result.set( ModComponents.TOOL_RENDER_COMPONENT, base.get( ModComponents.TOOL_RENDER_COMPONENT ) );
         result.set( DataComponentTypes.MAX_DAMAGE, base.get( DataComponentTypes.MAX_DAMAGE) );
         if ( base.get( DataComponentTypes.FIRE_RESISTANT ) != null ) result.set( DataComponentTypes.FIRE_RESISTANT, Unit.INSTANCE );
         result.set( DataComponentTypes.ATTRIBUTE_MODIFIERS, base.get( DataComponentTypes.ATTRIBUTE_MODIFIERS) );
@@ -97,9 +94,10 @@ public class DataComponentHelper {
     }
 
     public static boolean testToolsMatch( ItemStack one, ItemStack two ) {
-        NbtComponent c1 = one.get( DataComponentTypes.CUSTOM_DATA), c2 = two.get( DataComponentTypes.CUSTOM_DATA);
-        return ! ( c1 == null || c2 == null || c1.isEmpty() || c2.isEmpty() )
-                && c1.copyNbt().getString( "material" ).equals( c2.copyNbt().getString("material" ) );
+
+        ToolRenderComponent c1 = one.get( ModComponents.TOOL_RENDER_COMPONENT ), c2 = two.get( ModComponents.TOOL_RENDER_COMPONENT);
+        return ! ( c1 == null || c2 == null )
+                && c1.material().equals( c2.material() );
 
     }
 
@@ -108,8 +106,8 @@ public class DataComponentHelper {
             );
 
     public static ModToolMaterial getMaterial( ItemStack item ) {
-        if ( item.get( DataComponentTypes.CUSTOM_DATA).isEmpty()) return null;
-        return ModToolMaterial.MATERIAL_LIST.get( Identifier.of(item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("material")));
+        if ( item.get( ModComponents.TOOL_RENDER_COMPONENT) == null ) return null;
+        return ModToolMaterial.MATERIAL_LIST.get( Identifier.of(item.get(ModComponents.TOOL_RENDER_COMPONENT).material()));
     }
 
     public static boolean isBetterTool( ItemStack itemStack ) {
