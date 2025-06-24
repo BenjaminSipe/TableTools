@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/netherite",
+  "id" : "btools:minecrafter/netherite",
   "durability": 2031,
   "miningSpeed": 9.0,
   "miningLevel": "NETHERITE",

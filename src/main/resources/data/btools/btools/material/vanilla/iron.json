@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/iron",
+  "id" : "btools:vanilla/iron",
   "durability": 250,
   "miningSpeed": 6.0,
   "miningLevel": "IRON",

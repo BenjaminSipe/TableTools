@@ -24,6 +24,7 @@ public class ModToolMaterial {
     }
 
     public static ModToolMaterial get(Identifier id ) {
+        if ( getRegistry() == null ) return null;
         return getRegistry().get( id );
     }
 
@@ -95,10 +96,6 @@ public class ModToolMaterial {
             return this.name();
         }
 
-    }
-
-    public static int getCount() {
-        return getRegistry().size();
     }
 
     public Identifier getId() {

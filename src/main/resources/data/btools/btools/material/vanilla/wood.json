@@ -1,5 +1,5 @@
 {
-  "id": "btools:material/wood",
+  "id": "btools:vanilla/wood",
   "durability": 59,
   "miningSpeed": 2.0,
   "miningLevel": "WOOD",

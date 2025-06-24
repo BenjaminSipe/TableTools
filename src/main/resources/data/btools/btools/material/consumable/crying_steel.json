@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/crying_steel",
+  "id" : "btools:consumable/crying_steel",
   "durability": 750,
   "miningSpeed": 14.0,
   "miningLevel": "IRON",

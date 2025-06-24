@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/paladus",
+  "id" : "btools:minecrafter/paladus",
   "durability": 3131,
   "miningSpeed": 11.0,
   "miningLevel": "PALADUS",

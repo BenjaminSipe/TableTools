@@ -38,7 +38,7 @@ public class ForgeInfusionRecipe extends AbstractForgeRecipe {
 
         ModToolMaterial material = DataComponentHelper.getMaterial( input.primary() );
 
-        if ( ! ingredient.getBaseMaterial().equals( material.getId() )) return false;
+        if ( material == null || ! ingredient.getBaseMaterial().equals( material.getId() )) return false;
 
         return true;
     }

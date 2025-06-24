@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/diamond",
+  "id" : "btools:minecrafter/diamond",
   "durability": 1561,
   "miningSpeed": 8.0,
   "miningLevel": "DIAMOND",

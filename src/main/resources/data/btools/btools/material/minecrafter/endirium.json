@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/endirium",
+  "id" : "btools:minecrafter/endirium",
   "durability": 2556,
   "miningSpeed": 10.0,
   "miningLevel": "ENDIRIUM",

@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/slime_steel",
+  "id" : "btools:consumable/slime_steel",
   "durability": 550,
   "miningSpeed": 10.0,
   "miningLevel": "IRON",

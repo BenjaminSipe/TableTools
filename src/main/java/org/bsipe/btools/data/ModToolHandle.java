@@ -21,7 +21,11 @@ import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 public class ModToolHandle {
 
     public static Registry<ModToolHandle> getRegistry() {
-        return MinecraftClient.getInstance().world.getRegistryManager().get(ModRegistries.HANDLE_REGISTRY );
+        try {
+            return MinecraftClient.getInstance().world.getRegistryManager().get(ModRegistries.HANDLE_REGISTRY );
+        } catch( Exception e ) {
+            return null;
+        }
     }
 
     // note to self, optional codecs don't accept a "null" default value.
@@ -116,11 +120,6 @@ public class ModToolHandle {
 //            TOOL_HANDLE_CRAFTING_INGREDIENT_LIST.put( Identifier.of( handle.item ), handle );
 //        }
 //    }
-
-    public static int count() {
-        return getRegistry().size();
-    }
-
     public record Modifier( float factor, ModifierProperty property, Operation operation ) {
 
         public static Codec<Modifier> CODEC = RecordCodecBuilder.create( instance -> instance
@@ -259,6 +258,7 @@ public class ModToolHandle {
     }
 
     public static ModToolHandle getModToolHandle( ItemStack ingredient ) {
+        if ( getRegistry() == null ) return null;
         if ( ingredient.isOf( ModItems.TOOL_HANDLE ) ) {
             return getRegistry().get( Identifier.of( ingredient.get(ModComponents.HANDLE_RENDER_COMPONENT).handleId() ) );
         }
@@ -272,7 +272,8 @@ public class ModToolHandle {
     }
 
     public static ModToolHandle getByCraftingIngredient( ItemStack ingredient ) {
-        return ModToolHandle.getRegistry().stream().filter( handle -> handle.getTransform().equals( TransformType.CRAFTED ) && handle.getItem().equals( Registries.ITEM.getId( ingredient.getItem() ))).findAny().orElse( null );
+        if ( getRegistry() == null ) return null;
+        return ModToolHandle.getRegistry().stream().filter( handle -> handle.getTransform().equals( TransformType.CRAFTED ) && handle.getItem().equals( Registries.ITEM.getId( ingredient.getItem()))).findAny().orElse( null );
     }
 
     public int modifyDurability(int previous) {

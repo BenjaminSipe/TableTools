@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/soft_stone",
+  "id" : "btools:vanilla/soft_stone",
   "durability": 78,
   "miningSpeed": 4.0,
   "miningLevel": "STONE",

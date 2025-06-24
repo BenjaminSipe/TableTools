@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/reinforced_netherite",
+  "id" : "btools:unbreakable/reinforced_netherite",
   "durability": 4596,
   "miningSpeed": 9.0,
   "miningLevel": "NETHERITE",

@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/blaze_steel",
+  "id" : "btools:consumable/blaze_steel",
   "durability": 1561,
   "miningSpeed": 20.0,
   "miningLevel": "DIAMOND",

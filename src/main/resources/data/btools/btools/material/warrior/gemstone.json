@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/gemstone",
+  "id" : "btools:warrior/gemstone",
   "durability": 201,
   "miningSpeed": 7.0,
   "miningLevel": "STONE",

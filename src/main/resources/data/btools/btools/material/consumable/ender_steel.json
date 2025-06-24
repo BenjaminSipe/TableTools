@@ -1,5 +1,5 @@
 {
-  "id" : "btools:material/ender_steel",
+  "id" : "btools:consumable/ender_steel",
   "durability": 1042,
   "miningSpeed": 16.0,
   "miningLevel": "IRON",
