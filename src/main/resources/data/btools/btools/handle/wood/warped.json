@@ -1,5 +1,5 @@
 {
-  "id": "btools:handle/warped",
+  "id": "btools:wood/warped",
   "prefix": "btools:item/warped_",
   "sprite": "btools:item/warped_tool_handle",
   "item": "minecraft:warped_planks",

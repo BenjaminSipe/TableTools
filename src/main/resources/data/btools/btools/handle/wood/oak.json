@@ -1,5 +1,5 @@
 {
-  "id": "btools:handle/oak",
+  "id": "btools:wood/oak",
   "prefix": "btools:item/oak_",
   "sprite": "btools:item/oak_tool_handle",
   "item": "minecraft:oak_planks",

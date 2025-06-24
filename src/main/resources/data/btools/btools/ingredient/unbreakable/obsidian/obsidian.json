@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/obsidian",
   "path": "btools:item/tool_heads/obsidian/obsidian_",
-  "material_group": "btools:material/obsidian",
+  "material_group": "btools:unbreakable/obsidian",
   "material": "minecraft:obsidian",
   "source": "CRAFTING"
 }

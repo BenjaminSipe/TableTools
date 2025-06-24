@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/iron",
   "path": "btools:item/tool_heads/iron/iron_",
-  "material_group": "btools:material/iron",
+  "material_group": "btools:vanilla/iron",
   "material": "minecraft:iron_ingot",
   "source": "CRAFTING"
 }

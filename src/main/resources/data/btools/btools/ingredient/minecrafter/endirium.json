@@ -1,11 +1,11 @@
 {
   "id": "btools:ingredient/endirium",
   "path": "btools:item/tool_heads/endirium/",
-  "material_group": "btools:material/endirium",
+  "material_group": "btools:minecrafter/endirium",
   "material": "btools:crystalized_endirium",
   "source": "ALLOYING",
   "alloyingDetails": {
-    "baseMaterial" : "btools:material/netherite",
+    "baseMaterial" : "btools:minecrafter/netherite",
     "count": 24,
     "cookingTime":200,
     "experience": 48

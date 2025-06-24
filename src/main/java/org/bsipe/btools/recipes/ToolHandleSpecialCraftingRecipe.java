@@ -16,7 +16,7 @@ import org.bsipe.btools.data.ModToolHandle;
 import org.bsipe.btools.data.ModToolIngredient;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
-import static org.bsipe.btools.data.ModToolHandle.TOOL_HANDLE_CRAFTING_INGREDIENT_LIST;
+
 
 public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
     public ToolHandleSpecialCraftingRecipe(CraftingRecipeCategory category) {
@@ -27,7 +27,7 @@ public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
     public boolean matches(CraftingRecipeInput input, World world) {
 
 
-        world.getRegistryManager().get(ModRegistries.INGREDIENT_REGISTRY ).getIds().stream().forEach( ( i ) -> LOGGER.info ( i.toString() ) );
+        world.getRegistryManager().get(ModRegistries.MATERIAL_REGISTRY ).getIds().stream().forEach( ( i ) -> LOGGER.info ( i.toString() ) );
 
         if ( input.isEmpty() || input.getStackCount() != 2 || ! fits( input.getWidth(), input.getHeight() ) ) return false;
 
@@ -42,16 +42,16 @@ public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
 
 
         LOGGER.error( i1.toString() );
-        LOGGER.error( ModToolIngredient.get( i1 ).toString() );
+        LOGGER.error( String.valueOf( ModToolHandle.getByCraftingIngredient( i1 ) ) );
 
-        return TOOL_HANDLE_CRAFTING_INGREDIENT_LIST.get( Registries.ITEM.getId( i1.getItem() ) ) != null;
+        return ModToolHandle.getByCraftingIngredient( i1 ) != null;
     }
 
     @Override
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         // So I know it matches, hence, it is just the form.
         ItemStack ingredient = input.getStackInSlot(0).isEmpty() ? input.getStackInSlot(1) : input.getStackInSlot(0);
-        ModToolHandle handleMaterial = TOOL_HANDLE_CRAFTING_INGREDIENT_LIST.get( Registries.ITEM.getId( ingredient.getItem() ) );
+        ModToolHandle handleMaterial = ModToolHandle.getByCraftingIngredient( ingredient );
         ItemStack toolHandle = ModItems.TOOL_HANDLE.getDefaultStack();
         toolHandle.setCount( 2 );
         DataComponentHelper.addHandleComponents( toolHandle, handleMaterial );

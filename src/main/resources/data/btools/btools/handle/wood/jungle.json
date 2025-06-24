@@ -1,5 +1,5 @@
 {
-  "id": "btools:handle/jungle",
+  "id": "btools:wood/jungle",
   "prefix": "btools:item/jungle_",
   "sprite": "btools:item/jungle_tool_handle",
   "item": "minecraft:jungle_planks",

@@ -2,20 +2,27 @@ package org.bsipe.btools.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 import org.bsipe.btools.ModComponents;
 import org.bsipe.btools.ModItems;
+import org.bsipe.btools.ModRegistries;
 
 import java.util.*;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 
 public class ModToolHandle {
+
+    public static Registry<ModToolHandle> getRegistry() {
+        return MinecraftClient.getInstance().world.getRegistryManager().get(ModRegistries.HANDLE_REGISTRY );
+    }
 
     // note to self, optional codecs don't accept a "null" default value.
     // Not sure how to allow that, so for now, just avoid.
@@ -75,11 +82,11 @@ public class ModToolHandle {
     // USED TO TRACK ACTUAL TOOL HANDLES.
     // KEYED ON Ingredient ID. . . any thing other than a btools: tool handle will reference this.
     // btools-tool handle sprites will reference
-    public static Map<Identifier, ModToolHandle> TOOL_HANDLE_LIST = new HashMap<>();
-    public static Map<Identifier, ModToolHandle> TOOL_HANDLE_LIST_BY_ID = new HashMap<>();
-
-    // USED TO TRACK INGREDIENTS CRAFTED INTO A TOOL HANDLE.
-    public static Map<Identifier, ModToolHandle> TOOL_HANDLE_CRAFTING_INGREDIENT_LIST = new HashMap<>();
+//    public static Map<Identifier, ModToolHandle> TOOL_HANDLE_LIST = new HashMap<>();
+//    public static Map<Identifier, ModToolHandle> TOOL_HANDLE_LIST_BY_ID = new HashMap<>();
+//
+//    // USED TO TRACK INGREDIENTS CRAFTED INTO A TOOL HANDLE.
+//    public static Map<Identifier, ModToolHandle> TOOL_HANDLE_CRAFTING_INGREDIENT_LIST = new HashMap<>();
 
     // RAW PROPERTIES, GSON MAPS to THESE
     private String id; // Identifier
@@ -92,18 +99,26 @@ public class ModToolHandle {
     // COMPUTED PROPERTIES, DON'T TRY TO MAP TO THESE
     private transient Ingredient ingredient;
 
-    public static void addEntry( ModToolHandle handle ) {
-        TOOL_HANDLE_LIST_BY_ID.put( Identifier.of( handle.id ), handle );
-        if ( handle.transform.equals( TransformType.IDENTITY) ) {
-            TOOL_HANDLE_LIST.put( Identifier.of( handle.item ), handle );
-        } else if ( handle.transform.equals( TransformType.CRAFTED) ) {
-            TOOL_HANDLE_LIST.put( Identifier.of( handle.id), handle );
-            TOOL_HANDLE_CRAFTING_INGREDIENT_LIST.put( Identifier.of( handle.item ), handle );
-        }
-    }
+
+    /*
+    So when I add them to the list,
+    I have 3 lists.
+    1. list by ID ( includes all of them ).
+    2. List of ingredients used AS tool handles, not to make them.
+    3. List of ingredients used to make tool handles.
+     */
+//    public static void addEntry( ModToolHandle handle ) {
+//        TOOL_HANDLE_LIST_BY_ID.put( Identifier.of( handle.id ), handle );
+//        if ( handle.transform.equals( TransformType.IDENTITY) ) {
+//            TOOL_HANDLE_LIST.put( Identifier.of( handle.item ), handle );
+//        } else if ( handle.transform.equals( TransformType.CRAFTED) ) {
+//            TOOL_HANDLE_LIST.put( Identifier.of( handle.id), handle );
+//            TOOL_HANDLE_CRAFTING_INGREDIENT_LIST.put( Identifier.of( handle.item ), handle );
+//        }
+//    }
 
     public static int count() {
-        return TOOL_HANDLE_LIST_BY_ID.size();
+        return getRegistry().size();
     }
 
     public record Modifier( float factor, ModifierProperty property, Operation operation ) {
@@ -245,9 +260,19 @@ public class ModToolHandle {
 
     public static ModToolHandle getModToolHandle( ItemStack ingredient ) {
         if ( ingredient.isOf( ModItems.TOOL_HANDLE ) ) {
-            return ModToolHandle.TOOL_HANDLE_LIST.get( Identifier.of( ingredient.get(ModComponents.HANDLE_RENDER_COMPONENT).handleId() ) );
+            return getRegistry().get( Identifier.of( ingredient.get(ModComponents.HANDLE_RENDER_COMPONENT).handleId() ) );
         }
-        return ModToolHandle.TOOL_HANDLE_LIST.get( Registries.ITEM.getId( ingredient.getItem() ) );
+        Identifier ingredientId = Registries.ITEM.getId( ingredient.getItem() );
+
+        return ModToolHandle.getRegistry().stream().filter( handle -> handle.getItem().equals( ingredientId )).findAny().orElse( null );
+//        if ( ingredient.isOf( ModItems.TOOL_HANDLE ) ) {
+//            return ModToolHandle.TOOL_HANDLE_LIST.get( Identifier.of( ingredient.get(ModComponents.HANDLE_RENDER_COMPONENT).handleId() ) );
+//        }
+//        return ModToolHandle.TOOL_HANDLE_LIST.get( Registries.ITEM.getId( ingredient.getItem() ) );
+    }
+
+    public static ModToolHandle getByCraftingIngredient( ItemStack ingredient ) {
+        return ModToolHandle.getRegistry().stream().filter( handle -> handle.getTransform().equals( TransformType.CRAFTED ) && handle.getItem().equals( Registries.ITEM.getId( ingredient.getItem() ))).findAny().orElse( null );
     }
 
     public int modifyDurability(int previous) {
@@ -275,7 +300,7 @@ public class ModToolHandle {
     }
 
     public static Collection<ItemStack> getToolHandles() {
-        return TOOL_HANDLE_LIST.values().stream().map(handle ->
+        return getRegistry().stream().map(handle ->
                 handle.transform == TransformType.IDENTITY ?
                         Registries.ITEM.get( handle.getItem() ).getDefaultStack() :
                         DataComponentHelper.addHandleComponents(

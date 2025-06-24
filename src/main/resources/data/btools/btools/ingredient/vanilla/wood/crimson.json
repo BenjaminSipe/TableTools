@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/crimson",
   "path": "btools:item/tool_heads/crimson/crimson_",
-  "material_group": "btools:material/wood",
+  "material_group": "btools:vanilla/wood",
   "material": "minecraft:crimson_planks",
   "source": "CRAFTING"
 }

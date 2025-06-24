@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/cherry",
   "path": "btools:item/tool_heads/cherry/cherry_",
-  "material_group": "btools:material/wood",
+  "material_group": "btools:vanilla/wood",
   "material": "minecraft:cherry_planks",
   "source": "CRAFTING"
 }

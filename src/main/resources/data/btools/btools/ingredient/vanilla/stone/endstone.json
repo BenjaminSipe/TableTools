@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/endstone",
   "path": "btools:item/tool_heads/endstone/endstone_",
-  "material_group": "btools:material/stone",
+  "material_group": "btools:vanilla/stone",
   "material": "minecraft:end_stone",
   "source": "CRAFTING"
 }

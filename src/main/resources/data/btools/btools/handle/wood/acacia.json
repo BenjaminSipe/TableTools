@@ -1,5 +1,5 @@
 {
-  "id": "btools:handle/acacia",
+  "id": "btools:wood/acacia",
   "prefix": "btools:item/acacia_",
   "sprite": "btools:item/acacia_tool_handle",
   "item": "minecraft:acacia_planks",

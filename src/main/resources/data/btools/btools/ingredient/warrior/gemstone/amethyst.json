@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/amethyst",
   "path": "btools:item/tool_heads/amethyst/amethyst_",
-  "material_group": "btools:material/gemstone",
+  "material_group": "btools:warrior/gemstone",
   "material": "minecraft:amethyst_shard",
   "source": "CRAFTING"
 }

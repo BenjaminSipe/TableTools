@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/bamboo",
   "path": "btools:item/tool_heads/bamboo/bamboo_",
-  "material_group": "btools:material/wood",
+  "material_group": "btools:vanilla/wood",
   "material": "minecraft:bamboo_planks",
   "source": "CRAFTING"
 }

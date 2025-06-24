@@ -24,7 +24,6 @@ import org.bsipe.btools.components.HandleItemComponent;
 import java.util.*;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
-import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
 
 
 // OK. . . so there's several things left to do before I'm done with the transfer process.
@@ -142,23 +141,23 @@ public class ModToolIngredient {
     }
 
     public int getDurability() {
-        return MATERIAL_LIST.get( Identifier.of( material_group ) ).durability;
+        return ModToolMaterial.get( Identifier.of( material_group ) ).getDurability();
     }
 
     public TagKey<Block> getInverseTag() {
-        return MATERIAL_LIST.get( Identifier.of( material_group ) ).inverseTag;
+        return ModToolMaterial.get( Identifier.of( material_group ) ).inverseTag;
     }
 
     public float getMiningSpeedMultiplier() {
-        return MATERIAL_LIST.get( Identifier.of( material_group ) ).miningSpeed;
+        return ModToolMaterial.get( Identifier.of( material_group ) ).miningSpeed;
     }
 
     public boolean isFireResistent() {
-        return MATERIAL_LIST.get( Identifier.of( material_group ) ).fireResistent;
+        return ModToolMaterial.get( Identifier.of( material_group ) ).fireResistent;
     }
 
     public float getDamage() {
-        return MATERIAL_LIST.get( Identifier.of( material_group ) ).getDamage();
+        return ModToolMaterial.get( Identifier.of( material_group ) ).getDamage();
     }
 
     public static Ingredient getAllIngredients( ToolSource source ) {
@@ -328,7 +327,7 @@ public class ModToolIngredient {
     public static Collection<ItemStack> getAllToolsForComponent( Item item, ModToolComponent component ) {
         List<ItemStack> list = new ArrayList<>();
         for ( ModToolIngredient i : getRegistry() ) {
-            for ( ModToolHandle handle : ModToolHandle.TOOL_HANDLE_LIST.values()) {
+            for ( ModToolHandle handle : ModToolHandle.getRegistry()) {
                 list.add( DataComponentHelper.addToolComponents( item.getDefaultStack(), i, handle, component ));
             }
         }
@@ -338,7 +337,7 @@ public class ModToolIngredient {
     public static Collection<ItemStack> getOakToolsForComponent( Item item, ModToolComponent component ) {
         List<ItemStack> list = new ArrayList<>();
         for ( ModToolIngredient i : getRegistry() ) {
-                list.add( DataComponentHelper.addToolComponents( item.getDefaultStack(), i, ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( "btools:handle/oak" )), component ));
+                list.add( DataComponentHelper.addToolComponents( item.getDefaultStack(), i, ModToolHandle.getRegistry().get( Identifier.of( "btools:wood/oak" )), component ));
         }
         return list;
     }

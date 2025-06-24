@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/red_soul_shard",
   "path": "btools:item/tool_heads/soul_shard/red_",
-  "material_group": "btools:material/red_soul_shard",
+  "material_group": "btools:unbreakable/red_soul_shard",
   "material": "btools:red_soul_shard",
   "source": "CRAFTING",
   "craftingDetails": {

@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/diorite",
   "path": "btools:item/tool_heads/diorite/diorite_",
-  "material_group": "btools:material/stone",
+  "material_group": "btools:vanilla/stone",
   "material": "minecraft:diorite",
   "source": "CRAFTING"
 }

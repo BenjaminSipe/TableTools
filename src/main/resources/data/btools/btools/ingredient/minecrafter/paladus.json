@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/paladus",
   "path": "btools:item/tool_heads/paladus/",
-  "material_group": "btools:material/paladus",
+  "material_group": "btools:minecrafter/paladus",
   "material": "btools:paladus_ingot",
   "source": "CRAFTING",
   "craftingDetails": {

@@ -47,7 +47,7 @@ public class ForgeInfusionRecipe extends AbstractForgeRecipe {
     public ItemStack craft(ForgeRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = getResult( lookup );
         ModToolIngredient ingredient = ModToolIngredient.get( input.secondary(), ModToolIngredient.ToolSource.ALLOYING );
-        ModToolHandle toolHandle = ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( input.primary().get(ModComponents.TOOL_RENDER_COMPONENT ).handleId() ) );
+        ModToolHandle toolHandle = ModToolHandle.getRegistry().get( Identifier.of( input.primary().get(ModComponents.TOOL_RENDER_COMPONENT ).handleId() ) );
 
         DataComponentHelper.addToolComponents( itemStack, ingredient, toolHandle, component);
 

@@ -64,7 +64,7 @@ public class ModSmithingTransformRecipe implements SmithingRecipe {
     public ItemStack craft(SmithingRecipeInput smithingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = getResult( wrapperLookup );
         ModToolIngredient ingredient = ModToolIngredient.get( smithingRecipeInput.addition(), ModToolIngredient.ToolSource.SMITHING );
-        ModToolHandle toolHandle = ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( smithingRecipeInput.base().get(ModComponents.TOOL_RENDER_COMPONENT ).handleId() ) );
+        ModToolHandle toolHandle = ModToolHandle.getRegistry().get( Identifier.of( smithingRecipeInput.base().get(ModComponents.TOOL_RENDER_COMPONENT ).handleId() ) );
 
         DataComponentHelper.addToolComponents( itemStack, ingredient, toolHandle, component);
 

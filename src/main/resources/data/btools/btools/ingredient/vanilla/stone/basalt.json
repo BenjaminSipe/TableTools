@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/basalt",
   "path": "btools:item/tool_heads/basalt/basalt_",
-  "material_group": "btools:material/stone",
+  "material_group": "btools:vanilla/stone",
   "material": "minecraft:basalt",
   "source": "CRAFTING"
 }

@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/jungle",
   "path": "btools:item/tool_heads/jungle/jungle_",
-  "material_group": "btools:material/wood",
+  "material_group": "btools:vanilla/wood",
   "material": "minecraft:jungle_planks",
   "source": "CRAFTING"
 }

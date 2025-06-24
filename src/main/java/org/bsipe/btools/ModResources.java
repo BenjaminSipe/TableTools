@@ -33,28 +33,28 @@ public class ModResources {
 
     public static final RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Identifier.of( MOD_ID, "table_tools_creative_tab"));
 
-    public static void reloadMaterials( ResourceManager manager ) {
-        ModToolMaterial.clearList();
-
-        for(Identifier id : manager.findResources("btools/material", path -> path.getPath().endsWith("json")).keySet()) {
-//            Resource resource = manager.getResource(id).get().getInputStream().;
-
-
-            try(BufferedReader reader = manager.getResource(id).get().getReader()) {
-
-                ModToolMaterial.addEntry( ModToolMaterial.CODEC.parse(JsonOps.INSTANCE, JsonParser.parseReader( reader ) ).getOrThrow() );
-//                ModToolMaterial.addEntry( new ModToolMaterial( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolMaterial.Material.class ) ) );
-            } catch(Exception e) {
-                LOGGER.error( "Error has occurred loading " + id + ",", e );
-            }
-//            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
-//                ModToolMaterial.addEntry( new ModToolMaterial( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolMaterial.Material.class ) ) );
+//    public static void reloadMaterials( ResourceManager manager ) {
+//        ModToolMaterial.clearList();
+//
+//        for(Identifier id : manager.findResources("btools/material", path -> path.getPath().endsWith("json")).keySet()) {
+////            Resource resource = manager.getResource(id).get().getInputStream().;
+//
+//
+//            try(BufferedReader reader = manager.getResource(id).get().getReader()) {
+//
+//                ModToolMaterial.addEntry( ModToolMaterial.CODEC.parse(JsonOps.INSTANCE, JsonParser.parseReader( reader ) ).getOrThrow() );
+////                ModToolMaterial.addEntry( new ModToolMaterial( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolMaterial.Material.class ) ) );
 //            } catch(Exception e) {
 //                LOGGER.error( "Error has occurred loading " + id + ",", e );
 //            }
-        }
-        LOGGER.info( "Loaded {} materials", ModToolMaterial.getCount() );
-    }
+////            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
+////                ModToolMaterial.addEntry( new ModToolMaterial( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolMaterial.Material.class ) ) );
+////            } catch(Exception e) {
+////                LOGGER.error( "Error has occurred loading " + id + ",", e );
+////            }
+//        }
+//        LOGGER.info( "Loaded {} materials", ModToolMaterial.getCount() );
+//    }
 
 //    public static void reloadIngredients( ResourceManager manager ) {
 //        ModToolIngredient.clearList();
@@ -73,21 +73,21 @@ public class ModResources {
 //        LOGGER.info( "Loaded {} ingredients", ModToolIngredient.getCount() );
 //    }
 
-    public static void reloadHandles( ResourceManager manager ) {
-        for(Identifier id : manager.findResources("btools/handle", path -> path.getPath().endsWith("json")).keySet()) {
-            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
-                ModToolHandle handle =  new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolHandle.class );
-                if ( handle.validate() ) {
-                    ModToolHandle.addEntry( handle );
-                } else {
-                    LOGGER.error( "Validation error following parsing handle {}.", id.toString());
-                }
-            } catch(Exception e) {
-                LOGGER.error( "An exception has occurred,", e );
-            }
-        }
-        LOGGER.info( "Loaded {} handles", ModToolHandle.count() );
-    }
+//    public static void reloadHandles( ResourceManager manager ) {
+//        for(Identifier id : manager.findResources("btools/handle", path -> path.getPath().endsWith("json")).keySet()) {
+//            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
+//                ModToolHandle handle =  new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolHandle.class );
+//                if ( handle.validate() ) {
+//                    ModToolHandle.addEntry( handle );
+//                } else {
+//                    LOGGER.error( "Validation error following parsing handle {}.", id.toString());
+//                }
+//            } catch(Exception e) {
+//                LOGGER.error( "An exception has occurred,", e );
+//            }
+//        }
+//        LOGGER.info( "Loaded {} handles", ModToolHandle.count() );
+//    }
 
     public static void addToolsToCreativeTab() {
 
@@ -110,9 +110,9 @@ public class ModResources {
 
                     @Override
                     public void reload(ResourceManager manager) {
-                        reloadMaterials( manager );
+//                        reloadMaterials( manager );
 //                        reloadIngredients( manager );
-                        reloadHandles( manager );
+//                        reloadHandles( manager );
 
                         addToolsToCreativeTab();
                     }

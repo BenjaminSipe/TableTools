@@ -20,9 +20,10 @@ import org.bsipe.btools.components.ToolItemComponent;
 
 import java.util.List;
 
+import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 import static org.bsipe.btools.ModItems.*;
 import static org.bsipe.btools.data.ModToolComponent.*;
-import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
+
 
 public class DataComponentHelper {
 
@@ -36,7 +37,8 @@ public class DataComponentHelper {
 
     public static ToolItemComponent getToolRenderComponent(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
 
-        String material = MATERIAL_LIST.get( Identifier.of( modToolIngredient.getMaterialGroup() ) ).getId().toString();
+        LOGGER.error( modToolIngredient.getMaterialGroup() );
+        String material = ModToolMaterial.get( Identifier.of( modToolIngredient.getMaterialGroup() ) ).getId().toString();
 
         return new ToolItemComponent(material, toolHandle.getId().toString());
     }
@@ -107,7 +109,7 @@ public class DataComponentHelper {
 
     public static ModToolMaterial getMaterial( ItemStack item ) {
         if ( item.get( ModComponents.TOOL_RENDER_COMPONENT) == null ) return null;
-        return ModToolMaterial.MATERIAL_LIST.get( Identifier.of(item.get(ModComponents.TOOL_RENDER_COMPONENT).material()));
+        return ModToolMaterial.get( Identifier.of(item.get(ModComponents.TOOL_RENDER_COMPONENT).material()));
     }
 
     public static boolean isBetterTool( ItemStack itemStack ) {

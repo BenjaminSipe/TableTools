@@ -1,5 +1,5 @@
 {
-  "id": "btools:handle/dark_oak",
+  "id": "btools:wood/dark_oak",
   "prefix": "btools:item/dark_oak_",
   "sprite": "btools:item/dark_oak_tool_handle",
   "item": "minecraft:dark_oak_planks",

@@ -1,5 +1,5 @@
 {
-  "id": "btools:handle/cherry",
+  "id": "btools:wood/cherry",
   "prefix": "btools:item/cherry_",
   "sprite": "btools:item/cherry_tool_handle",
   "item": "minecraft:cherry_planks",

@@ -1,5 +1,5 @@
 {
-  "id": "btools:handle/birch",
+  "id": "btools:wood/birch",
   "prefix": "btools:item/birch_",
   "sprite": "btools:item/birch_tool_handle",
   "item": "minecraft:birch_planks",

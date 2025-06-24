@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/flint",
   "path": "btools:item/tool_heads/flint/flint_",
-  "material_group": "btools:material/soft_stone",
+  "material_group": "btools:vanilla/soft_stone",
   "material": "minecraft:flint",
   "source": "CRAFTING"
 }

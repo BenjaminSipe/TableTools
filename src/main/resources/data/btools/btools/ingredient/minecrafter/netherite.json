@@ -1,10 +1,10 @@
 {
   "id": "btools:ingredient/netherite",
   "path": "btools:item/tool_heads/netherite/netherite_",
-  "material_group": "btools:material/netherite",
+  "material_group": "btools:minecrafter/netherite",
   "material": "minecraft:netherite_ingot",
   "source": "SMITHING",
   "smithingDetails": {
-    "baseMaterial" : "btools:material/diamond"
+    "baseMaterial" : "btools:diamond"
   }
 }
