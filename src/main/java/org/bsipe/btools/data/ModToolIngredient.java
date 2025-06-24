@@ -1,5 +1,7 @@
 package org.bsipe.btools.data;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,7 +10,9 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.StringIdentifiable;
 import org.bsipe.btools.ModItems;
+import org.bsipe.btools.components.HandleItemComponent;
 
 import java.util.*;
 
@@ -19,16 +23,31 @@ public class ModToolIngredient {
 
     public static Map<Identifier, ModToolIngredient> INGREDIENT_LIST = new HashMap<>();
 
-//    public ModToolIngredient(String id, String path, String material_group, String material, String source, String baseMaterial ) {
-//        this.id = id;
-//        this.material = material;
-//        this.modToolMaterial = MATERIAL_LIST.get( Identifier.of( material_group ) );
-//        this.path = path;
-//        this.source = ToolSource.valueOf( source );
-//        if ( baseMaterial != null )
-//            this.baseMaterial = Identifier.of( baseMaterial );
-//
-//    }
+    public static Codec<ModToolIngredient> CODEC = RecordCodecBuilder.create(
+            instance -> instance.group(
+                    Identifier.CODEC.fieldOf("id").forGetter( ModToolIngredient::getIdentifier ),
+                    Codec.STRING.fieldOf( "path" ).forGetter( ModToolIngredient::getPath ),
+                    Codec.STRING.fieldOf( "material_group" ).forGetter( ModToolIngredient::getMaterialGroup ),
+                    Codec.STRING.fieldOf( "material" ).forGetter( ModToolIngredient::getMaterial ),
+                    ToolSource.CODEC.fieldOf( "source" ).forGetter( ModToolIngredient::getSource ),
+                    Smithing.CODEC.optionalFieldOf( "smithingDetails", new Smithing( "" ) ).forGetter( ModToolIngredient::getSmithingDetails ),
+                    Alloying.CODEC.optionalFieldOf( "alloyingDetails", new Alloying( 0, 0, 0, "" ) ).forGetter( ModToolIngredient::getAlloyingDetails )
+            ).apply( instance, ModToolIngredient::new ));
+
+    public ModToolIngredient(Identifier id, String path, String material_group, String material, ToolSource source, Smithing smithingDetails, Alloying alloyingDetails ) {
+        this.id = id.toString();
+        this.path = path;
+        this.material_group = material_group;
+        this.material = material;
+        this.source = source;
+        this.craftingDetails = null;
+        this.smithingDetails = null;
+        this.alloyingDetails = null;
+        if ( this.source == ToolSource.SMITHING ) this.smithingDetails  = smithingDetails;
+        if ( this.source == ToolSource.ALLOYING ) this.alloyingDetails = alloyingDetails;
+    }
+
+
 
     String id;
     String path;
@@ -46,6 +65,14 @@ public class ModToolIngredient {
     public String getId() {
         return id.toString();
     }
+
+    public Identifier getIdentifier() { return Identifier.of( id ); }
+    public String getPath() { return path; }
+    public String getMaterial() { return material; }
+    public ToolSource getSource() { return source; }
+    public Crafting getCraftingDetails() { return craftingDetails; }
+    public Smithing getSmithingDetails() { return smithingDetails; }
+    public Alloying getAlloyingDetails() { return alloyingDetails; }
 
     public static void clearList() {
         INGREDIENT_LIST = new HashMap<>();
@@ -136,10 +163,17 @@ public class ModToolIngredient {
         return alloyingDetails.experience();
     }
 
-    public enum ToolSource {
+    public enum ToolSource implements StringIdentifiable {
         CRAFTING,
         SMITHING,
         ALLOYING;
+
+        public static Codec<ToolSource> CODEC = StringIdentifiable.createCodec( () -> values() );
+
+        @Override
+        public String asString() {
+            return name();
+        }
     }
 
     public boolean validate() {
@@ -188,11 +222,29 @@ public class ModToolIngredient {
 
     record Crafting() {};
     record Smithing(String baseMaterial) {
+
+        public static Codec<Smithing> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(
+                        Codec.STRING.fieldOf( "baseMaterial" ).forGetter( Smithing::baseMaterial )
+                ).apply( instance, Smithing::new )
+        );
+
         public boolean validate() {
             return baseMaterial != null;
         }
     };
     record Alloying(float experience, int cookingTime, int count, String baseMaterial) {
+
+        public static Codec<Alloying> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(
+                        Codec.FLOAT.fieldOf( "experience" ).forGetter( Alloying::experience ),
+                        Codec.INT.fieldOf( "cookingTime" ).forGetter( Alloying::cookingTime ),
+                        Codec.INT.fieldOf( "count" ).forGetter( Alloying::count ),
+                        Codec.STRING.fieldOf( "baseMaterial" ).forGetter( Alloying::baseMaterial )
+                ).apply( instance, Alloying::new )
+        );
+
+
         public boolean validate() {
             boolean isValid = true;
             if ( baseMaterial == null ) {

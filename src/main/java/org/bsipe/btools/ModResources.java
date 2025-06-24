@@ -1,6 +1,10 @@
 package org.bsipe.btools;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -9,6 +13,7 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
@@ -16,6 +21,7 @@ import org.bsipe.btools.data.ModToolHandle;
 import org.bsipe.btools.data.ModToolIngredient;
 import org.bsipe.btools.data.ModToolMaterial;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -29,12 +35,23 @@ public class ModResources {
 
     public static void reloadMaterials( ResourceManager manager ) {
         ModToolMaterial.clearList();
+
         for(Identifier id : manager.findResources("btools/material", path -> path.getPath().endsWith("json")).keySet()) {
-            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
-                ModToolMaterial.addEntry( new ModToolMaterial( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolMaterial.Material.class ) ) );
+//            Resource resource = manager.getResource(id).get().getInputStream().;
+
+
+            try(BufferedReader reader = manager.getResource(id).get().getReader()) {
+
+                ModToolMaterial.addEntry( ModToolMaterial.CODEC.parse(JsonOps.INSTANCE, JsonParser.parseReader( reader ) ).getOrThrow() );
+//                ModToolMaterial.addEntry( new ModToolMaterial( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolMaterial.Material.class ) ) );
             } catch(Exception e) {
                 LOGGER.error( "Error has occurred loading " + id + ",", e );
             }
+//            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
+//                ModToolMaterial.addEntry( new ModToolMaterial( new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolMaterial.Material.class ) ) );
+//            } catch(Exception e) {
+//                LOGGER.error( "Error has occurred loading " + id + ",", e );
+//            }
         }
         LOGGER.info( "Loaded {} materials", ModToolMaterial.getCount() );
     }

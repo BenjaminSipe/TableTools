@@ -1,10 +1,13 @@
 package org.bsipe.btools.data;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.StringIdentifiable;
 import org.bsipe.btools.ModBlockTags;
 
 import java.util.HashMap;
@@ -12,18 +15,29 @@ import java.util.Map;
 
 public class ModToolMaterial {
 
-    public ModToolMaterial(String id, int durability, float mining_speed, String mining_level, boolean fireResistent, float damage ) {
-        this.id = Identifier.of ( id );
+    public static Codec<ModToolMaterial> CODEC = RecordCodecBuilder.create( instance -> instance.group(
+            Identifier.CODEC.fieldOf( "id" ).forGetter( ModToolMaterial::getId ),
+            Codec.INT.fieldOf( "durability" ).forGetter( ModToolMaterial::getDurability ),
+            Codec.FLOAT.fieldOf( "miningSpeed" ).forGetter( ModToolMaterial::getMiningSpeed ),
+            MiningLevel.CODEC.fieldOf( "miningLevel" ).forGetter( ModToolMaterial::getMiningLevel ),
+            Codec.FLOAT.fieldOf( "damage" ).forGetter( ModToolMaterial::getDamage ),
+            Codec.BOOL.optionalFieldOf( "fireResistent", false ).forGetter( ModToolMaterial::isFireResistent )
+
+
+            ).apply( instance, ModToolMaterial::new ));
+
+    public ModToolMaterial(Identifier id, int durability, float mining_speed, MiningLevel miningLevel,  float damage, boolean fireResistent ) {
+        this.id = id;
         this.durability = durability;
         this.miningSpeed = mining_speed;
-        this.inverseTag = MiningLevel.valueOf( mining_level ).inverseTag;
+        this.inverseTag = miningLevel.inverseTag;
         this.fireResistent = fireResistent;
         this.damage = damage;
     }
 
-    public ModToolMaterial( ModToolMaterial.Material material ) {
-        this(material.id, material.durability, material.mining_speed, material.mining_level, material.fire_resistant, material.damage);
-    }
+//    public ModToolMaterial( ModToolMaterial.Material material ) {
+//        this(material.id, material.durability, material.mining_speed, material.mining_level, material.fire_resistant, material.damage);
+//    }
 
     Identifier id;
     int durability;
@@ -31,6 +45,8 @@ public class ModToolMaterial {
     TagKey<Block> inverseTag;
     boolean fireResistent;
     float damage;
+    MiningLevel miningLevel;
+
 
     public static Map<Identifier, ModToolMaterial> MATERIAL_LIST = new HashMap<>();
 
@@ -42,7 +58,7 @@ public class ModToolMaterial {
         MATERIAL_LIST.put( modToolMaterial.id, modToolMaterial);
     }
 
-    private enum MiningLevel {
+    private enum MiningLevel implements StringIdentifiable {
         WOOD(BlockTags.INCORRECT_FOR_WOODEN_TOOL),
         STONE(BlockTags.INCORRECT_FOR_STONE_TOOL),
         IRON(BlockTags.INCORRECT_FOR_IRON_TOOL),
@@ -53,11 +69,19 @@ public class ModToolMaterial {
 
         ;
 
+        public static final Codec<MiningLevel> CODEC = StringIdentifiable.createCodec( () -> values() );
+
         TagKey<Block> inverseTag;
 
         MiningLevel(TagKey<Block> inverseTag) {
             this.inverseTag = inverseTag;
         }
+
+        @Override
+        public String asString() {
+            return this.name();
+        }
+
     }
 
     public static int getCount() {
@@ -70,6 +94,9 @@ public class ModToolMaterial {
 
     public float getDamage() { return damage; }
     public float getMiningSpeed() { return miningSpeed; }
+    public int getDurability() { return durability; }
+    public MiningLevel getMiningLevel() { return miningLevel; }
+    public boolean isFireResistent() { return fireResistent; }
 
-    public record Material(String id, int durability, float mining_speed, String mining_level, boolean fire_resistant, float damage ) {}
+    // public record Material(String id, int durability, float mining_speed, String mining_level, boolean fire_resistant, float damage ) {}
 }

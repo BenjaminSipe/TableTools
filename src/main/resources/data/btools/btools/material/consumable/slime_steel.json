@@ -1,7 +1,7 @@
 {
   "id" : "btools:material/slime_steel",
   "durability": 550,
-  "mining_speed": 10.0,
-  "mining_level": "IRON",
+  "miningSpeed": 10.0,
+  "miningLevel": "IRON",
   "damage": 6
 }

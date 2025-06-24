@@ -1,4 +1,4 @@
-package org.bsipe.btools.codecs;
+package org.bsipe.btools.components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

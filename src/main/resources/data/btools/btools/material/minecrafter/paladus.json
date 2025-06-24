@@ -1,8 +1,8 @@
 {
   "id" : "btools:material/paladus",
   "durability": 3131,
-  "mining_speed": 11.0,
-  "mining_level": "PALADUS",
-  "fire_resistant": true,
+  "miningSpeed": 11.0,
+  "miningLevel": "PALADUS",
+  "fireResistant": true,
   "damage": 10
 }

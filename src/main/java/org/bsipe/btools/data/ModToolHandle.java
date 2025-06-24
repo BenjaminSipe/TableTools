@@ -1,24 +1,52 @@
 package org.bsipe.btools.data;
 
-import net.minecraft.component.DataComponentTypes;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.StringIdentifiable;
 import org.bsipe.btools.ModComponents;
 import org.bsipe.btools.ModItems;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 
 public class ModToolHandle {
 
+    // note to self, optional codecs don't accept a "null" default value.
+    // Not sure how to allow that, so for now, just avoid.
+    public static Codec<ModToolHandle> CODEC = RecordCodecBuilder.create( instance -> instance.group(
+            Identifier.CODEC.fieldOf( "id" ).forGetter( ModToolHandle::getId ),
+            Codec.STRING.fieldOf( "prefix" ).forGetter( ModToolHandle::getPrefix ),
+            Codec.STRING.optionalFieldOf( "sprite", "" ).forGetter( ModToolHandle::getSprite ),
+            Identifier.CODEC.fieldOf( "item" ).forGetter( ModToolHandle::getItem ),
+            TransformType.CODEC.fieldOf( "transform" ).forGetter( ModToolHandle::getTransform ),
+            Modifier.CODEC.listOf().optionalFieldOf( "modifiers", List.of() ).forGetter( ModToolHandle::getModifiers )
+            ).apply( instance, ModToolHandle::new )
+    );
+
+    public ModToolHandle(
+            Identifier id,
+            String prefix,
+            String sprite,
+            Identifier item,
+            TransformType transform,
+            List<Modifier> modifiers ) {
+        this.id = id.toString();
+        this.prefix = prefix;
+        this.sprite = sprite;
+        this.item = item.toString();
+        this.transform = transform;
+        this.modifiers = null;
+    }
+
+    public TransformType getTransform() {
+        return transform;
+    }
 
     // breakdown of how this works. . . there are essentially two different models.
     /*
@@ -54,8 +82,8 @@ public class ModToolHandle {
     public static Map<Identifier, ModToolHandle> TOOL_HANDLE_CRAFTING_INGREDIENT_LIST = new HashMap<>();
 
     // RAW PROPERTIES, GSON MAPS to THESE
-    private String id;
-    private String prefix;
+    private String id; // Identifier
+    private String prefix; //
     private String item;
     private String sprite;
     private TransformType transform;
@@ -78,10 +106,16 @@ public class ModToolHandle {
         return TOOL_HANDLE_LIST_BY_ID.size();
     }
 
-    public class Modifier {
-        private float factor;
-        private ModifierProperty property;
-        private Operation operation;
+    public record Modifier( float factor, ModifierProperty property, Operation operation ) {
+
+        public static Codec<Modifier> CODEC = RecordCodecBuilder.create( instance -> instance
+                .group(
+                        Codec.FLOAT.fieldOf( "factor").forGetter( Modifier::factor ),
+                        ModifierProperty.CODEC.fieldOf( "property" ).forGetter( Modifier::property ),
+                        Operation.CODEC.fieldOf( "operation" ).forGetter( Modifier::operation )
+
+                ).apply( instance, Modifier::new ));
+
 
         public boolean validate() {
             boolean isValid = true;
@@ -100,8 +134,14 @@ public class ModToolHandle {
             return isValid;
         }
 
-        private enum Operation {
+        private enum Operation implements StringIdentifiable {
             MULTIPLY, ADD;
+            public static final Codec<ModToolHandle.Modifier.Operation> CODEC = StringIdentifiable.createCodec( () -> values() );
+
+            @Override
+            public String asString() {
+                return this.name();
+            }
         }
 
         public float addModifier(float previous) {
@@ -111,17 +151,29 @@ public class ModToolHandle {
             };
         }
 
-        public ModifierProperty getProperty() {
-            return property;
-        }
     }
 
-    private enum ModifierProperty {
+    private enum ModifierProperty implements StringIdentifiable {
         DURABILITY, DAMAGE, MINING_SPEED;
+
+        public static final Codec<ModToolHandle.ModifierProperty> CODEC = StringIdentifiable.createCodec( () -> values() );
+
+        @Override
+        public String asString() {
+            return this.name();
+        }
+
     }
 
-    private enum TransformType {
+    private enum TransformType implements StringIdentifiable {
         IDENTITY, CRAFTED;
+
+        public static final Codec<ModToolHandle.TransformType> CODEC = StringIdentifiable.createCodec( () -> values() );
+
+        @Override
+        public String asString() {
+            return this.name();
+        }
     }
 
 
@@ -170,12 +222,12 @@ public class ModToolHandle {
         return prefix;
     }
 
-    public Modifier[] getModifiers() {
-        return modifiers;
+    public List<Modifier> getModifiers() {
+        return List.of( modifiers );
     }
 
     public String getSprite() {
-        return ( sprite != null ) ? sprite : prefix + ModToolComponent.BASIC_HANDLE.getSuffix();
+        return ( sprite != null && ! "".equals( sprite ) ) ? sprite : prefix + ModToolComponent.BASIC_HANDLE.getSuffix();
     }
 
     public String getHandleSprite(ModToolComponent c) {
@@ -215,7 +267,7 @@ public class ModToolHandle {
     public float applyModifier(float previous, ModifierProperty property ) {
         if ( modifiers == null || modifiers.length == 0 ) return previous;
         for ( Modifier modifier : modifiers ) {
-            if (modifier.getProperty() == property ) {
+            if (modifier.property() == property ) {
                 return modifier.addModifier( previous );
             }
         }

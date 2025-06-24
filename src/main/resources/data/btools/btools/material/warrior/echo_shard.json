@@ -1,7 +1,7 @@
 {
   "id" : "btools:material/echo_shard",
   "durability": 670,
-  "mining_speed": 8.0,
-  "mining_level": "DIAMOND",
+  "miningSpeed": 8.0,
+  "miningLevel": "DIAMOND",
   "damage": 9
 }

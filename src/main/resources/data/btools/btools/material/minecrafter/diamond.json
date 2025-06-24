@@ -1,7 +1,7 @@
 {
   "id" : "btools:material/diamond",
   "durability": 1561,
-  "mining_speed": 8.0,
-  "mining_level": "DIAMOND",
+  "miningSpeed": 8.0,
+  "miningLevel": "DIAMOND",
   "damage": 7
 }

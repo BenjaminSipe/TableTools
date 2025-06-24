@@ -1,5 +1,6 @@
 package org.bsipe.btools.data;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.block.Block;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.network.RegistryByteBuf;
@@ -11,6 +12,7 @@ import org.bsipe.btools.recipes.ForgeInfusionRecipe;
 
 public enum ModToolComponent implements StringIdentifiable {
 
+    // TODO: This should probably also be data driven.
     BASIC_HANDLE( "tool_handle" ),
     SHOVEL_HANDLE( "shovel_handle" ),
     SWORD_HILT( "sword_handle" ),
@@ -39,7 +41,7 @@ public enum ModToolComponent implements StringIdentifiable {
     public double getAttackSpeed() { return (double) attackSpeed; }
     @Override public String asString() { return name(); }
 
-    public static final StringIdentifiable.EnumCodec<ModToolComponent> CODEC = StringIdentifiable.createCodec(() -> ModToolComponent.values());
+    public static final Codec<ModToolComponent> CODEC = StringIdentifiable.createCodec(() -> ModToolComponent.values());
 
     public static float getBaseDamage( ModToolComponent component ) {
         if ( component.equals( HOE_HEAD ) || component.equals( PICKAXE_HEAD )) return 0;

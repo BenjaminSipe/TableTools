@@ -14,9 +14,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
 import org.bsipe.btools.ModComponents;
-import org.bsipe.btools.codecs.HandleItemComponent;
-import org.bsipe.btools.codecs.RenderComponent;
-import org.bsipe.btools.codecs.ToolItemComponent;
+import org.bsipe.btools.components.HandleItemComponent;
+import org.bsipe.btools.components.RenderComponent;
+import org.bsipe.btools.components.ToolItemComponent;
 
 import java.util.List;
 
@@ -27,6 +27,7 @@ import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
 public class DataComponentHelper {
 
     public static RenderComponent getRendercomponent(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component  ) {
+
         String layer1 = modToolIngredient.path + component.suffix;
         String layer0 = toolHandle.getHandleSprite( component.handleReference );
 

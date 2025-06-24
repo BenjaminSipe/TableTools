@@ -1,7 +1,7 @@
 {
   "id" : "btools:material/nether_star",
   "durability": 1596,
-  "mining_speed": 10.0,
-  "mining_level": "NETHERITE",
+  "miningSpeed": 10.0,
+  "miningLevel": "NETHERITE",
   "damage": 13
 }

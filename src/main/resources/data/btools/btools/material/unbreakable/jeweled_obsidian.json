@@ -1,7 +1,7 @@
 {
   "id" : "btools:material/jeweled_obsidian",
   "durability": 3062,
-  "mining_speed": 7.0,
-  "mining_level": "DIAMOND",
+  "miningSpeed": 7.0,
+  "miningLevel": "DIAMOND",
   "damage": 7
 }

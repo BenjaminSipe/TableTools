@@ -4,9 +4,9 @@ import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import org.bsipe.btools.codecs.HandleItemComponent;
-import org.bsipe.btools.codecs.RenderComponent;
-import org.bsipe.btools.codecs.ToolItemComponent;
+import org.bsipe.btools.components.HandleItemComponent;
+import org.bsipe.btools.components.RenderComponent;
+import org.bsipe.btools.components.ToolItemComponent;
 
 public class ModComponents {
     public static final ComponentType<ToolItemComponent> TOOL_RENDER_COMPONENT = Registry.register(

@@ -3,17 +3,19 @@ package org.bsipe.btools.ModelLoading;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.*;
 import net.minecraft.client.render.model.json.*;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import org.bsipe.btools.ModComponents;
-import org.bsipe.btools.codecs.RenderComponent;
+import org.bsipe.btools.components.RenderComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.StringReader;
@@ -84,6 +86,8 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
+
+
         RenderComponent data = stack.get( ModComponents.RENDER_COMPONENT );
         if ( data == null ) {
             bakedModel.emitItemQuads( stack, randomSupplier, context);

@@ -1,4 +1,55 @@
-Last Modified: 6/11/2025
+Last Modified: 6/12/2025
+
+I had an idea.
+
+What if tool bindings affected the potency of enchantments?
+
+To realize that idea, I need a concept for enchantments, so here goes.
+
+
+## enchantment system concept v1
+
+The first thing to note, is my intention is to have a different form of some advancements.
+And part of this is going to be standardizing the system to something clear and obvious.
+
+Ok. Let's think about vanilla:
+Unbreaking random percentage based; 3 levels.
+Efficiency: Who knows how it works, 5 levels
+Siltouch
+Fortune
+
+All enchantments:
+
+Unbreaking
+Mending,
+
+Tool Enchantments:
+Efficiency
+Fortune
+Silk Touch
+
+Weapon Enchantments:
+Sweeping Edge,
+Sharpness
+Bane of Arthropods, 
+Smite,
+Knockback
+Fire Aspect
+Looting
+Power
+Punch
+Infinity
+
+I'm not doing anything with Bows at the moment, so lets leave them out.
+
+Next, I want to simplify swords. 
+
+V1 should only have the simplest enchantments.
+
+In fact, v1 will only have tool enchantments. 
+
+
+-----------------------------------------------
 
 Well, that's kindof a sad update. 
 

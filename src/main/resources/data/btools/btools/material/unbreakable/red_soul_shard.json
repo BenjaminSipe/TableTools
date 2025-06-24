@@ -1,8 +1,8 @@
 {
   "id" : "btools:material/red_soul_shard",
   "durability": 8032,
-  "mining_speed": 9.0,
-  "mining_level": "NETHERITE",
+  "miningSpeed": 9.0,
+  "miningLevel": "NETHERITE",
   "damage": 8,
-  "fire_resistant": true
+  "fireResistant": true
 }

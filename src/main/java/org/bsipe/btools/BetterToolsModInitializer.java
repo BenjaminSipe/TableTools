@@ -38,5 +38,6 @@ public class BetterToolsModInitializer implements ModInitializer {
 		BiomeModificationInit.load();
 		ModItemGroups.initialize();
 		ModComponents.initialize();
+		ModRegistries.initialize();
 	}
 }

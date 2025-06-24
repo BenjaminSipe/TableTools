@@ -10,9 +10,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 import org.bsipe.btools.ModItems;
+import org.bsipe.btools.ModRegistries;
 import org.bsipe.btools.data.DataComponentHelper;
 import org.bsipe.btools.data.ModToolHandle;
 
+import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 import static org.bsipe.btools.data.ModToolHandle.TOOL_HANDLE_CRAFTING_INGREDIENT_LIST;
 
 public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
@@ -22,6 +24,8 @@ public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
 
     @Override
     public boolean matches(CraftingRecipeInput input, World world) {
+
+        world.getRegistryManager().get(ModRegistries.INGREDIENT_REGISTRY ).getIds().stream().forEach( ( i ) -> LOGGER.info ( i.toString() ) );
 
         if ( input.isEmpty() || input.getStackCount() != 2 || ! fits( input.getWidth(), input.getHeight() ) ) return false;
 

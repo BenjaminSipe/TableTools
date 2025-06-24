@@ -4,7 +4,7 @@
   "sprite": "btools:item/mangrove_tool_handle",
   "item": "minecraft:mangrove_planks",
   "transform": "CRAFTED",
-  "mangrove": [
+  "modifiers": [
     {
       "property": "DURABILITY",
       "factor": 1.2,
