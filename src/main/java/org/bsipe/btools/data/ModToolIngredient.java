@@ -1,17 +1,24 @@
 package org.bsipe.btools.data;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
+import net.minecraft.world.World;
 import org.bsipe.btools.ModItems;
+import org.bsipe.btools.ModRegistries;
 import org.bsipe.btools.components.HandleItemComponent;
 
 import java.util.*;
@@ -19,9 +26,26 @@ import java.util.*;
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 import static org.bsipe.btools.data.ModToolMaterial.MATERIAL_LIST;
 
+
+// OK. . . so there's several things left to do before I'm done with the transfer process.
+// Primarily, I'm not actually using these registries yet. Only the hash map.
+
+// probably making a utility class or something is the way to go. . . maybe.
+// maybe not.
+
+
 public class ModToolIngredient {
 
-    public static Map<Identifier, ModToolIngredient> INGREDIENT_LIST = new HashMap<>();
+
+    public static DynamicRegistryManager getManager() {
+        return MinecraftClient.getInstance().world.getRegistryManager();
+    }
+
+    public static Registry<ModToolIngredient> getRegistry() {
+        return getManager().get( ModRegistries.INGREDIENT_REGISTRY );
+    }
+
+//    public static Map<Identifier, ModToolIngredient> INGREDIENT_LIST = new HashMap<>();
 
     public static Codec<ModToolIngredient> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
@@ -70,35 +94,43 @@ public class ModToolIngredient {
     public String getPath() { return path; }
     public String getMaterial() { return material; }
     public ToolSource getSource() { return source; }
-    public Crafting getCraftingDetails() { return craftingDetails; }
+    public Crafting getCraftingDetails() { return craftingDetails; } // There are no crafting details at the moment, eventually I may have advancement data here.
     public Smithing getSmithingDetails() { return smithingDetails; }
     public Alloying getAlloyingDetails() { return alloyingDetails; }
 
-    public static void clearList() {
-        INGREDIENT_LIST = new HashMap<>();
-    }
+//    public static void clearList() {
+//        INGREDIENT_LIST = new HashMap<>();
+//    }
 
-    public static void addEntry( ModToolIngredient modToolIngredient) {
-        INGREDIENT_LIST.put( Identifier.of(modToolIngredient.material), modToolIngredient);
-    }
+//    public static void addEntry( ModToolIngredient modToolIngredient) {
+//        INGREDIENT_LIST.put( Identifier.of(modToolIngredient.material), modToolIngredient);
+//    }
 
     public static int getCount() {
-        return INGREDIENT_LIST.size();
+        return getRegistry().size();
+//        return INGREDIENT_LIST.size();
     }
 
-    public static String getSprite( ItemStack item ) {
-        ModToolIngredient i = INGREDIENT_LIST.get( Registries.ITEM.getId( item.getItem() ) );
-        if ( i == null ) return "";
-        return i.path;
+
+    public static Optional<ModToolIngredient> get(ItemStack item ) {
+        return getRegistry()
+                .stream()
+                .filter( ingredient -> Identifier.of(  ingredient.getMaterial() ).equals( Registries.ITEM.getId( item.getItem() ) ) )
+                .findAny();
     }
 
-    public static ModToolIngredient get( ItemStack item ) {
-        return INGREDIENT_LIST.get( Registries.ITEM.getId( item.getItem() ) );
+    public static String getSprite( ItemStack item, DynamicRegistryManager manager ) {
+        Optional<ModToolIngredient> result = get( item );
+        return result.isEmpty() ? "" : result.get().getPath();
+//        ModToolIngredient i = INGREDIENT_LIST.get( Registries.ITEM.getId( item.getItem() ) );
+//        if ( i == null ) return "";
+//        return i.path;
     }
 
-    public static ModToolIngredient get( ItemStack item, ToolSource source ) {
-        ModToolIngredient i = get( item );
-        return i == null || ! i.source.equals( source ) ? null : i;
+    public static ModToolIngredient get( ItemStack item, ToolSource source) {
+        LOGGER.error( item.toString(), source.toString() );
+        Optional<ModToolIngredient> ingredient = get( item );
+        return ingredient.isEmpty() || ! ingredient.get().getSource().equals( source ) ? null : ingredient.get();
     }
 
     public Ingredient getIngredient() {
@@ -130,12 +162,17 @@ public class ModToolIngredient {
     }
 
     public static Ingredient getAllIngredients( ToolSource source ) {
-        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.source.equals( source ) ).map( id -> Registries.ITEM.get(Identifier.of(id.material)).getDefaultStack() ) );
+        return Ingredient.ofStacks(
+                getRegistry()
+                        .stream()
+                        .filter( ingredient -> ingredient.getSource().equals( source ) )
+                        .map( ingredient -> Registries.ITEM.get( Identifier.of( ingredient.getMaterial())).getDefaultStack()));
+//        return Ingredient.ofStacks( INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.source.equals( source ) ).map( id -> Registries.ITEM.get(Identifier.of(id.material)).getDefaultStack() ) );
     }
 
     public static Ingredient getIngredientsForBaseMaterial( ModToolMaterial materialGroup ) {
         if ( materialGroup == null ) return Ingredient.EMPTY;
-        List<ModToolIngredient> ingredients = INGREDIENT_LIST.values().stream().filter( ingredient -> ingredient.getMaterialGroup().equals( materialGroup.getId().toString() ) ).toList();
+        List<ModToolIngredient> ingredients = getRegistry().stream().filter( ingredient -> ingredient.getMaterialGroup().equals( materialGroup.getId().toString() ) ).toList();
         if ( ingredients.size() == 0 ) return Ingredient.EMPTY;
         return Ingredient.ofStacks( ingredients.stream().map( ingredient -> Registries.ITEM.get(Identifier.of(ingredient.material)).getDefaultStack() ));
     }
@@ -290,7 +327,7 @@ public class ModToolIngredient {
 
     public static Collection<ItemStack> getAllToolsForComponent( Item item, ModToolComponent component ) {
         List<ItemStack> list = new ArrayList<>();
-        for ( ModToolIngredient i : INGREDIENT_LIST.values() ) {
+        for ( ModToolIngredient i : getRegistry() ) {
             for ( ModToolHandle handle : ModToolHandle.TOOL_HANDLE_LIST.values()) {
                 list.add( DataComponentHelper.addToolComponents( item.getDefaultStack(), i, handle, component ));
             }
@@ -300,7 +337,7 @@ public class ModToolIngredient {
 
     public static Collection<ItemStack> getOakToolsForComponent( Item item, ModToolComponent component ) {
         List<ItemStack> list = new ArrayList<>();
-        for ( ModToolIngredient i : INGREDIENT_LIST.values() ) {
+        for ( ModToolIngredient i : getRegistry() ) {
                 list.add( DataComponentHelper.addToolComponents( item.getDefaultStack(), i, ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( Identifier.of( "btools:handle/oak" )), component ));
         }
         return list;

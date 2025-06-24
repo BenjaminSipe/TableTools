@@ -56,22 +56,22 @@ public class ModResources {
         LOGGER.info( "Loaded {} materials", ModToolMaterial.getCount() );
     }
 
-    public static void reloadIngredients( ResourceManager manager ) {
-        ModToolIngredient.clearList();
-        for(Identifier id : manager.findResources("btools/ingredient", path -> path.getPath().endsWith("json")).keySet()) {
-            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
-                ModToolIngredient modToolIngredient = new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolIngredient.class );
-                if ( modToolIngredient.validate() ) {
-                    ModToolIngredient.addEntry( modToolIngredient );
-                } else {
-                    LOGGER.error( "Validation error following parsing tool ingredient {}.", id.toString());
-                }
-            } catch(Exception e) {
-                LOGGER.error( "An error has occurred,", e );
-            }
-        }
-        LOGGER.info( "Loaded {} ingredients", ModToolIngredient.getCount() );
-    }
+//    public static void reloadIngredients( ResourceManager manager ) {
+//        ModToolIngredient.clearList();
+//        for(Identifier id : manager.findResources("btools/ingredient", path -> path.getPath().endsWith("json")).keySet()) {
+//            try(InputStream stream = manager.getResource(id).get().getInputStream()) {
+//                ModToolIngredient modToolIngredient = new Gson().fromJson( new InputStreamReader( stream, "UTF-8" ), ModToolIngredient.class );
+//                if ( modToolIngredient.validate() ) {
+//                    ModToolIngredient.addEntry( modToolIngredient );
+//                } else {
+//                    LOGGER.error( "Validation error following parsing tool ingredient {}.", id.toString());
+//                }
+//            } catch(Exception e) {
+//                LOGGER.error( "An error has occurred,", e );
+//            }
+//        }
+//        LOGGER.info( "Loaded {} ingredients", ModToolIngredient.getCount() );
+//    }
 
     public static void reloadHandles( ResourceManager manager ) {
         for(Identifier id : manager.findResources("btools/handle", path -> path.getPath().endsWith("json")).keySet()) {
@@ -111,7 +111,7 @@ public class ModResources {
                     @Override
                     public void reload(ResourceManager manager) {
                         reloadMaterials( manager );
-                        reloadIngredients( manager );
+//                        reloadIngredients( manager );
                         reloadHandles( manager );
 
                         addToolsToCreativeTab();

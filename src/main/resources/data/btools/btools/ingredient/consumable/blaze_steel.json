@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/blaze_steel",
   "path": "btools:item/tool_heads/blaze_steel/",
-  "material_group": "btools:material/blaze_steel",
+  "material_group": "btools:material/consumable/blaze_steel",
   "material": "btools:blaze_steel_ingot",
   "source": "CRAFTING"
 }

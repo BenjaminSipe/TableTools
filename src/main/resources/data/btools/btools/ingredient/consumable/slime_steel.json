@@ -1,7 +1,7 @@
 {
   "id": "btools:ingredient/slime_steel",
   "path": "btools:item/tool_heads/slime_steel/",
-  "material_group": "btools:material/slime_steel",
+  "material_group": "btools:material/consumable/slime_steel",
   "material": "btools:slime_steel_ingot",
   "source": "CRAFTING"
 }

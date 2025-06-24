@@ -13,6 +13,7 @@ import org.bsipe.btools.ModItems;
 import org.bsipe.btools.ModRegistries;
 import org.bsipe.btools.data.DataComponentHelper;
 import org.bsipe.btools.data.ModToolHandle;
+import org.bsipe.btools.data.ModToolIngredient;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
 import static org.bsipe.btools.data.ModToolHandle.TOOL_HANDLE_CRAFTING_INGREDIENT_LIST;
@@ -24,6 +25,7 @@ public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
 
     @Override
     public boolean matches(CraftingRecipeInput input, World world) {
+
 
         world.getRegistryManager().get(ModRegistries.INGREDIENT_REGISTRY ).getIds().stream().forEach( ( i ) -> LOGGER.info ( i.toString() ) );
 
@@ -37,6 +39,10 @@ public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
         }
 
         if ( ! air1.isEmpty() || ! air2.isEmpty() || i1.isEmpty() || i2.isEmpty() || ! i1.isOf( i2.getItem() ) ) return false;
+
+
+        LOGGER.error( i1.toString() );
+        LOGGER.error( ModToolIngredient.get( i1 ).toString() );
 
         return TOOL_HANDLE_CRAFTING_INGREDIENT_LIST.get( Registries.ITEM.getId( i1.getItem() ) ) != null;
     }
