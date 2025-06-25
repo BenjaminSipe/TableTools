@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin( AnvilScreenHandler.class )
 public abstract class AnvilScreenHandlerMixin {
-
     private ItemStack itemStack1;
 
     @ModifyVariable(method = "updateResult", at = @At("STORE"), ordinal = 0)

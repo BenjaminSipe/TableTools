@@ -28,7 +28,6 @@ public class ModToolMaterial {
         return getRegistry().get( id );
     }
 
-
     public static Codec<ModToolMaterial> CODEC = RecordCodecBuilder.create( instance -> instance.group(
             Identifier.CODEC.fieldOf( "id" ).forGetter( ModToolMaterial::getId ),
             Codec.INT.fieldOf( "durability" ).forGetter( ModToolMaterial::getDurability ),
@@ -36,8 +35,6 @@ public class ModToolMaterial {
             MiningLevel.CODEC.fieldOf( "miningLevel" ).forGetter( ModToolMaterial::getMiningLevel ),
             Codec.FLOAT.fieldOf( "damage" ).forGetter( ModToolMaterial::getDamage ),
             Codec.BOOL.optionalFieldOf( "fireResistent", false ).forGetter( ModToolMaterial::isFireResistent )
-
-
             ).apply( instance, ModToolMaterial::new ));
 
     public ModToolMaterial(Identifier id, int durability, float mining_speed, MiningLevel miningLevel,  float damage, boolean fireResistent ) {
@@ -49,10 +46,6 @@ public class ModToolMaterial {
         this.damage = damage;
     }
 
-//    public ModToolMaterial( ModToolMaterial.Material material ) {
-//        this(material.id, material.durability, material.mining_speed, material.mining_level, material.fire_resistant, material.damage);
-//    }
-
     Identifier id;
     int durability;
     float miningSpeed;
@@ -60,17 +53,6 @@ public class ModToolMaterial {
     boolean fireResistent;
     float damage;
     MiningLevel miningLevel;
-
-
-//    public static Map<Identifier, ModToolMaterial> MATERIAL_LIST = new HashMap<>();
-
-//    public static void clearList() {
-//        MATERIAL_LIST = new HashMap<>();
-//    }
-//
-//    public static void addEntry( ModToolMaterial modToolMaterial) {
-//        MATERIAL_LIST.put( modToolMaterial.id, modToolMaterial);
-//    }
 
     private enum MiningLevel implements StringIdentifiable {
         WOOD(BlockTags.INCORRECT_FOR_WOODEN_TOOL),
@@ -80,7 +62,6 @@ public class ModToolMaterial {
         NETHERITE(BlockTags.INCORRECT_FOR_NETHERITE_TOOL),
         ENDIRIUM(ModBlockTags.INCORRECT_FOR_ENDIRIUM_TOOL),
         PALADUS(ModBlockTags.INCORRECT_FOR_PALADUS_TOOL)
-
         ;
 
         public static final Codec<MiningLevel> CODEC = StringIdentifiable.createCodec( () -> values() );
@@ -95,7 +76,6 @@ public class ModToolMaterial {
         public String asString() {
             return this.name();
         }
-
     }
 
     public Identifier getId() {
@@ -107,6 +87,4 @@ public class ModToolMaterial {
     public int getDurability() { return durability; }
     public MiningLevel getMiningLevel() { return miningLevel; }
     public boolean isFireResistent() { return fireResistent; }
-
-    // public record Material(String id, int durability, float mining_speed, String mining_level, boolean fire_resistant, float damage ) {}
 }

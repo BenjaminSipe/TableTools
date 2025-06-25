@@ -51,7 +51,6 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         forgeBlockEntity.onOpen( playerInventory.player );
         this.world = playerInventory.player.getWorld();
 
-
         // this is gonna want to be at the top.
         addBlockInventory( forgeBlockEntity, playerInventory.player );
 
@@ -125,7 +124,6 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
         return recipeList.stream().map( (recipeEntry -> (recipeEntry.value()).getSecondary( new ForgeRecipeInput(stack, stack)).test( stack ) )).reduce( (a, b) -> a || b ).orElse( false );
     }
 
-
     @Override
     public boolean canUse(PlayerEntity player) {
         return canUse( this.context, player, ModBlocks.DEEPSLATE_FORGE_BLOCK);
@@ -146,8 +144,7 @@ public class ForgeScreenHandler extends AbstractRecipeScreenHandler<ForgeRecipeI
     }
 
     private void addBlockInventory( Inventory inventory, PlayerEntity player ) {
-        // I can't use a for-loopp. I only have 4 items.
-
+        // I can't use a for-loop. I only have 4 items.
         addSlot( new Slot(inventory, PRIMARY_INPUT_SLOT, 76, 40 ) );
         addSlot( new Slot(inventory, SECONDARY_INPUT_SLOT, 42, 17 ) );
         addSlot( new Slot(inventory, FUEL_INPUT_SLOT, 42, 52 ) {

@@ -6,17 +6,14 @@ import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 import org.bsipe.btools.ModItems;
 import org.bsipe.btools.ModRegistries;
 import org.bsipe.btools.data.DataComponentHelper;
 import org.bsipe.btools.data.ModToolHandle;
-import org.bsipe.btools.data.ModToolIngredient;
 
 import static org.bsipe.btools.BetterToolsModInitializer.LOGGER;
-
 
 public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
     public ToolHandleSpecialCraftingRecipe(CraftingRecipeCategory category) {
@@ -25,7 +22,6 @@ public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
 
     @Override
     public boolean matches(CraftingRecipeInput input, World world) {
-
 
         world.getRegistryManager().get(ModRegistries.MATERIAL_REGISTRY ).getIds().stream().forEach( ( i ) -> LOGGER.info ( i.toString() ) );
 
@@ -39,10 +35,6 @@ public class ToolHandleSpecialCraftingRecipe extends SpecialCraftingRecipe {
         }
 
         if ( ! air1.isEmpty() || ! air2.isEmpty() || i1.isEmpty() || i2.isEmpty() || ! i1.isOf( i2.getItem() ) ) return false;
-
-
-        LOGGER.error( i1.toString() );
-        LOGGER.error( String.valueOf( ModToolHandle.getByCraftingIngredient( i1 ) ) );
 
         return ModToolHandle.getByCraftingIngredient( i1 ) != null;
     }

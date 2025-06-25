@@ -28,8 +28,6 @@ public class ModToolHandle {
         }
     }
 
-    // note to self, optional codecs don't accept a "null" default value.
-    // Not sure how to allow that, so for now, just avoid.
     public static Codec<ModToolHandle> CODEC = RecordCodecBuilder.create( instance -> instance.group(
             Identifier.CODEC.fieldOf( "id" ).forGetter( ModToolHandle::getId ),
             Codec.STRING.fieldOf( "prefix" ).forGetter( ModToolHandle::getPrefix ),
@@ -265,10 +263,6 @@ public class ModToolHandle {
         Identifier ingredientId = Registries.ITEM.getId( ingredient.getItem() );
 
         return ModToolHandle.getRegistry().stream().filter( handle -> handle.getItem().equals( ingredientId )).findAny().orElse( null );
-//        if ( ingredient.isOf( ModItems.TOOL_HANDLE ) ) {
-//            return ModToolHandle.TOOL_HANDLE_LIST.get( Identifier.of( ingredient.get(ModComponents.HANDLE_RENDER_COMPONENT).handleId() ) );
-//        }
-//        return ModToolHandle.TOOL_HANDLE_LIST.get( Registries.ITEM.getId( ingredient.getItem() ) );
     }
 
     public static ModToolHandle getByCraftingIngredient( ItemStack ingredient ) {

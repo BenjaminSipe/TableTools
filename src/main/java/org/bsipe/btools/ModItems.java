@@ -56,7 +56,7 @@ public class ModItems {
                 {
                     itemGroup.addAfter(Blocks.ANCIENT_DEBRIS.asItem(), ModBlocks.PALADUS_ORE );
                     itemGroup.addAfter(Blocks.ANCIENT_DEBRIS.asItem(), ModBlocks.ENDSTONE_ENDIRIUM_ORE );
-                    itemGroup.addAfter( Blocks.SOUL_SAND.asItem(), ModBlocks.RED_SOUL_SAND );
+                    itemGroup.addAfter(Blocks.SOUL_SAND.asItem(), ModBlocks.RED_SOUL_SAND );
 
                 } ) );
 

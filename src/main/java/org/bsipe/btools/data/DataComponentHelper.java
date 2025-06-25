@@ -37,8 +37,7 @@ public class DataComponentHelper {
 
     public static ToolItemComponent getToolRenderComponent(ModToolIngredient modToolIngredient, ModToolHandle toolHandle, ModToolComponent component ) {
 
-        LOGGER.error( modToolIngredient.getMaterialGroup() );
-        String material = ModToolMaterial.get( Identifier.of( modToolIngredient.getMaterialGroup() ) ).getId().toString();
+        String material = ModToolMaterial.get( modToolIngredient.getMaterialGroup() ).getId().toString();
 
         return new ToolItemComponent(material, toolHandle.getId().toString());
     }

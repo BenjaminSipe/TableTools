@@ -11,7 +11,6 @@ public class ModSwordItem extends SwordItem {
         super(ToolMaterials.NETHERITE, settings);
     }
 
-
     @Override
     public boolean canRepair(ItemStack item, ItemStack ingredient)
     {

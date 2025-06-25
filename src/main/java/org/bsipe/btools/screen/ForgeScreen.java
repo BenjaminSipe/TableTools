@@ -18,7 +18,6 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     private static final Identifier BURN_PROGRESS_TEXTURE = Identifier.of( BetterToolsModInitializer.MOD_ID, "container/forge/burn_progress");
     private static final Identifier FORGE_PROGRESS_TEXTURE = Identifier.of( BetterToolsModInitializer.MOD_ID, "container/forge/forge_progress");
 
-
     public ForgeScreen(ForgeScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
@@ -41,14 +40,11 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
 
         }
 
-
         int xTop = 63, yTop = 21;
         int progress = MathHelper.ceil(this.handler.getCookProgress() * 32.0F);
         int xShrink = progress < 22 ? progress + 1 : 28;
         int yShrink = Math.min( Math.max( progress - 17 , 4 ), 14 );
         context.drawGuiTexture(FORGE_PROGRESS_TEXTURE, 28, 14, 0, 0, i + xTop, j + yTop, xShrink, yShrink );
-
-
 
 //        int k = 24;
         int l = MathHelper.ceil(this.handler.getAlloyProgress() * 24.0F);

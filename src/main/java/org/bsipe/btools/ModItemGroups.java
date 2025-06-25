@@ -11,9 +11,7 @@ import net.minecraft.util.Identifier;
 import static org.bsipe.btools.BetterToolsModInitializer.MOD_ID;
 
 public class ModItemGroups {
-    public static void initialize() {
-
-    }
+    public static void initialize() {}
 
     public static final ItemGroup TABLE_TOOLS =
             Registry.register(Registries.ITEM_GROUP, Identifier.of( MOD_ID, "table_tools_creative_tab" ),  FabricItemGroup.builder()

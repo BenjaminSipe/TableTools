@@ -17,9 +17,6 @@ public class ModBlockEntityTypes {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of( BetterToolsModInitializer.MOD_ID, name ), type );
     }
 
-
-
-
     public static void initialize() {
         ItemStorage.SIDED.registerForBlockEntity(ForgeBlockEntity::getInventoryProvider, FORGE_BLOCK_ENTITY );
     }

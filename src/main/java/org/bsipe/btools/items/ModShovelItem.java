@@ -11,7 +11,6 @@ public class ModShovelItem extends ShovelItem {
         super(ToolMaterials.NETHERITE, settings);
     }
 
-
     @Override
     public boolean canRepair(ItemStack item, ItemStack ingredient)
     {

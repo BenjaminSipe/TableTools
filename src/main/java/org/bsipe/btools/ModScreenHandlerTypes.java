@@ -16,7 +16,6 @@ public class ModScreenHandlerTypes {
 
     public static final ScreenHandlerType<ForgeScreenHandler> FORGE= register( "forge", ForgeScreenHandler::new, BlockPosPayload.PACKET_CODEC);
 
-
     public static void initialize() {}
 
     public static <T extends ScreenHandler, D extends CustomPayload> ExtendedScreenHandlerType<T, D>

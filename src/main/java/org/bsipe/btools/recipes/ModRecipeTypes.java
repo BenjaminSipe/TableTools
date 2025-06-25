@@ -10,7 +10,6 @@ public class ModRecipeTypes {
 
     public static RecipeType<AbstractForgeRecipe> FORGE = Registry.register( Registries.RECIPE_TYPE, Identifier.of( BetterToolsModInitializer.MOD_ID, Type.ID ), Type.INSTANCE );
 
-
     public static void initialize() {}
 
     public static class Type implements RecipeType<AbstractForgeRecipe> {

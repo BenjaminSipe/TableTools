@@ -11,7 +11,6 @@ public class ModPickaxeItem extends PickaxeItem {
         super(ToolMaterials.NETHERITE, settings);
     }
 
-
     @Override
     public boolean canRepair(ItemStack item, ItemStack ingredient)
     {

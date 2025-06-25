@@ -53,10 +53,6 @@ public class ModSmithingTransformRecipe implements SmithingRecipe {
         ModToolMaterial material = DataComponentHelper.getMaterial( smithingRecipeInput.base() );
 
         if ( material == null || ! ingredient.getBaseMaterial().equals( material.getId() )) return false;
-//        ModToolHandle toolHandle = ModToolHandle.TOOL_HANDLE_LIST_BY_ID.get( smithingRecipeInput.base().get( CUSTOM_DATA ).copyNbt().get( "handle-id" ) );
-//
-//        result = smithingRecipeInput.base().copy();
-//        DataComponentHelper.addToolComponents( result, ingredient, toolHandle, component);
 
         return true;
     }

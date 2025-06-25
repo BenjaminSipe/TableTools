@@ -86,14 +86,11 @@ public class BetterToolsBakedModel implements BakedModel, FabricBakedModel, Unba
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-
-
         RenderComponent data = stack.get( ModComponents.RENDER_COMPONENT );
         if ( data == null ) {
             bakedModel.emitItemQuads( stack, randomSupplier, context);
             return;
         }
-
 
         if ( ! BAKED_MODEL_CACHE.containsKey( data.layers().toString() ) )
         {
